@@ -8,5 +8,9 @@
   <name>or5e-labs</name>
   <modules>
     <module>plugin-core</module>
+    <module>folder-to-list</module>
+    <module>vlc-mediaplayer</module>
+    <module>arduino-control</module>
+    <module>ffmpeg-wrapper</module>
   </modules>
 </project>
