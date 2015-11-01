@@ -1,9 +1,9 @@
 package org.or5e.core.plugin.pes;
 
-import org.or5e.core.plugin.EventMessage;
-import org.or5e.core.plugin.PluginEventHandler;
-import org.or5e.core.plugin.PluginException;
+import org.or5e.core.PluginException;
 import org.or5e.core.plugin.PluginLifecycleAdaptor;
+import org.or5e.core.plugin.event.EventMessage;
+import org.or5e.core.plugin.event.io.PluginEventInputHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
@@ -57,7 +57,7 @@ public class PluginEventServerSPI extends PluginLifecycleAdaptor implements Plug
 		workerGroup.shutdownGracefully();
 	}
 
-	@Override public void registerForEventFromQueue(PluginEventHandler _requestHandler, String... events) {
+	@Override public void registerForEventFromQueue(PluginEventInputHandler _requestHandler, String... events) {
 		_handler.registerForEventFromQueue(_requestHandler, events);
 	}
 
@@ -71,13 +71,13 @@ public class PluginEventServerSPI extends PluginLifecycleAdaptor implements Plug
 		PluginEventServer serverPlugin = new PluginEventServerSPI();
 		serverPlugin.initilize();
 
-		serverPlugin.registerForEventFromQueue(new PluginEventHandler() {
-			@Override public void eventRaised(EventMessage message) {
+		serverPlugin.registerForEventFromQueue(new PluginEventInputHandler() {
+			@Override public void eventRecived(EventMessage message) {
 				System.out.println("Media Player Event: "+ message);
 			}
 		}, "Play", "Pause", "Stop", "Seek", "VolUp", "VolDown");
-		serverPlugin.registerForEventFromQueue(new PluginEventHandler() {
-			@Override public void eventRaised(EventMessage message) {
+		serverPlugin.registerForEventFromQueue(new PluginEventInputHandler() {
+			@Override public void eventRecived(EventMessage message) {
 				System.out.println("Settings Event: "+ message);
 			}
 		}, "Settings");

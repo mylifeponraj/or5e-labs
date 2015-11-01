@@ -27,7 +27,7 @@ public class ProtocolSupported extends FFMPEGSupport<FFMPEGProtocols> {
 
 	@Override
 	public void populateSupport() throws Exception {
-		_ffmpeg.listSupport("-protocols").printCmd().execute(this);
+		_ffmpeg.runOnYourOwnParams("-protocols").printCmd().execute(this);
 	}
 
 	@Override

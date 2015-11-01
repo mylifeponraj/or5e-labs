@@ -12,5 +12,7 @@
     <module>vlc-mediaplayer</module>
     <module>arduino-control</module>
     <module>ffmpeg-wrapper</module>
+    <module>ffmpeg-cluster</module>
+    <module>vod-web-app</module>
   </modules>
 </project>

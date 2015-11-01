@@ -14,6 +14,11 @@
 	<entry key="sync-folder-music">D:\00 - Music\</entry>
 
 	<entry key="nettyport">9999</entry>
+
 	<entry key="ffmpeg">D:\ffmpeg\bin\ffmpeg.exe</entry>
-	<entry key="ffmpegprobe"></entry>
+	<entry key="ffmpegprobe">D:\ffmpeg\bin\ffprobe.exe</entry>
+
+	<entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
+	<entry key="ffmpegClusterMulticastPort">8888</entry>
+	
 </properties>

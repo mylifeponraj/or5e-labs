@@ -1,6 +1,7 @@
 package org.or5e.core.plugin;
 
 import org.or5e.core.BaseObject;
+import org.or5e.core.PluginException;
 
 public abstract class PluginLifecycle extends BaseObject implements Plugin {
 	private Boolean isProcessing = Boolean.FALSE;

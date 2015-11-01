@@ -14,6 +14,7 @@ import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
 import org.or5e.core.BaseObject;
+import org.or5e.core.PluginException;
 import org.or5e.core.plugin.pes.PluginEventServer;
 import org.or5e.core.plugin.pes.PluginEventServerSPI;
 

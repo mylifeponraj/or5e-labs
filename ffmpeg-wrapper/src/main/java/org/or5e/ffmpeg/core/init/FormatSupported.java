@@ -38,7 +38,7 @@ public class FormatSupported extends FFMPEGSupport<FFMPEGFormats> {
 
 	@Override
 	public void populateSupport() throws IOException {
-		_ffmpeg.listSupport("-formats").printCmd().execute(this);
+		_ffmpeg.runOnYourOwnParams("-formats").printCmd().execute(this);
 	}
 
 	public FFMPEGFormats getFormatSupportedFor() {

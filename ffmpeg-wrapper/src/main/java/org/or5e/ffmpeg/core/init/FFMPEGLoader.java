@@ -27,8 +27,12 @@ public class FFMPEGLoader extends BaseObject{
 
 	public static void main(String[] args) {
 		FFMPEGLoader _loader = new FFMPEGLoader();
+		DeviceSuported deviceSuported = new DeviceSuported();
+		ColorsSupported colorsSupported = new ColorsSupported();
 		_loader.add(new ProtocolSupported());
 		_loader.add(new FormatSupported());
+		_loader.add(colorsSupported);
+		_loader.add(deviceSuported);
 		_loader.loadFFMPEG();
 	}
 	@Override public String getName() {

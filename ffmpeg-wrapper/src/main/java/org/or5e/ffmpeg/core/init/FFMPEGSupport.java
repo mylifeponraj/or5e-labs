@@ -11,7 +11,7 @@ public abstract class FFMPEGSupport<T> extends BaseObject implements CallbackHan
 
 	public FFMPEGSupport(T ffmpegSupportFor) {
 		this.ffmpegSupportFor = ffmpegSupportFor;
-		this._ffmpeg = new FFMPEG(this.ffmpegCmd);
+		this._ffmpeg = new FFMPEG(this.ffmpegCmd, Boolean.TRUE);
 	}
 
 	public abstract void populateSupport() throws Exception;

@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.or5e.core.plugin.EventMessage;
-import org.or5e.core.plugin.PluginEventHandler;
+import org.or5e.core.plugin.event.EventMessage;
+import org.or5e.core.plugin.event.io.PluginEventInputHandler;
 
 @Sharable
 public class PluginServerHandler extends ChannelInboundHandlerAdapter implements
 		EventRegistration {
-	private Map<String, List<PluginEventHandler>> eventHandlerMap = null;
+	private Map<String, List<PluginEventInputHandler>> eventHandlerMap = null;
 	public PluginServerHandler() {
-		eventHandlerMap = new HashMap<String, List<PluginEventHandler>>();
+		eventHandlerMap = new HashMap<String, List<PluginEventInputHandler>>();
 	}
 
 	@Override public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -37,12 +37,12 @@ public class PluginServerHandler extends ChannelInboundHandlerAdapter implements
 		ctx.close();
 	}
 
-	@Override public void registerForEventFromQueue(PluginEventHandler _requestHandler, String... events) {
+	@Override public void registerForEventFromQueue(PluginEventInputHandler _requestHandler, String... events) {
 		for (String evt : events) {
 			if (this.eventHandlerMap.containsKey(evt)) {
 				this.eventHandlerMap.get(evt).add(_requestHandler);
 			} else {
-				List<PluginEventHandler> list = new ArrayList<PluginEventHandler>();
+				List<PluginEventInputHandler> list = new ArrayList<PluginEventInputHandler>();
 				list.add(_requestHandler);
 				this.eventHandlerMap.put(evt, list);
 			}
@@ -56,9 +56,9 @@ public class PluginServerHandler extends ChannelInboundHandlerAdapter implements
 			evtMessage.setEventName(eventName);
 			evtMessage.setEventSource(source);
 
-			List<PluginEventHandler> listenerList = this.eventHandlerMap.get(eventName);
-			for (PluginEventHandler pluginEventHandler : listenerList) {
-				pluginEventHandler.eventRaised(evtMessage);
+			List<PluginEventInputHandler> listenerList = this.eventHandlerMap.get(eventName);
+			for (PluginEventInputHandler pluginEventHandler : listenerList) {
+				pluginEventHandler.eventRecived(evtMessage);
 			}
 		}
 	}

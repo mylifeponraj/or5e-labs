@@ -3,6 +3,8 @@ package org.or5e.core.plugin;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.or5e.core.PluginException;
+
 public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
 	@Override public void doThreadedProcess() {
 		
@@ -26,6 +28,5 @@ public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
 
 	@Override public void doProcess() { }
 	@Override public Object processRequestFromStream(String message) {return null;}
-	@Override public void destroy() {
-	}
+	@Override public void destroy() {}
 }
