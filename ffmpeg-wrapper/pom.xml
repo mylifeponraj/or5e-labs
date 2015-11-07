@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-    <artifactId>or5e-labs</artifactId>
-    <groupId>or5e-labs</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-    <groupId>ffmpeg-wrapper</groupId>
-    <artifactId>ffmpeg-wrapper</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
-    <name>ffmpeg-wrapper</name>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.testSource>1.8</maven.compiler.testSource>
-        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>or5e-labs</artifactId>
+		<groupId>or5e-labs</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>ffmpeg-wrapper</groupId>
+	<artifactId>ffmpeg-wrapper</artifactId>
+	<version>0.1.1-SNAPSHOT</version>
+	<name>ffmpeg-wrapper</name>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.testSource>1.8</maven.compiler.testSource>
+		<maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
 		<dependency>
 			<groupId>plugin-core</groupId>
 			<artifactId>plugin-core</artifactId>
 			<version>0.1.1-SNAPSHOT</version>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource</groupId>
+			<artifactId>sigar</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+	</dependencies>
 </project>

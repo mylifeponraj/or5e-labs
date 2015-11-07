@@ -6,6 +6,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.or5e.ffmpeg.core.NodeInfo;
+
 public class MulticastSocketServer {
 
 	final static String INET_ADDR = "224.0.0.3";
@@ -26,6 +28,10 @@ public class MulticastSocketServer {
 
 				System.out.println("Server sent packet with msg: " + msg);
 				Thread.sleep(500);
+				NodeInfo info = new NodeInfo();
+				info.setNodeName(localHost.getHostName());
+				info.setNodeIP(localHost.getHostAddress());
+				
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
