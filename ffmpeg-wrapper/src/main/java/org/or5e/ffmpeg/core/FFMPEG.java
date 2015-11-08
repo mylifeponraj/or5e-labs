@@ -207,7 +207,7 @@ public class FFMPEG extends BaseObject implements FFMPEGConstants {
 		return "FFMPEG";
 	}
 	public static void main(String[] args)  throws IOException{
-		FFMPEG _ffmpeg = new FFMPEG("D:\\ffmpeg\\bin\\ffmpeg.exe", Boolean.TRUE);
+		FFMPEG _ffmpeg = new FFMPEG("C:\\ffmpeg\\bin\\ffmpeg.exe", Boolean.TRUE);
 		_ffmpeg.execute();
 		System.out.println("----------------------------------------");
 		System.out.println("ffmpeg is : "+_ffmpeg.whichFFMPEG());

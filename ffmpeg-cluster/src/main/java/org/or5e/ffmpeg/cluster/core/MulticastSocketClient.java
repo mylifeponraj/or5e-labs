@@ -6,8 +6,10 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.or5e.ffmpeg.core.NodeInfo;
+
 public class MulticastSocketClient {
-    
     final static String INET_ADDR = "224.0.0.3";
     final static int PORT = 8888;
 
@@ -32,7 +34,8 @@ public class MulticastSocketClient {
                 clientSocket.receive(msgPacket);
 
                 String msg = new String(msgPacket.getData(), 0, msgPacket.getLength());
-                System.out.println("Message Received: " + msg);
+                ObjectMapper mapper = new ObjectMapper();
+                System.out.println("Message Received: " + mapper.readValue(msg, NodeInfo.class));
             }
         } catch (IOException ex) {
             ex.printStackTrace();

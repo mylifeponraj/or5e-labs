@@ -31,7 +31,6 @@ public class MulticastSocketServer {
 				NodeInfo info = new NodeInfo();
 				info.setNodeName(localHost.getHostName());
 				info.setNodeIP(localHost.getHostAddress());
-				
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();

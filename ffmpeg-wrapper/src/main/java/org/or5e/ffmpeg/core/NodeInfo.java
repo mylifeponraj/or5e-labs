@@ -57,4 +57,22 @@ public class NodeInfo {
 	public void setNodeIP(String nodeIP) {
 		this.nodeIP = nodeIP;
 	}
+	@Override
+	public String toString() {
+		StringBuffer response = new StringBuffer();
+		response.append("*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n");
+		response.append("Node Name: "+this.nodeName+"\n");
+		response.append("Node IP: "+this.nodeIP+"\n");
+
+		response.append("Node OS: "+this.nodeOS+"\n");
+		response.append("Node OS Version: "+this.nodeOSVersion+"\n");
+
+		response.append("Node CPU: "+this.nodeCPUModel+"\n");
+		response.append("Node CPU Vendor: "+this.nodeCPUVendor+"\n");
+		response.append("Node CPU Core: "+this.nodeCPUCore+"\n");
+		response.append("Node CPU Speed: "+this.nodeCPUMhzSpeed+"\n");
+		response.append("*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=\n");
+		return response.toString();
+	}
+	
 }
