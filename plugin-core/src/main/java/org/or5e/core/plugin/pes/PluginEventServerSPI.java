@@ -1,9 +1,12 @@
 package org.or5e.core.plugin.pes;
 
 import org.or5e.core.PluginException;
+import org.or5e.core.plugin.Plugin;
 import org.or5e.core.plugin.PluginLifecycleAdaptor;
 import org.or5e.core.plugin.event.EventMessage;
-import org.or5e.core.plugin.event.io.PluginEventInputHandler;
+import org.or5e.core.plugin.event.EventQueue;
+import org.or5e.core.plugin.event.PluginEventQueueSPI;
+import org.or5e.core.plugin.event.io.EventConsumer;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
@@ -29,7 +32,7 @@ public class PluginEventServerSPI extends PluginLifecycleAdaptor implements Plug
 
 	@Override public void initilize() throws PluginException {
 		debug("Event Server is Initilizing...");
-		this._handler = new PluginServerHandler();
+		this._handler = new PluginServerHandler(this);
 		bossGroup = new NioEventLoopGroup(1);
 		workerGroup = new NioEventLoopGroup();
 		serverBootstrap = new ServerBootstrap();
@@ -39,9 +42,19 @@ public class PluginEventServerSPI extends PluginLifecycleAdaptor implements Plug
 	        .handler(new LoggingHandler(LogLevel.INFO))
 	        .childHandler(_handler);
 		PORT = Integer.parseInt(getProperties("nettyport"));
-		startEventServer();
+
+		EventQueue queue = PluginEventQueueSPI.getDefaultQueue();
+
+		queue.publishEventToQueue(this, PluginServerHandler.commandToListen);
+
+		queue.listenForEventInQueue(new EventConsumer() {
+			@Override public void listenToEvent(EventMessage message) {
+				System.out.println(message);
+			}
+		}, PluginServerHandler.commandToListen);
 	}
 
+	
 	@Override public void startEventServer() {
 		debug("Event Server is Starting up...");
 		try {
@@ -57,7 +70,7 @@ public class PluginEventServerSPI extends PluginLifecycleAdaptor implements Plug
 		workerGroup.shutdownGracefully();
 	}
 
-	@Override public void registerForEventFromQueue(PluginEventInputHandler _requestHandler, String... events) {
+	@Override public void registerForEventFromQueue(EventConsumer _requestHandler, String... events) {
 		_handler.registerForEventFromQueue(_requestHandler, events);
 	}
 
@@ -68,19 +81,9 @@ public class PluginEventServerSPI extends PluginLifecycleAdaptor implements Plug
 	}
 
 	public static void main(String[] args) {
-		PluginEventServer serverPlugin = new PluginEventServerSPI();
+		Plugin serverPlugin = new PluginEventServerSPI();
 		serverPlugin.initilize();
-
-		serverPlugin.registerForEventFromQueue(new PluginEventInputHandler() {
-			@Override public void eventRecived(EventMessage message) {
-				System.out.println("Media Player Event: "+ message);
-			}
-		}, "Play", "Pause", "Stop", "Seek", "VolUp", "VolDown");
-		serverPlugin.registerForEventFromQueue(new PluginEventInputHandler() {
-			@Override public void eventRecived(EventMessage message) {
-				System.out.println("Settings Event: "+ message);
-			}
-		}, "Settings");
+		serverPlugin.startPlugin();
 
 		System.out.println("Main Exitting...");
 	}

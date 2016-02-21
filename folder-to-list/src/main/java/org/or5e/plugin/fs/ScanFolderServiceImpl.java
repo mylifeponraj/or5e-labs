@@ -2,8 +2,8 @@ package org.or5e.plugin.fs;
 
 import java.io.File;
 
+import org.or5e.core.PluginException;
 import org.or5e.core.plugin.Plugin;
-import org.or5e.core.plugin.PluginException;
 import org.or5e.core.plugin.PluginLifecycleAdaptor;
 
 public class ScanFolderServiceImpl extends PluginLifecycleAdaptor implements ScanFolderService {
@@ -76,7 +76,7 @@ public class ScanFolderServiceImpl extends PluginLifecycleAdaptor implements Sca
 
 	public static void main(String[] args) {
 		Plugin plugin = new ScanFolderServiceImpl();
-		plugin.doThreadedProcess();
+		plugin.startPlugin();
 		System.out.println("Done...");
 	}
 }

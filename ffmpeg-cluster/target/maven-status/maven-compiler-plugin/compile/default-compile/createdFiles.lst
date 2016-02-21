@@ -1,0 +1,7 @@
+org\or5e\ffmpeg\cluster\core\ClusterNodeAvailabilityManager.class
+org\or5e\ffmpeg\cluster\core\ClusterNode.class
+org\or5e\ffmpeg\cluster\core\MulticastSocketServer.class
+org\or5e\ffmpeg\cluster\core\ClusterManagerSPI.class
+org\or5e\ffmpeg\cluster\ui\ClusterUI.class
+org\or5e\ffmpeg\cluster\core\ClusterManager.class
+org\or5e\ffmpeg\cluster\core\MulticastSocketClient.class

@@ -13,7 +13,6 @@ public abstract class PluginLifecycle extends BaseObject implements Plugin {
 	}
 	public PluginLifecycle() throws PluginException {
 		Runtime.getRuntime().addShutdownHook(new Thread(new Closable(), "Shutdown"+getName()));
-		initilize();
 	}
 	public class Closable implements Runnable {
 		@Override public void run() {

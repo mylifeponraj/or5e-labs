@@ -6,14 +6,15 @@ import java.util.concurrent.Executors;
 import org.or5e.core.PluginException;
 
 public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
-	@Override public void doThreadedProcess() {
-		
+	@Override public void startPlugin() {
 		if(!isProcessing()) {
 			setIsProcessing(Boolean.TRUE);
+			initilize();
 			
 			ExecutorService executorService = Executors.newSingleThreadExecutor();
 			executorService.execute(new Runnable() {
 				public void run() {
+					Thread.currentThread().setName("Thread-"+getName());
 					System.out.println("Running in background...");
 					doProcess();
 					setIsProcessing(Boolean.FALSE);
@@ -27,6 +28,6 @@ public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
 	}
 
 	@Override public void doProcess() { }
-	@Override public Object processRequestFromStream(String message) {return null;}
+//	@Override public Object processRequestFromStream(String message) {return null;}
 	@Override public void destroy() {}
 }

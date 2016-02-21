@@ -9,7 +9,7 @@
 		</layout>
 	</appender>
 	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="D:\00 - Application\logs\application.log" />
+		<param name="file" value="E:/02-Application/logs/application.log" />
 		<param name="MaxFileSize" value="100KB" />
 		<!-- Keep one backup file -->
 		<param name="MaxBackupIndex" value="5" />

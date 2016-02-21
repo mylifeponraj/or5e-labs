@@ -1,5 +1,7 @@
 Manifest-Version: 1.0
-Built-By: Ponraj
-Build-Jdk: 1.8.0_60
+Built-By: Ponraj Suthanthiramani
+Class-Path: netty-all-4.0.23.Final.jar log4j-1.2.17.jar
+Build-Jdk: 1.8.0_66
 Created-By: Maven Integration for Eclipse
+Main-Class: org.or5e.core.plugin.PluginLoaderSPI
 

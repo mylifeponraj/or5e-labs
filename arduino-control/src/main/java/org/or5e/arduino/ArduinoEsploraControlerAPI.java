@@ -18,42 +18,65 @@ import gnu.io.UnsupportedCommOperationException;
 
 public class ArduinoEsploraControlerAPI extends PluginLifecycleAdaptor {
 	private SerialPort _serialPort;
-	private static final String PORT_NAME = "COM3";
+	private static final String PORT_NAME;
 	private BufferedReader input;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 	private ArduinoPortRequestHandler _requestHandler;
 	private ArduinoIO arduinoIO;
 
+	static {
+		PORT_NAME = getProperties("comPort");
+	}
 	@Override public String getPluginID() {
 		return "Arduino";
 	}
 
-	@Override public void initilize() throws PluginException { }
+	@Override public void initilize() throws PluginException { 
+		
+	}
 
+	@SuppressWarnings("null")
 	@Override public void doProcess() throws PluginException {
 		try {
-			info("About to create COM Port Identifier...");
-			CommPortIdentifier portID = CommPortIdentifier.getPortIdentifier(PORT_NAME);
-			info("About to Open the COM Port...");
+			String message = "Waiting for Arduino Esplora to connec to Port: ["+PORT_NAME+"]";
+			debug("About to create COM Port Identifier...");
+			CommPortIdentifier portID = null;
+			while(portID == null) {
+				debug(message);
+				try {
+					portID = CommPortIdentifier.getPortIdentifier(PORT_NAME);
+				}
+				catch(NoSuchPortException exception) {
+					portID = null;
+					debug("Waiting for 5 Seconds");
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+						System.exit(1);
+					}
+				}
+			}
+			debug("About to Open the COM Port...");
 			this._serialPort = (SerialPort)portID.open(getName(), TIME_OUT);
 
-			info("Setting up COM Port Parameters...");
+			debug("Setting up COM Port Parameters...");
 			this._serialPort.setSerialPortParams(DATA_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 
-			info("Creating Input Stream to Read data from COM Port...");
+			debug("Creating Input Stream to Read data from COM Port...");
 			this.input = new BufferedReader(new InputStreamReader(this._serialPort.getInputStream()));
 
-			info("Creating PORT Handler...");
+			debug("Creating PORT Handler...");
 			_requestHandler = new ArduinoPortRequestHandler(this.input, this);
 
-			info("Adding PORT Event Listeners...");
+			debug("Adding PORT Event Listeners...");
 			this._serialPort.addEventListener(_requestHandler);
 			this._serialPort.notifyOnDataAvailable(true);
-			info("Started Listening to Event on COM Port...");
+			debug("Started Listening to Event on COM Port...");
 
 			this.arduinoIO = ArduinoIO.initilizeArduinoIO(this);
-		} catch (NoSuchPortException | PortInUseException | UnsupportedCommOperationException | IOException | TooManyListenersException e) {
+		} catch (PortInUseException | UnsupportedCommOperationException | IOException | TooManyListenersException e) {
 			e.printStackTrace();
 		}
 	}
@@ -72,7 +95,7 @@ public class ArduinoEsploraControlerAPI extends PluginLifecycleAdaptor {
 	}
 	public static void main(String[] args) {
 		Plugin plugin = new ArduinoEsploraControlerAPI();
-		plugin.doThreadedProcess();
+		plugin.startPlugin();
 		try {
 			Thread.sleep(60000);
 		} catch (InterruptedException e) {

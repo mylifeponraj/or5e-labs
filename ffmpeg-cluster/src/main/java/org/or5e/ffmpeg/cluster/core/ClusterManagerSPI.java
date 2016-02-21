@@ -121,7 +121,7 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 	}
 	public static void main(String[] args) {
 		Plugin plugin = new ClusterManagerSPI();
-		plugin.doThreadedProcess();
+		plugin.startPlugin();
 		try {
 			Thread.sleep(100000);
 		} catch (InterruptedException e) {
