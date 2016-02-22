@@ -16,5 +16,6 @@
     <module>media-player</module>
     <module>plugin-core-server</module>
     <module>plugin-core-ui</module>
+    <module>ItunesConverter</module>
   </modules>
 </project>

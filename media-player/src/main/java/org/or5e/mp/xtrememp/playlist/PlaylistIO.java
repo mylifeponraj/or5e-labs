@@ -36,10 +36,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
 import org.or5e.mp.xtrememp.tag.TagInfo;
 import org.or5e.mp.xtrememp.util.Utilities;
 import org.slf4j.Logger;
@@ -71,9 +67,13 @@ public final class PlaylistIO {
                 return loadPLS(location);
             } else if (filenameExt.equalsIgnoreCase("xspf")) {
                 return loadXSPF(location);
+            } else if (filenameExt.equalsIgnoreCase("xml")) {
+                return loadXSPF(location);
             }
         }
         return null;
+    }
+    public static void loadITunes(String location) throws PlaylistException {
     }
 
     /**
@@ -363,101 +363,6 @@ public final class PlaylistIO {
                 throw new PlaylistException(ex.getMessage(), ex.getCause());
             } finally {
                 IOUtils.closeQuietly(bw);
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Saves playlist in XSPF format.
-     * 
-     * @param playlist
-     * @param location
-     * @return <code>true</code> if playlist is successfully saved, else <code>false</code>.
-     */
-    public static boolean saveXSPF(Playlist playlist, String location) throws PlaylistException {
-        if (playlist != null) {
-            File xspfFile = new File(location);
-
-            // Create a xspf playlist
-            XspfPlaylist xspfPlaylist = new XspfPlaylist();
-            xspfPlaylist.setVersion("1");
-            xspfPlaylist.setTitle("Playlist");
-            xspfPlaylist.setLocation(xspfFile.toURI().toString());
-
-            // Create track list
-            XspfPlaylistTrackList tracks = new XspfPlaylistTrackList();
-            for (PlaylistItem pli : playlist.listAllItems()) {
-                // Create a track and add to list
-                XspfTrack track = new XspfTrack();
-                track.setIdentifier(String.valueOf(playlist.indexOf(pli)));
-                if (pli.isFile()) {
-                    track.setLocation(new File(pli.getLocation()).toURI().toString());
-                } else {
-                    track.setLocation(pli.getLocation());
-                }
-                if (pli.isFile()) {
-                    TagInfo tagInfo = pli.getTagInfo();
-                    if (tagInfo != null) {
-                        String title = tagInfo.getTitle();
-                        if (!Utilities.isNullOrEmpty(title)) {
-                            track.setTitle(title);
-                        }
-                        String artist = tagInfo.getArtist();
-                        if (!Utilities.isNullOrEmpty(artist)) {
-                            track.setCreator(artist);
-                        }
-                        String album = tagInfo.getAlbum();
-                        if (!Utilities.isNullOrEmpty(album)) {
-                            track.setAlbum(album);
-                        }
-                        String trackNum = tagInfo.getTrack();
-                        if (!Utilities.isNullOrEmpty(trackNum)) {
-                            try {
-                                track.setTrackNum(new BigInteger(trackNum));
-                            } catch (NumberFormatException ex) {
-                                logger.debug("{} is not a valid number", trackNum, ex);
-                            }
-                        }
-                        String genre = tagInfo.getGenre();
-                        if (!Utilities.isNullOrEmpty(genre)) {
-                            track.setAnnotation(genre);
-                        }
-                        long duration = pli.getDuration();
-                        if (duration >= 0) {
-                            try {
-                                track.setDuration(new BigInteger(String.valueOf(duration)));
-                            } catch (NumberFormatException ex) {
-                                logger.debug("{} is not a valid number", duration, ex);
-                            }
-                        }
-                    }
-                } else {
-                    String name = pli.getFormattedName();
-                    if (!Utilities.isNullOrEmpty(name)) {
-                        track.setTitle(name.trim());
-                    }
-                }
-                tracks.addTrack(track);
-            }
-            // add track to playlist
-            xspfPlaylist.setPlaylistTrackList(tracks);
-
-            // save to file
-            OutputFormat format = OutputFormat.createPrettyPrint();
-            FileWriter fw = null;
-            Document doc = null;
-            try {
-                fw = new FileWriter(xspfFile);
-                XMLWriter xmlWriter = new XMLWriter(fw, format);
-                doc = DocumentHelper.parseText(xspfPlaylist.makeTextDocument());
-                xmlWriter.write(doc);
-                return true;
-            } catch (Exception ex) {
-                logger.error("Can't save playlist in XSPF format", ex);
-                throw new PlaylistException(ex.getMessage(), ex.getCause());
-            } finally {
-                IOUtils.closeQuietly(fw);
             }
         }
         return false;

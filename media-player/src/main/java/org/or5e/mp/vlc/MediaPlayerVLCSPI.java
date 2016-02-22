@@ -1,7 +1,10 @@
-package org.or5e.mp;
+package org.or5e.mp.vlc;
 
 import java.net.URI;
 import java.util.List;
+
+import org.or5e.mp.MediaPlayer;
+import org.or5e.mp.RepeatMode;
 
 public class MediaPlayerVLCSPI implements MediaPlayer{
 
@@ -97,6 +100,12 @@ public class MediaPlayerVLCSPI implements MediaPlayer{
 
 	@Override
 	public void setEqualizer(String eqName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initilizePlayer() {
 		// TODO Auto-generated method stub
 		
 	}

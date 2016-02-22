@@ -1,5 +1,8 @@
 package org.or5e.mp;
 
+import org.or5e.mp.vlc.MediaPlayerVLCSPI;
+import org.or5e.mp.xtrem.MediaPlayerXtremempSPI;
+
 public class MediaPlayerFactory {
 	public final MediaPlayer _xtreamMediaPlayer;
 	public final MediaPlayer _vlcMediaPlayer;

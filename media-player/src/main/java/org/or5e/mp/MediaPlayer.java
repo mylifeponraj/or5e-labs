@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 public interface MediaPlayer {
+	public void initilizePlayer();
 	public void play();
 	public void play(String fileName);
 	public void play(URI fileURL);

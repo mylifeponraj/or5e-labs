@@ -60,16 +60,4 @@ public class PlaylistManager {
 	public void setFirstLoad(boolean flag) {
 		this.firstLoad = flag;
 	}
-
-	public boolean savePlaylistDialog() {
-		String fileName = "";
-		File file = new File(fileName);
-		try {
-			PlaylistIO.saveXSPF(playlist, file.getParent() + File.separator + fileName);
-		} catch (PlaylistException e) {
-			e.printStackTrace();
-		}
-		Settings.setLastDir(file.getParent());
-		return false;
-	}
 }
