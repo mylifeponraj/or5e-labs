@@ -1,5 +1,8 @@
 package org.or5e.mp;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,5 +73,10 @@ public class MediaPlayerTestSPI extends PluginLifecycleAdaptor{
 	public static void main(String[] args) {
 		org.or5e.mp.MediaPlayer _player = org.or5e.mp.MediaPlayerFactory.getMediaPlayerFactory().getMediaPlayer(MediaPlayerType.XTREMEMP);
 		System.out.println(_player);
+		try {
+			_player.play(new URL("http://74.50.122.103:7674/;?icy=http").toURI());
+		} catch (MalformedURLException | URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 }
