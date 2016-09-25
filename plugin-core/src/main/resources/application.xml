@@ -2,20 +2,37 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Plugin Core Configurations</comment>
-<entry key="Version">1.0b</entry>
-<entry key="sync-folder-music">E:\00 - Music\</entry>
-<entry key="image-folder-name">E:\Shared\Images\</entry>
+
+<!-- Application Configurations -->
 <entry key="Author">Ponraj Suthanthiramani</entry>
 <entry key="Email">mylife.ponraj@gmail.com</entry>
-<entry key="pluginFolder">E:\02-Application\plugin\</entry>
-<entry key="nettyport">9999</entry>
-<entry key="video-folder-name">E:\Shared\ITunes\Itunes Media\Podcasts\</entry>
-<entry key="itunes-xml">D:\02-Application\playlist\iTunes Music Library.xml</entry>
-<entry key="ffmpeg">E:\ffmpeg\bin\ffmpeg.exe</entry>
-<entry key="ffmpegprobe">E:\ffmpeg\bin\ffprobe.exe</entry>
-<entry key="audio-folder-name">E:\Shared\ITunes\Songs\</entry>
-<entry key="comPort">COM3</entry>
+<entry key="Version">1.0b</entry>
+<entry key="pluginFolder">E:\01-Application\01 - Plugins\</entry>
+
+<!-- Sync Module Configuration -->
+<entry key="sync-folder-music">E:\00-SYNC\00-AUDIO\</entry>
+<entry key="sync-folder-image">E:\00-SYNC\03-GALLARY\</entry>
+<entry key="sync-folder-video">E:\00-SYNC\01-VIDEO\</entry>
+
+
+<!-- ITunes Sync Module Configuration -->
+<entry key="audio-folder-name">E:\11 - ITunes\Songs\</entry>
+<entry key="video-folder-name">E:\11 - ITunes\Itunes Media\Podcasts\</entry>
+<entry key="itunes-xml">E:\01-Application\02 - Playlist\iTunes Music Library.xml</entry>
+<entry key="playlist-path">E:\01-Application\02 - Playlist\</entry>
+
+<!-- FFMPEG Module Configuration -->
+<entry key="ffmpeg">E:\01-Application\05 - ffmpeg\bin\ffmpeg.exe</entry>
+<entry key="ffmpegprobe">E:\01-Application\05 - ffmpeg\bin\ffprobe.exe</entry>
 <entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
 <entry key="ffmpegClusterMulticastPort">8888</entry>
+
+<!-- Arudino Module Configuration -->
+<entry key="comPort">COM3</entry>
+
+<!-- Media Player Module Configuration -->
 <entry key="vlcNative">D:\Program Files\VideoLAN\VLC\</entry>
+
+<!-- Server Module Configurations -->
+<entry key="nettyport">9999</entry>
 </properties>

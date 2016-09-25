@@ -106,11 +106,11 @@
 				<configuration>
 					<mainClass>org.or5e.core.plugin.PluginLoaderSPI</mainClass>
 					<arguments>-cp</arguments>
-					<arguments>E:\02-Application\config</arguments>
+					<arguments>E:\01-Application\00-Config</arguments>
 					<systemProperties>
 						<systemProperty>
 							<key>CLASSPATH</key>
-							<value>%CLASSPATH%;E:\02-Application\config</value>
+							<value>E:\01-Application\00-Config;%CLASSPATH%</value>
 						</systemProperty>
 					</systemProperties>
 				</configuration>

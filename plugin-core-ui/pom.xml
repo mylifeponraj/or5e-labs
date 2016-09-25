@@ -8,7 +8,7 @@
   </parent>
     <groupId>plugin-core-ui</groupId>
     <artifactId>plugin-core-ui</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>plugin-core-ui</name>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -17,4 +17,19 @@
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>org.or5e.plugin.ui.ApplicationMainController</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -17,5 +17,7 @@
     <module>plugin-core-server</module>
     <module>plugin-core-ui</module>
     <module>ItunesConverter</module>
+    <module>keyboard-event</module>
+    <module>ITunesSync</module>
   </modules>
 </project>

@@ -7,10 +7,11 @@
 		<groupId>or5e-labs</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>ffmpeg-wrapper</groupId>
-	<artifactId>ffmpeg-wrapper</artifactId>
+	<groupId>ITunesSync</groupId>
+	<artifactId>ITunesSync</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
-	<name>ffmpeg-wrapper</name>
+	<packaging>jar</packaging>
+	<name>ITunesSync</name>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -25,14 +26,9 @@
 			<version>0.1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fusesource</groupId>
-			<artifactId>sigar</artifactId>
-			<version>1.6.4</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.3</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -43,7 +39,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.or5e.ffmpeg.core.BroadcastSystemStatusAndReceiveJobs</mainClass>
+							<mainClass>org.or5e.itunes.ItunesSyncPluginSPI</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

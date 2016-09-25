@@ -7,10 +7,10 @@
 		<groupId>or5e-labs</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>ffmpeg-wrapper</groupId>
-	<artifactId>ffmpeg-wrapper</artifactId>
+	<groupId>keyboard-event</groupId>
+	<artifactId>keyboard-event</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
-	<name>ffmpeg-wrapper</name>
+	<name>keyboard-event</name>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -20,19 +20,14 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.1stleg</groupId>
+			<artifactId>jnativehook</artifactId>
+			<version>2.0.3</version>
+		</dependency>
+		<dependency>
 			<groupId>plugin-core</groupId>
 			<artifactId>plugin-core</artifactId>
 			<version>0.1.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fusesource</groupId>
-			<artifactId>sigar</artifactId>
-			<version>1.6.4</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -43,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.or5e.ffmpeg.core.BroadcastSystemStatusAndReceiveJobs</mainClass>
+							<mainClass>GlobalKeyListenerExample</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

@@ -26,8 +26,7 @@ public class ScanFolderServiceImpl extends PluginLifecycleAdaptor implements Sca
 					"Service is already Running... Please try after sometime.");
 		_isServiceRunning = Boolean.TRUE;
 		debug("Running Scan for Video is started...");
-		ScanFolderHelper.scanVideoAndCreatePlaylist(new File(
-				getProperties("video-folder-name")));
+		ScanFolderHelper.scanVideoAndCreatePlaylist(new File(getProperties("video-folder-name")));
 		_isServiceRunning = Boolean.FALSE;
 	}
 
