@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 import org.or5e.core.BaseObject;
 import org.or5e.mp.MediaPlayer;
@@ -148,7 +149,7 @@ public class MediaPlayerXtremempSPI extends BaseObject implements MediaPlayer{
 	}
 
 	@Override
-	public List<String> getAllEQPreset() {
+	public Set<String> getAllEQPreset() {
 		// TODO Auto-generated method stub
 		return null;
 	}

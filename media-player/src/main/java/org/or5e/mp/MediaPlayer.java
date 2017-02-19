@@ -2,6 +2,7 @@ package org.or5e.mp;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 public interface MediaPlayer {
 	public void initilizePlayer();
@@ -22,6 +23,6 @@ public interface MediaPlayer {
 	public List<String> getAllSongsInPlaylist(String playlist);
 	public void addPlaylist(String playlist);
 
-	public List<String> getAllEQPreset();
+	public Set<String> getAllEQPreset();
 	public void setEqualizer(String eqName);
 }

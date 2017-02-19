@@ -1,5 +1,6 @@
 package org.or5e.mp;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -41,7 +42,7 @@ public class MediaPlayerTestSPI extends PluginLifecycleAdaptor{
 	@Override public String getName() {
 		return "MediaPlayerSPI";
 	}
-	public static void main0(String[] args) {
+	public static void main(String[] args) {
 		AudioMediaPlayerComponent audioPlayer = new AudioMediaPlayerComponent() {
             @Override
             public void finished(MediaPlayer mediaPlayer) {
@@ -59,18 +60,34 @@ public class MediaPlayerTestSPI extends PluginLifecycleAdaptor{
         Map<String, Equalizer> equalizersAvailable = mediaPlayerFactory.getAllPresetEqualizers();
         Set<String> eqName = equalizersAvailable.keySet();
         for (String eq : eqName) {
-			if(eq.equals("Party")) {
+        	System.out.println("Available Eq Preset: "+eq);
+			if(eq.equals("Rock")) {
+				System.out.println("Setting preset: "+eq);
 				mediaPlayer.setEqualizer(equalizersAvailable.get(eq));
 			}
 		}
-        mediaPlayer.playMedia("E:\\Shared\\ITunes\\Songs\\Vedhalam\\Veera Vinayaka.mp3");
+        mediaPlayer.setVolume(50);
+        mediaPlayer.playMedia("D:\\Shared\\ITunes\\Songs\\Vedhalam\\Veera Vinayaka.mp3");
         try {
-			Thread.currentThread().join();
-		} catch (InterruptedException e) {
+        	System.in.read();
+        	mediaPlayer.setEqualizer(equalizersAvailable.get("Party"));
+        	System.out.println("Party");
+        	System.in.read();
+        	mediaPlayer.setEqualizer(equalizersAvailable.get("Pop"));
+        	System.out.println("Pop");
+        	System.in.read();
+        	mediaPlayer.setEqualizer(equalizersAvailable.get("Soft rock"));
+        	System.out.println("srock");
+        	System.in.read();
+			mediaPlayer.stop();
+			mediaPlayer.release();
+			mediaPlayerFactory.release();
+			System.out.println("Exiting main...");
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
+	public static void main0(String[] args) {
 		org.or5e.mp.MediaPlayer _player = org.or5e.mp.MediaPlayerFactory.getMediaPlayerFactory().getMediaPlayer(MediaPlayerType.XTREMEMP);
 		System.out.println(_player);
 		try {
