@@ -40,6 +40,7 @@ public class PluginEventQueueSPI extends BaseObject implements EventQueue{
 	}
 	@Override public Map<String, List<String>> getAllListener() {
 		Set<String> commandsListening = _listeners.keySet();
+		Map<String, List<EventConsumer>> eventListener = new HashMap<>();
 		for (String commands : commandsListening) {
 			List<EventConsumer> listener = _listeners.get(commands);
 		}

@@ -19,5 +19,6 @@
     <module>ItunesConverter</module>
     <module>keyboard-event</module>
     <module>ITunesSync</module>
+    <module>plugin-node-connector</module>
   </modules>
 </project>
