@@ -1,26 +1,26 @@
 package org.or5e.mp.vlc;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.or5e.core.PluginException;
-import org.or5e.core.plugin.PluginLifecycleAdaptor;
-import org.or5e.mp.MediaPlayer;
+import org.or5e.mp.MediaPlaylerSPI;
 import org.or5e.mp.RepeatMode;
+import org.or5e.mp.xtrememp.playlist.jspf.Track;
 
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
-import uk.co.caprica.vlcj.player.Equalizer;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
-public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPlayer{
+public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
+	
 	static {
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), getProperties("vlcNative"));
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
@@ -28,7 +28,6 @@ public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPl
     }
 
 	public MediaPlayerVLCSPI() {
-		this._processor = new VLCMediaPlayerHelper();
 	}
 
 	@Override public String getPluginID() {
@@ -36,6 +35,7 @@ public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPl
 	}
 
 	@Override public void initilize() throws PluginException {
+		super.initilize();
 		initilizePlayer();
 	}
 
@@ -58,44 +58,67 @@ public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPl
 
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
-		
+		if(this.isAudioPlaying) {
+			this.vlcMediaPlayer.play();
+		}
 	}
 
 	@Override
 	public void play(String fileName) {
-		// TODO Auto-generated method stub
-		
+		this.isPlayingPlaylist = Boolean.FALSE;
+		this.stop();
+		this.vlcMediaPlayer.playMedia(fileName);
+		this.isAudioPlaying = Boolean.TRUE;
+	}
+
+	@Override
+	public void playCurrentPlaylist() {
+		debug("Starting playing current Playlist....");
+		this._currentPlaylist = this._playlistManager.getCurrentPlaylist();
+		_playlistManager.selectPlaylist(this._currentPlaylist.getTitle());
+		this.isPlayingPlaylist = Boolean.TRUE;
+		Track currentTrack = this._currentPlaylist.getFirstTrack();
+		debug("Selecting track...."+currentTrack.location);
+		this.vlcMediaPlayer.playMedia(currentTrack.location);
 	}
 
 	@Override
 	public void play(URI fileURL) {
-		// TODO Auto-generated method stub
-		
+		this.isPlayingPlaylist = Boolean.FALSE;
+		this.stop();
+		this.vlcMediaPlayer.playMedia(fileURL.toString());
+		this.isAudioPlaying = Boolean.TRUE;
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		if(this.isAudioPlaying) {
+			this.vlcMediaPlayer.pause();
+		}
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
+		if(isAudioPlaying) {
+			this.vlcMediaPlayer.stop();
+		}
+		this.isAudioPlaying = Boolean.FALSE;
 	}
 
 	@Override
 	public void next() {
-		// TODO Auto-generated method stub
-		
+		if(isAudioPlaying) {
+			this.vlcMediaPlayer.stop();
+		}
+		callNextAudio(Boolean.TRUE);
 	}
 
 	@Override
 	public void previous() {
-		// TODO Auto-generated method stub
-		
+		if(isAudioPlaying) {
+			this.vlcMediaPlayer.stop();
+		}
+		callNextAudio(Boolean.FALSE);
 	}
 
 	@Override
@@ -123,20 +146,28 @@ public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPl
 	}
 
 	@Override
-	public List<String> getAllPlaylistNames() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<String> getAllPlaylistNames() {
+		return _playlistManager.getAllPlaylistNames();
+	}
+
+	@Override
+	public void selectPlaylist(String playlistName) {
+		if(isAudioPlaying) {
+			vlcMediaPlayer.stop();
+			isAudioPlaying = Boolean.FALSE;
+		}
+		_playlistManager.selectPlaylist(playlistName);
+		this._currentPlaylist = this._playlistManager.getCurrentPlaylist();
+		this.isPlayingPlaylist = Boolean.TRUE;
 	}
 
 	@Override
 	public List<String> getAllSongsInPlaylist(String playlist) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void addPlaylist(String playlist) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -147,33 +178,16 @@ public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPl
 
 	@Override
 	public void setEqualizer(String eqName) {
-		//Do Noting
+		this.vlcMediaPlayer.setEqualizer(this.equalizersAvailable.get(defaultEQSettings));
 	}
 
 	@Override
 	public void initilizePlayer() {
-		AudioMediaPlayerComponent audioPlayer = new AudioMediaPlayerComponent() {
-            @Override
-            public void volumeChanged(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer, float volume) {
-            	super.volumeChanged(mediaPlayer, volume);
-            	info("Volume is changed to :"+volume);
-            }
-            @Override
-            public void finished(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-            	super.finished(mediaPlayer);
-            	isAudioPlaying = Boolean.FALSE;
-            }
-            @Override
-            public void error(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-            	super.error(mediaPlayer);
-            	debug("Something is wrong in the VLC media player...");
-            	isAudioPlaying = Boolean.FALSE;
-            }
-        };
+		this.audioPlayer = new VLCMediaPlayerEventComponent(this);
         info("Initilizing the VLC Media Player SPI.");
         this.vlcMediaFactory = audioPlayer.getMediaPlayerFactory();
         this.vlcMediaPlayer = audioPlayer.getMediaPlayer();
-        this.equalizersAvailable = vlcMediaFactory.getAllPresetEqualizers();
+        super.equalizersAvailable = vlcMediaFactory.getAllPresetEqualizers();
 
         info("Setting VLC Media Player with default Volume and Equalizer preset.");
         this.vlcMediaPlayer.setVolume(defaultVolume);
@@ -185,12 +199,40 @@ public class MediaPlayerVLCSPI extends PluginLifecycleAdaptor implements MediaPl
 		return "MediaPlayerVLCSPI";
 	}
 
+	public void isMuted(boolean muted) {
+		isMuted = Boolean.valueOf(muted);		
+	}
 	
-	private uk.co.caprica.vlcj.player.MediaPlayer vlcMediaPlayer = null;
-	private MediaPlayerFactory vlcMediaFactory = null;
-	private Map<String, Equalizer> equalizersAvailable = null;
-	private int defaultVolume = 50;
-	private String defaultEQSettings = "Rock";
+	protected uk.co.caprica.vlcj.player.MediaPlayer vlcMediaPlayer = null;
+	protected MediaPlayerFactory vlcMediaFactory = null;
+	protected AudioMediaPlayerComponent audioPlayer = null;
 	protected Boolean isAudioPlaying = Boolean.FALSE;
-	private final VLCMediaPlayerHelper _processor;
+	public static void main(String[] args) {
+		MediaPlayerVLCSPI plugin = new MediaPlayerVLCSPI();
+		//plugin.initilize();
+		plugin.startPlugin();
+		plugin.playCurrentPlaylist();
+		while(true) {
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			plugin.next();
+			
+		}
+	}
+
+	@Override public void callNextAudio(Boolean nextOrPrev) {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		debug("About to run next audio...");
+		Track playTrack = (nextOrPrev) ? this._currentPlaylist.getNextTrack() : this._currentPlaylist.getPreviousTrack();
+		debug("Running audio..." + playTrack.location);
+		this.isAudioPlaying = Boolean.TRUE;
+		this.vlcMediaPlayer.playMedia(playTrack.location);
+	}
 }

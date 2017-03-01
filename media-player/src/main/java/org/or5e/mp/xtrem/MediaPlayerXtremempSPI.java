@@ -131,12 +131,6 @@ public class MediaPlayerXtremempSPI extends BaseObject implements MediaPlayer{
 	}
 
 	@Override
-	public List<String> getAllPlaylistNames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<String> getAllSongsInPlaylist(String playlist) {
 		// TODO Auto-generated method stub
 		return null;
@@ -174,6 +168,21 @@ public class MediaPlayerXtremempSPI extends BaseObject implements MediaPlayer{
 	@Override
 	public String getName() {
 		return "MediaPlayerXtremempSPI";
+	}
+	@Override
+	public Set<String> getAllPlaylistNames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void selectPlaylist(String playlistName) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void playCurrentPlaylist() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

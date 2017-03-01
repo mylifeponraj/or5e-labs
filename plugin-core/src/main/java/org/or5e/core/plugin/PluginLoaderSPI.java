@@ -109,7 +109,8 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 				//Load the Global Map which will hold the Plugin ID and associated Plugin Object
 				pluginList.put(pluginObject.getPluginID(), pluginObject);
 
-				pluginObject.initilize();
+				//start plugin will call the initilize...
+				//pluginObject.initilize();
 				pluginObject.startPlugin();
 
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

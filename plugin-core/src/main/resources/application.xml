@@ -35,4 +35,7 @@
 
 <!-- Server Module Configurations -->
 <entry key="nettyport">9999</entry>
+
+<!-- Node JS Connector Configuration -->
+<entry key="nodeServerPort">1234</entry>
 </properties>

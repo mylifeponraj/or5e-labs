@@ -2,7 +2,6 @@ package org.or5e.node.connector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.ServerSocket;
 
 import org.or5e.core.PluginException;
 import org.or5e.core.plugin.Plugin;
@@ -115,7 +114,6 @@ public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 	
 	public static void main(String[] args) {
 		Plugin plugin = new NodeJSConnectorAPI();
-		plugin.initilize();
 		plugin.startPlugin();
 	}
 }
