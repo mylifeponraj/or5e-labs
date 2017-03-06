@@ -8,7 +8,7 @@
 <entry key="Email">mylife.ponraj@gmail.com</entry>
 <entry key="Version">1.0b</entry>
 <entry key="pluginFolder">E:\01-Application\01-Plugins\</entry>
-
+<entry key="json-settings-file">D:\02-Application\config\application-properties.json</entry>
 <!-- Sync Module Configuration -->
 <entry key="sync-folder-music">E:\00-SYNC\00-AUDIO\</entry>
 <entry key="sync-folder-image">E:\00-SYNC\03-GALLARY\</entry>

@@ -17,7 +17,7 @@ import com.corundumstudio.socketio.listener.DisconnectListener;
 
 public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 	private SocketIOServer _serverSocket;
-	private Integer PORT;
+	private static Integer PORT;
 	private Configuration config = new Configuration();
 	public NodeJSConnectorAPI() {
 		String portOnProperty = getProperties("nodeServerPort");
@@ -27,7 +27,7 @@ public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 		else {
 			PORT = new Integer(1000);
 		}
-		initilize();
+		//initilize();
 	}
 
 	@Override
@@ -115,5 +115,6 @@ public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 	public static void main(String[] args) {
 		Plugin plugin = new NodeJSConnectorAPI();
 		plugin.startPlugin();
+		System.out.println("Started server at : "+PORT);
 	}
 }

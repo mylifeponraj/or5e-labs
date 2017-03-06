@@ -15,6 +15,8 @@ import java.util.jar.Manifest;
 import org.or5e.core.BaseObject;
 import org.or5e.core.PluginException;
 import org.or5e.core.filefilter.JarFileFilter;
+import org.or5e.core.plugin.event.EventQueue;
+import org.or5e.core.plugin.event.PluginEventQueueSPI;
 
 public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
@@ -41,8 +43,15 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 		debug("Initilizing all the plugins.");
 		initilizeAndRunAllPlugins(pluginMainclassMap);
+		
+		debug("Initilizing event queue for properties.");
+		initilizePropertiesEvent();
 
 		debug("Initilization process of all the plugins is completed successfully.");
+	}
+	private void initilizePropertiesEvent() {
+		EventQueue _eventQueue = PluginEventQueueSPI.getDefaultQueue();
+		_eventQueue.listenForEventInQueue(new PropertiesEventProcessor(), "add-properties", "get-properties", "delete-properties");
 	}
 
 	@Override public void destroy() {
@@ -106,11 +115,11 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 				@SuppressWarnings("unchecked")
 				Class<Plugin> forName = (Class<Plugin>) Class.forName(pluginMainclassMap.get(pluginURL), true, urlClassLoader);
 				Plugin pluginObject = forName.newInstance();
+
 				//Load the Global Map which will hold the Plugin ID and associated Plugin Object
 				pluginList.put(pluginObject.getPluginID(), pluginObject);
 
 				//start plugin will call the initilize...
-				//pluginObject.initilize();
 				pluginObject.startPlugin();
 
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

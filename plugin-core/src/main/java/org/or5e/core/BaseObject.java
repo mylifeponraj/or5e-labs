@@ -8,7 +8,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 public abstract class BaseObject {
-	private static Properties _props = null;
+	protected static Properties _props = null;
 	private static FileOutputStream outStream = null;
 	private static URL systemResource = null;
 	private Logger _logger;

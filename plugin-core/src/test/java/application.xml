@@ -5,6 +5,8 @@
 	<entry key="Version">1.0b</entry>
 	<entry key="Author">Ponraj Suthanthiramani</entry>
 	<entry key="Email">mylife.ponraj@gmail.com</entry>
+
+	<entry key="json-settings-file">D:\02-Application\config\application-properties.json</entry>
 	<entry key="pluginFolder">E:\02-Application\plugin\</entry>
 	<entry key="video-folder-name">E:\Shared\ITunes\Itunes Media\Podcasts\</entry>
 	<entry key="audio-folder-name">E:\Shared\ITunes\Songs\</entry>
@@ -26,4 +28,7 @@
 
 	<!-- Media Player VLC -->
 	<entry key="vlcNative">E:\Program Files\VideoLAN\VLC\</entry>
+
+	<!-- Node Connector Port -->
+	<entry key="nodeServerPort">8080</entry>
 </properties>
