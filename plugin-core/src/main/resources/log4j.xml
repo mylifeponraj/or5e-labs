@@ -9,7 +9,7 @@
 		</layout>
 	</appender>
 	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="E:/01-Application/03-Logs/01-application/application.log" />
+		<param name="file" value="D:/02-Application/logs/application.log" />
 		<param name="MaxFileSize" value="100KB" />
 		<!-- Keep one backup file -->
 		<param name="MaxBackupIndex" value="5" />
@@ -19,7 +19,7 @@
 	</appender>
 
 	<appender name="jNativeHookAppender" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="E:/01-Application/03-Logs/01-application/jnativehook.log" />
+		<param name="file" value="D:/02-Application/logs//jnativehook.log" />
 		<param name="MaxFileSize" value="100KB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">

@@ -20,5 +20,6 @@
     <module>keyboard-event</module>
     <module>ITunesSync</module>
     <module>plugin-node-connector</module>
+    <module>home-automation</module>
   </modules>
 </project>
