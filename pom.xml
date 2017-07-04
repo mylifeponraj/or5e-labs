@@ -21,5 +21,6 @@
     <module>ITunesSync</module>
     <module>plugin-node-connector</module>
     <module>home-automation</module>
+    <module>home-automation-application</module>
   </modules>
 </project>
