@@ -269,19 +269,19 @@ public class FlacAudioFileReader extends TAudioFileReader {
             blockSizeMin = streamInfo.getMinBlockSize();
             blockSizeMax = streamInfo.getMaxBlockSize();
 
-            aff_properties.put("flac.bitpersample", new Integer(bitsPerSample));
-            aff_properties.put("flac.channels", new Integer(channels));
-            aff_properties.put("flac.sampleRate", new Integer(sampleRate));
-            aff_properties.put("flac.totalSamples", new Long(totalSamples));
-            aff_properties.put("duration", new Long(duration * 1000000L));
-            aff_properties.put("flac.framesize.min", new Integer(frameSizeMin));
-            aff_properties.put("flac.framesize.max", new Integer(frameSizeMax));
-            aff_properties.put("flac.blocksize.min", new Integer(blockSizeMin));
-            aff_properties.put("flac.blocksize.max", new Integer(blockSizeMax));
+            aff_properties.put("flac.bitpersample", (Integer)(bitsPerSample));
+            aff_properties.put("flac.channels", (Integer)(channels));
+            aff_properties.put("flac.sampleRate", (Integer)(sampleRate));
+            aff_properties.put("flac.totalSamples", (Long)(totalSamples));
+            aff_properties.put("duration", (Long)(duration * 1000000L));
+            aff_properties.put("flac.framesize.min", (Integer)(frameSizeMin));
+            aff_properties.put("flac.framesize.max", (Integer)(frameSizeMax));
+            aff_properties.put("flac.blocksize.min", (Integer)(blockSizeMin));
+            aff_properties.put("flac.blocksize.max", (Integer)(blockSizeMax));
 
-            af_properties.put("bitrate", new Integer(AudioSystem.NOT_SPECIFIED));
+            af_properties.put("bitrate", (Integer)(AudioSystem.NOT_SPECIFIED));
             af_properties.put("vbr", Boolean.FALSE);
-            af_properties.put("quality", new Integer(100));
+            af_properties.put("quality", (Integer)(100));
 
             //} catch (UnsupportedAudioFileException e) {
             // reset the stream for other providers

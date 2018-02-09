@@ -77,7 +77,7 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 					}
 					int key = (info.getNodeName()+info.getNodeIP()).hashCode();
 					debug("Adding cluster node.");
-					this.nodeInfoList.put(new Integer(key), info);
+					this.nodeInfoList.put((Integer)key, info);
 				}
 				
 			} catch (IOException ex) {

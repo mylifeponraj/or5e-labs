@@ -68,7 +68,7 @@ public class ItunesHelper extends BaseObject{
 					String value = ((Key) metadata).getvalue();
 					switch(value){
 					case "Playlist ID":
-						playlistID = new Integer(((org.or5e.itunes.jaxb.binding.Integer)playlistMetadataIterator.next()).getvalue());
+						playlistID = Integer.getInteger(((org.or5e.itunes.jaxb.binding.Integer)playlistMetadataIterator.next()).getvalue());
 						break;
 					case "Name":
 						String nameMetadata = ((org.or5e.itunes.jaxb.binding.String)playlistMetadataIterator.next()).getvalue();
@@ -96,7 +96,7 @@ public class ItunesHelper extends BaseObject{
 		for (Object getTrackList : getTrackListDictionary) {
 			Dict getTrack = (Dict) getTrackList;
 			List<Object> trackInfo = getTrack.getDataList();
-			playlist.addMusic(new Integer(((org.or5e.itunes.jaxb.binding.Integer)trackInfo.get(1)).getvalue()));		
+			playlist.addMusic(Integer.getInteger(((org.or5e.itunes.jaxb.binding.Integer)trackInfo.get(1)).getvalue()));		
 		}
 	}
 	@Override

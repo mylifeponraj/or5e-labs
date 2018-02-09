@@ -1,7 +1,6 @@
 package org.plugin.core.fx;
 
 import org.or5e.core.BaseObject;
-import org.or5e.core.plugin.PluginLoaderSPI;
 import org.or5e.core.plugin.event.PluginEvent;
 import org.or5e.plugin.manage.PluginUIManager;
 

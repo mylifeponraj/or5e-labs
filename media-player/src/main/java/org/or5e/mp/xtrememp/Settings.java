@@ -18,13 +18,11 @@
  */
 package org.or5e.mp.xtrememp;
 
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 import org.or5e.mp.xtrememp.playlist.Playlist.PlayMode;
 import org.or5e.mp.xtrememp.util.Utilities;

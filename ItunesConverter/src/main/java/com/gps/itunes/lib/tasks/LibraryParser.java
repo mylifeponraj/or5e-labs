@@ -1,5 +1,12 @@
 package com.gps.itunes.lib.tasks;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.gps.itunes.lib.exceptions.FileCopyException;
 import com.gps.itunes.lib.exceptions.InvalidPlaylistException;
 import com.gps.itunes.lib.exceptions.LibraryParseException;
@@ -14,14 +21,6 @@ import com.gps.itunes.lib.tasks.progressinfo.ProgressInformation;
 import com.gps.itunes.lib.tasks.progressinfo.ProgressTracker;
 import com.gps.itunes.lib.types.LibraryObject;
 import com.gps.itunes.lib.xml.XMLParser;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Provides Solid implementation of {@link ItunesLibraryParser}

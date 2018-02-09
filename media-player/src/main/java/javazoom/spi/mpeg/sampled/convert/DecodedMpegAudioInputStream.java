@@ -136,11 +136,11 @@ public class DecodedMpegAudioInputStream extends TAsynchronousFilteredAudioInput
 	 */
 	public Map properties()
 	{
-		properties.put("mp3.frame",new Long(currentFrame));
-		properties.put("mp3.frame.bitrate",new Integer(currentBitrate));
-		properties.put("mp3.frame.size.bytes",new Integer(currentFramesize));
-		properties.put("mp3.position.byte",new Long(currentByte));
-		properties.put("mp3.position.microseconds",new Long(currentMicrosecond));
+		properties.put("mp3.frame",(Long)(currentFrame));
+		properties.put("mp3.frame.bitrate",(Integer)(currentBitrate));
+		properties.put("mp3.frame.size.bytes",(Integer)(currentFramesize));
+		properties.put("mp3.position.byte",(Long)(currentByte));
+		properties.put("mp3.position.microseconds",(Long)(currentMicrosecond));
 		properties.put("mp3.equalizer",m_equalizer_values);
 		// Optionnal shoutcast stream meta-data.				
 		if (shoutlst != null)
