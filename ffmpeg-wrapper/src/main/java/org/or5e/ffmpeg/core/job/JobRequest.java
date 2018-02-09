@@ -30,4 +30,5 @@ public class JobRequest {
 	public void setDistFileName(String distFileName) {
 		this.distFileName = distFileName;
 	}
+	
 }

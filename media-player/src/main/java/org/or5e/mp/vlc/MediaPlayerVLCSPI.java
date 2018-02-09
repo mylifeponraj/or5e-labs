@@ -20,7 +20,7 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
 public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
-	
+	private boolean isDestroyed = Boolean.FALSE;
 	static {
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), getProperties("vlcNative"));
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
@@ -44,7 +44,12 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		super.doProcess();
 	}
 	
-	@Override public void destroy() { 
+	@Override public void destroy() {
+		if(isDestroyed) {
+			debug("Plugin "+getName()+" is already destroyed.");
+			return;
+		}
+		isDestroyed = Boolean.TRUE;
 		info("Destroying the VLC Media Player SPI");
 		super.destroy();
 		if(this.vlcMediaPlayer.isPlaying()) {
@@ -211,16 +216,22 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		MediaPlayerVLCSPI plugin = new MediaPlayerVLCSPI();
 		//plugin.initilize();
 		plugin.startPlugin();
-		plugin.playCurrentPlaylist();
-		while(true) {
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			plugin.next();
-			
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+//		plugin.destroy();
+//		plugin.playCurrentPlaylist();
+//		while(true) {
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			plugin.next();
+//			
+//		}
 	}
 
 	@Override public void callNextAudio(Boolean nextOrPrev) {

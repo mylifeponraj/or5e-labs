@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FFMPEGFormats {
+	
 	private Map<String, String> muxingFormatsSupported = null;
 	private Map<String, String> demuxingFormatsSupported = null;
 

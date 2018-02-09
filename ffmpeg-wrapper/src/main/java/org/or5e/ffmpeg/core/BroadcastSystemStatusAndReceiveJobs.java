@@ -131,10 +131,14 @@ public class BroadcastSystemStatusAndReceiveJobs extends PluginLifecycleAdaptor 
 			ex.printStackTrace();
 		}
 	}
-	public static void main(String[] args) throws InterruptedException{
+	public static void main(String[] args) {
 		Plugin _plugin = new BroadcastSystemStatusAndReceiveJobs();
 		_plugin.startPlugin();
-		Thread.sleep(60000);
+		try {
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		_plugin.destroy();
 	}
 }

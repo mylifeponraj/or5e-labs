@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FFMPEGDevices {
+	
 	public List<String> videoDevices = null;
 	public List<String> audioDevices = null;
 	public FFMPEGDevices() {

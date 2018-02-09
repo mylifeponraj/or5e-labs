@@ -9,6 +9,13 @@ public class NodeInfo {
 	public String nodeCPUMhzSpeed = null;
 	public String nodeName = null;
 	public String nodeIP = null;
+	public Boolean shutdown = Boolean.FALSE;
+	public Boolean getShutdown() {
+		return shutdown;
+	}
+	public void setShutdown(Boolean shutdown) {
+		this.shutdown = shutdown;
+	}
 	public String getNodeOS() {
 		return nodeOS;
 	}

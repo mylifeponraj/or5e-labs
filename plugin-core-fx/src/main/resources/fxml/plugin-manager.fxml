@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<VBox id="rootPanel" prefHeight="800" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.plugin.core.fx.PluginManagerController">
+   <children>
+      <MenuBar fx:id="menuBar">
+        <menus>
+          <Menu fx:id="actionMenu" mnemonicParsing="false" text="Actions">
+            <items>
+                  <MenuItem fx:id="settingsMenu" mnemonicParsing="false" text="Preference" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="minimizeMenu" mnemonicParsing="false" text="Minimize" />
+              <MenuItem fx:id="exitMenu" mnemonicParsing="false" onAction="#handleCloseMenu" text="Close" />
+            </items>
+          </Menu>
+            <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
+              <items>
+                  <MenuItem fx:id="signInMenu" mnemonicParsing="false" text="Sign in" />
+                <MenuItem fx:id="viewAccountsMenu" disable="true" mnemonicParsing="false" text="View Account" />
+                  <MenuItem fx:id="signOutMenu" disable="true" mnemonicParsing="false" text="Sign out" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</VBox>

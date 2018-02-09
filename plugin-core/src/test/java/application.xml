@@ -1,34 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<comment>Hi</comment>
-	<entry key="Version">1.0b</entry>
-	<entry key="Author">Ponraj Suthanthiramani</entry>
-	<entry key="Email">mylife.ponraj@gmail.com</entry>
+<comment>Plugin Core Configurations</comment>
 
-	<entry key="json-settings-file">D:\02-Application\config\application-properties.json</entry>
-	<entry key="pluginFolder">E:\02-Application\plugin\</entry>
-	<entry key="video-folder-name">E:\Shared\ITunes\Itunes Media\Podcasts\</entry>
-	<entry key="audio-folder-name">E:\Shared\ITunes\Songs\</entry>
-	<entry key="image-folder-name">E:\Shared\Images\</entry>
+<!-- Application Configurations -->
+<entry key="Author">Ponraj Suthanthiramani</entry>
+<entry key="Email">mylife.ponraj@gmail.com</entry>
+<entry key="Version">1.0b</entry>
+<entry key="pluginFolder">C:\HOH\00-Application\03-Plugins\</entry>
+<entry key="json-settings-file">C:\HOH\00-Application\01-Config\application-properties.json</entry>
+<!-- Sync Module Configuration -->
+<entry key="sync-folder-music">C:\HOH\00-Application\07-Sync\00-AUDIO\</entry>
+<entry key="sync-folder-image">C:\HOH\00-Application\07-Sync\03-GALLARY\</entry>
+<entry key="sync-folder-video">C:\HOH\00-Application\07-Sync\01-VIDEO\</entry>
 
-	<entry key="itunes-xml">C:\Users\Windows\Music\iTunes\iTunes Music Library.xml</entry>
-	<entry key="sync-folder-music">E:\00 - Music\</entry>
 
-	<entry key="nettyport">9999</entry>
+<!-- ITunes Sync Module Configuration -->
+<entry key="audio-folder-name">C:\HOH\00-Application\07-Sync\Songs\</entry>
+<entry key="video-folder-name">C:\HOH\00-Application\07-Sync\Itunes Media\Podcasts\</entry>
+<entry key="itunes-xml">C:\HOH\00-Application\06-Playlist\iTunes Music Library.xml</entry>
+<entry key="playlist-path">C:\HOH\00-Application\06-Playlist\</entry>
 
-	<entry key="ffmpeg">E:\ffmpeg\bin\ffmpeg.exe</entry>
-	<entry key="ffmpegprobe">E:\ffmpeg\bin\ffprobe.exe</entry>
+<!-- FFMPEG Module Configuration -->
+<entry key="ffmpeg">C:\HOH\00-Application\05-ffmpeg\bin\ffmpeg.exe</entry>
+<entry key="ffmpegprobe">C:\HOH\00-Application\05-ffmpeg\bin\ffprobe.exe</entry>
+<entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
+<entry key="ffmpegClusterMulticastPort">8888</entry>
 
-	<entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
-	<entry key="ffmpegClusterMulticastPort">8888</entry>
+<!-- Arudino Module Configuration -->
+<entry key="comPort">COM3</entry>
 
-	<!-- Arduino Controller Settings  -->
-	<entry key="comPort">COM3</entry>
+<!-- Media Player Module Configuration -->
+<entry key="vlcNative">C:\Program Files (x86)\VideoLAN\VLC\</entry>
 
-	<!-- Media Player VLC -->
-	<entry key="vlcNative">E:\Program Files\VideoLAN\VLC\</entry>
+<!-- Server Module Configurations -->
+<entry key="nettyport">9999</entry>
 
-	<!-- Node Connector Port -->
-	<entry key="nodeServerPort">8080</entry>
+<!-- Node JS Connector Configuration -->
+<entry key="nodeServerPort">1234</entry>
 </properties>

@@ -2,28 +2,27 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Plugin Core Configurations</comment>
-
 <!-- Application Configurations -->
 <entry key="Author">Ponraj Suthanthiramani</entry>
 <entry key="Email">mylife.ponraj@gmail.com</entry>
 <entry key="Version">1.0b</entry>
-<entry key="pluginFolder">E:\01-Application\01-Plugins\</entry>
-<entry key="json-settings-file">D:\02-Application\config\application-properties.json</entry>
+<entry key="pluginFolder">C:\HOH\00-Application\03-Plugins\</entry>
+<entry key="json-settings-file">C:\HOH\00-Application\01-Config\application-properties.json</entry>
 <!-- Sync Module Configuration -->
-<entry key="sync-folder-music">E:\00-SYNC\00-AUDIO\</entry>
-<entry key="sync-folder-image">E:\00-SYNC\03-GALLARY\</entry>
-<entry key="sync-folder-video">E:\00-SYNC\01-VIDEO\</entry>
+<entry key="sync-folder-music">C:\HOH\00-Application\07-Sync\00-AUDIO\</entry>
+<entry key="sync-folder-image">C:\HOH\00-Application\07-Sync\03-GALLARY\</entry>
+<entry key="sync-folder-video">C:\HOH\00-Application\07-Sync\01-VIDEO\</entry>
 
 
 <!-- ITunes Sync Module Configuration -->
-<entry key="audio-folder-name">E:\11 - ITunes\Songs\</entry>
-<entry key="video-folder-name">E:\11 - ITunes\Itunes Media\Podcasts\</entry>
-<entry key="itunes-xml">E:\01-Application\02-Playlist\iTunes Music Library.xml</entry>
-<entry key="playlist-path">E:\01-Application\02-Playlist\</entry>
+<entry key="audio-folder-name">C:\HOH\00-Application\07-Sync\Songs\</entry>
+<entry key="video-folder-name">C:\HOH\00-Application\07-Sync\Itunes Media\Podcasts\</entry>
+<entry key="itunes-xml">C:\HOH\00-Application\06-Playlist\iTunes Music Library.xml</entry>
+<entry key="playlist-path">C:\HOH\00-Application\06-Playlist\</entry>
 
 <!-- FFMPEG Module Configuration -->
-<entry key="ffmpeg">E:\01-Application\05-ffmpeg\bin\ffmpeg.exe</entry>
-<entry key="ffmpegprobe">E:\01-Application\05-ffmpeg\bin\ffprobe.exe</entry>
+<entry key="ffmpeg">C:\HOH\00-Application\05-ffmpeg\bin\ffmpeg.exe</entry>
+<entry key="ffmpegprobe">C:\HOH\00-Application\05-ffmpeg\bin\ffprobe.exe</entry>
 <entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
 <entry key="ffmpegClusterMulticastPort">8888</entry>
 
@@ -31,7 +30,7 @@
 <entry key="comPort">COM3</entry>
 
 <!-- Media Player Module Configuration -->
-<entry key="vlcNative">D:\Program Files\VideoLAN\VLC\</entry>
+<entry key="vlcNative">C:\Program Files\VideoLAN\VLC\</entry>
 
 <!-- Server Module Configurations -->
 <entry key="nettyport">9999</entry>

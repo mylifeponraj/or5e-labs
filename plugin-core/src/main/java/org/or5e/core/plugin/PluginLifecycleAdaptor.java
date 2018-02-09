@@ -10,12 +10,12 @@ public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
 		if(!isProcessing()) {
 			setIsProcessing(Boolean.TRUE);
 			initilize();
-			
+		
 			ExecutorService executorService = Executors.newSingleThreadExecutor();
 			executorService.execute(new Runnable() {
 				public void run() {
 					Thread.currentThread().setName("Thread-"+getName());
-					System.out.println("Running in background...");
+					debug("Running plugin["+getName()+"] in the background");
 					doProcess();
 					setIsProcessing(Boolean.FALSE);
 				}

@@ -206,9 +206,13 @@ public class FFMPEG extends BaseObject implements FFMPEGConstants {
 	@Override public String getName() {
 		return "FFMPEG";
 	}
-	public static void main(String[] args)  throws IOException{
+	public static void main(String[] args) {
 		FFMPEG _ffmpeg = new FFMPEG("C:\\ffmpeg\\bin\\ffmpeg.exe", Boolean.TRUE);
-		_ffmpeg.execute();
+		try {
+			_ffmpeg.execute();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("----------------------------------------");
 		System.out.println("ffmpeg is : "+_ffmpeg.whichFFMPEG());
 		System.out.println("Command is : ");

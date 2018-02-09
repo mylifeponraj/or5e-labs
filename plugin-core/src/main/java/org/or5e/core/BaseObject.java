@@ -71,4 +71,11 @@ public abstract class BaseObject {
 	}
 
 	public abstract String getName();
+	public static void main(String[] args) {
+		new BaseObject() {
+			@Override public String getName() {
+				return "org.or5e.core.BaseObject";
+			}
+		};
+	}
 }

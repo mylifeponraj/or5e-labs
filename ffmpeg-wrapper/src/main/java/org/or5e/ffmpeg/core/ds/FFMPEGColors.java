@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FFMPEGColors {
+	
 	private Map<String, String> supportedColors = null;
 	public FFMPEGColors() {
 		this.supportedColors = new HashMap<>();

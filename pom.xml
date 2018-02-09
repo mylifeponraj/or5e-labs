@@ -22,5 +22,6 @@
     <module>plugin-node-connector</module>
     <module>home-automation</module>
     <module>home-automation-application</module>
+    <module>plugin-core-fx</module>
   </modules>
 </project>
