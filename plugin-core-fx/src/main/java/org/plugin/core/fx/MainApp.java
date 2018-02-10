@@ -1,7 +1,6 @@
 package org.plugin.core.fx;
 
 import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,7 +48,9 @@ public class MainApp extends Application {
 	private static final String iconImageLoc = "GameCenter-icon.png";
 	private Timer notificationTimer = new Timer();
 	private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
-
+	private PluginManagerController controller;
+	private java.awt.SystemTray tray;
+	private java.awt.TrayIcon trayIcon;
 	public static void main(String[] args) throws Exception {
 		launch(args);
 	}
@@ -76,8 +77,8 @@ public class MainApp extends Application {
 	public void start(Stage stage) throws Exception {
 		String fxmlFile = "/fxml/plugin-manager.fxml";
 		FXMLLoader loader = new FXMLLoader();
-		rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
-		PluginManagerController controller = (PluginManagerController) loader.getController();
+		this.rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+		this.controller = (PluginManagerController) loader.getController();
 
 		final Task<String> friendTask = new Task<String>() {
 			@Override
@@ -135,6 +136,7 @@ public class MainApp extends Application {
 		Platform.setImplicitExit(false);
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 		Scene scene = new Scene(rootNode, 1280, 800);
+		System.out.println("Adding Style...");
 		scene.getStylesheets().add("/styles/styles.css");
 
 		mainStage.setTitle("Plugin Manager");
@@ -143,6 +145,7 @@ public class MainApp extends Application {
 		mainStage.setResizable(Boolean.FALSE);
 		mainStage.setScene(scene);
 		mainStage.show();
+		this.controller.setApp(this);
 	}
 
 	/**
@@ -184,11 +187,11 @@ public class MainApp extends Application {
 				Platform.exit();
 			}
 
-			java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
+			this.tray = java.awt.SystemTray.getSystemTray();
 			java.awt.Image image = ImageIO.read(getClass().getResourceAsStream("/images/"+iconImageLoc));
-			java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
+			this.trayIcon = new java.awt.TrayIcon(image);
 
-			trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
+			this.trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
 
 			java.awt.MenuItem openItem = new java.awt.MenuItem("Show IT Bot");
 			openItem.addActionListener(event -> Platform.runLater(this::showStage));
@@ -212,7 +215,7 @@ public class MainApp extends Application {
 
 			notificationTimer.schedule(new TimerTask() {
 				@Override public void run() {
-					javax.swing.SwingUtilities.invokeLater(() -> trayIcon.displayMessage("IT Bot Notification",
+					javax.swing.SwingUtilities.invokeLater(() -> trayIcon.displayMessage("Plugin Manager Notification",
 							"The time is now " + timeFormat.format(new Date()), java.awt.TrayIcon.MessageType.INFO));
 				}
 			}, 5_000, 60_000);
@@ -225,9 +228,20 @@ public class MainApp extends Application {
 	}
 
 	private void showStage() {
-		if (mainStage != null) {
-			mainStage.show();
-			mainStage.toFront();
+		if (this.mainStage != null) {
+			this.mainStage.setIconified(Boolean.FALSE);
+			this.mainStage.show();
+			this.mainStage.toFront();
 		}
+	}
+
+	public void minimizeWindow() {
+		this.mainStage.setIconified(Boolean.TRUE);
+		this.mainStage.hide();
+	}
+
+	public void cancelNotification() {
+		notificationTimer.cancel();
+		tray.remove(trayIcon);
 	}
 }
