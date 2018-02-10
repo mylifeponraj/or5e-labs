@@ -18,11 +18,7 @@
  */
 package org.or5e.mp.xtrememp;
 
-import java.io.File;
-
 import org.or5e.mp.xtrememp.playlist.Playlist;
-import org.or5e.mp.xtrememp.playlist.PlaylistException;
-import org.or5e.mp.xtrememp.playlist.PlaylistIO;
 import org.or5e.mp.xtrememp.playlist.PlaylistItem;
 import org.or5e.mp.xtrememp.playlist.filter.Predicate;
 import org.or5e.mp.xtrememp.util.file.AudioFileFilter;

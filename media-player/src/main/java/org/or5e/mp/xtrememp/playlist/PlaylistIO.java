@@ -18,9 +18,6 @@
  */
 package org.or5e.mp.xtrememp.playlist;
 
-import com.melloware.jspiff.jaxp.XspfPlaylist;
-import com.melloware.jspiff.jaxp.XspfPlaylistTrackList;
-import com.melloware.jspiff.jaxp.XspfTrack;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,18 +25,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.or5e.mp.xtrememp.tag.TagInfo;
 import org.or5e.mp.xtrememp.util.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.melloware.jspiff.jaxp.XspfPlaylist;
+import com.melloware.jspiff.jaxp.XspfPlaylistTrackList;
+import com.melloware.jspiff.jaxp.XspfTrack;
 
 /**
  * Playlist input/output utility.

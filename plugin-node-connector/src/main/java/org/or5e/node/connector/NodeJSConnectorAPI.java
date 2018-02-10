@@ -25,7 +25,7 @@ public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 			PORT = Integer.parseInt(portOnProperty);
 		}
 		else {
-			PORT = new Integer(1000);
+			PORT = (Integer)1000;
 		}
 		//initilize();
 	}

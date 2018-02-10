@@ -25,7 +25,7 @@ public class Music {
 	public void addFields(String fieldName, Object value) {
 		switch(fieldName) {
 		case "trackID":
-			this.trackID = new Integer(((org.or5e.itunes.jaxb.binding.Integer)value).getvalue());
+			this.trackID = Integer.getInteger(((org.or5e.itunes.jaxb.binding.Integer)value).getvalue());
 			break;
 		case "trackName":
 			this.trackName = ((org.or5e.itunes.jaxb.binding.String)value).getvalue();

@@ -12,10 +12,10 @@ public class DataHolder extends BaseObject{
 	private Map<Integer, Playlist> availablePlaylist = new HashMap<>();
 
 	public void addMusic(org.or5e.itunes.jaxb.binding.Integer songID, Music song) {
-		this.availableMusic.put(new Integer(songID.getvalue()), song);
+		this.availableMusic.put(Integer.getInteger(songID.getvalue()), song);
 	}
 	public void addPlaylist(org.or5e.itunes.jaxb.binding.Integer playlistID, Playlist playlist) {
-		this.availablePlaylist.put(new Integer(playlistID.getvalue()), playlist);
+		this.availablePlaylist.put(Integer.getInteger(playlistID.getvalue()), playlist);
 	}
 	public void addPlaylist(Integer playlistID, Playlist playlist) {
 		this.availablePlaylist.put(playlistID, playlist);
