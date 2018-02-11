@@ -12,6 +12,7 @@ public abstract class PluginLifecycle extends BaseObject implements Plugin {
 		this.isProcessing = isProcessing;
 	}
 	public PluginLifecycle() throws PluginException {
+		debug("Adding Shutdown Hook for: "+getName());
 		Runtime.getRuntime().addShutdownHook(new Thread(new Closable(), "Shutdown"+getName()));
 	}
 	public class Closable implements Runnable {

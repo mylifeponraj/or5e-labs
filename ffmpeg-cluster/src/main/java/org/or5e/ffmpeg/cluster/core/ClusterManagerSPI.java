@@ -9,7 +9,6 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 	private MulticastSocket clientSocket = null;
 	private byte[] message;
 	private InetAddress address;
-	private List<ClusterNode> clusterNodeList = new ArrayList<>();
+//	private List<ClusterNode> clusterNodeList = new ArrayList<>();
 	private Map<Integer, NodeInfo> nodeInfoList = new HashMap<>();
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public ClusterManagerSPI() {
@@ -42,7 +41,7 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 
 	@Override
 	public String getPluginID() {
-		return getName();
+		return "FFMPEGClusterManager";
 	}
 
 	@Override public void initilize() throws PluginException {
@@ -124,7 +123,7 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 
 	@Override
 	public String getName() {
-		return "ClusterManagerSPI";
+		return "org.or5e.ffmpeg.cluster.core.ClusterManagerSPI";
 	}
 	public void checkAllNodesAndUpdate() {
 		this.nodeInfoList.forEach((k,v)-> {if(!checkNode(k, v)) this.nodeInfoList.remove(k);});

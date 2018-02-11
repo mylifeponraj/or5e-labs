@@ -1,8 +1,11 @@
 package org.or5e.plugin.manage;
 
+import java.util.Map;
+
 import org.or5e.core.BaseObject;
+import org.or5e.core.plugin.Plugin;
+import org.or5e.core.plugin.PluginEvent;
 import org.or5e.core.plugin.PluginLoaderSPI;
-import org.or5e.core.plugin.event.PluginEvent;
 
 public class PluginUIManager extends BaseObject {
 	private PluginLoaderSPI pluginSPI = null;
@@ -17,6 +20,14 @@ public class PluginUIManager extends BaseObject {
 	public void initilizePlugin(PluginEvent event) {
 		this.pluginSPI = PluginLoaderSPI.getPluginManager();
 		this.pluginSPI.initilize(event);
+	}
+	public Map<String, Plugin> getPluginTableData() {
+		Map<String, Plugin> listAllPlugin = pluginSPI.listAllPlugin();
+		return listAllPlugin;
+	}
+	
+	public void loadAllPluginDetails() {
+		
 	}
 	@Override public String getName() {
 		return "org.or5e.plugin.manage.PluginUIManager";

@@ -3,6 +3,7 @@ package org.or5e.core.plugin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
@@ -15,9 +16,9 @@ import java.util.jar.Manifest;
 import org.or5e.core.BaseObject;
 import org.or5e.core.PluginException;
 import org.or5e.core.filefilter.JarFileFilter;
-import org.or5e.core.plugin.event.EventQueue;
-import org.or5e.core.plugin.event.PluginEvent;
-import org.or5e.core.plugin.event.PluginEventQueueSPI;
+import org.or5e.core.plugin.intent.IntentQueueSPI;
+
+import javafx.application.Platform;
 
 public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
@@ -36,12 +37,16 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 		debug("Initilization process of all the plugins is started.");
 
+		debug("Initilizing event queue for properties.");
+		if(event != null) event.complete("Initilizing all Queue.", 10);
+		initilizeEventQueue();
+
 		debug("Getting all the plugins jar file from the plugin folder.");
-		if(event != null) event.complete("Loading all plugins from plugin folder.", 0);
+		if(event != null) event.complete("Loading all plugins from plugin folder.", 20);
 		File[] listOfPluginJars = getAllJarFilesInPluginFolder();
 
 		debug("Getting all the main files name from all the jars present in the plugin folder.");
-		if(event != null) event.complete("Getting all the main classes.", 20);
+		if(event != null) event.complete("Getting all the main classes.", 30);
 		Map<URL, String> pluginMainclassMap = getPluginMainClassDetails(listOfPluginJars);
 
 		debug("Loading all the jar files in the current class loader.");
@@ -52,23 +57,30 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 		if(event != null) event.complete("Initilizing all the main classes.", 80);
 		initilizeAndRunAllPlugins(pluginMainclassMap);
 		
-		debug("Initilizing event queue for properties.");
-		if(event != null) event.complete("Initilizing all Queue.", 100);
-		initilizePropertiesEvent();
-
+//		debug("Initilizing event queue for properties.");
+//		if(event != null) event.complete("Initilizing all Queue.", 100);
+//		initilizePropertiesEvent();
+		if(event != null) event.complete("Initilizing all the main classes.", 100);
 		debug("Initilization process of all the plugins is completed successfully.");
 	}
-	private void initilizePropertiesEvent() {
-		EventQueue _eventQueue = PluginEventQueueSPI.getDefaultQueue();
-		_eventQueue.listenForEventInQueue(new PropertiesEventProcessor(), "add-properties", "get-properties", "delete-properties");
+	private void initilizeEventQueue() {
+		IntentQueueSPI.getIntentQueue();
 	}
+//	private void initilizePropertiesEvent() {
+//		EventQueue _eventQueue = PluginEventQueueSPI.getDefaultQueue();
+//		_eventQueue.listenForEventInQueue(new PropertiesEventProcessor(), "add-properties", "get-properties", "delete-properties");
+//	}
 
 	@Override public void destroy() {
 		debug("Destroy plugin loader.");
-		Set<String> plugins = pluginList.keySet();
-		for (String plugin : plugins) {
-			pluginList.get(plugin).destroy();
+		if(pluginList != null) {
+			Set<String> plugins = pluginList.keySet();
+			for (String plugin : plugins) {
+				pluginList.get(plugin).destroy();
+			}
 		}
+		debug("Destroy Intent Queue.");
+		IntentQueueSPI.getIntentQueue().stopIntentQueue();
 	}
 
 	@Override public Map<String, Plugin> listAllPlugin() {
@@ -126,13 +138,20 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 				debug("Initilizing plugin by Running Main: "+pluginURL);
 				@SuppressWarnings("unchecked")
 				Class<Plugin> forName = (Class<Plugin>) Class.forName(pluginMainclassMap.get(pluginURL), true, urlClassLoader);
-				Plugin pluginObject = forName.newInstance();
+				Plugin pluginObject;
+				try {
+					pluginObject = forName.getDeclaredConstructor().newInstance();
+					//Load the Global Map which will hold the Plugin ID and associated Plugin Object
+					pluginList.put(pluginObject.getPluginID(), pluginObject);
+					
+					//start plugin will call the initilize...
+					pluginObject.startPlugin();
+				} catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+						| SecurityException e) {
+					e.printStackTrace();
+					debug("Not able to initilize the plugin: "+forName);
+				}
 
-				//Load the Global Map which will hold the Plugin ID and associated Plugin Object
-				pluginList.put(pluginObject.getPluginID(), pluginObject);
-
-				//start plugin will call the initilize...
-				pluginObject.startPlugin();
 
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -148,7 +167,7 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 	public static void main(String[] args) throws PluginException{
 		PluginLoaderSPI spi = PluginLoaderSPI.getPluginManager();
-		//spi.initilize();
+		spi.initilize();
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {

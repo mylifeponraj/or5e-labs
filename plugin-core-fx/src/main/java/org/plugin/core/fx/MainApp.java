@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
-import org.or5e.core.plugin.event.PluginEvent;
+import org.or5e.core.plugin.PluginEvent;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;

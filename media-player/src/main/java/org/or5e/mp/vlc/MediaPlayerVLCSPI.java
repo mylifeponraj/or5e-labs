@@ -30,15 +30,20 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 	}
 
 	@Override public String getPluginID() {
-		return getName();
+		return "MediaPlayer";
 	}
 
 	@Override public void initilize() throws PluginException {
 		super.initilize();
 		initilizePlayer();
+		initilizeEvents();
 	}
 
 	
+	private void initilizeEvents() {
+		
+	}
+
 	@Override public void doProcess() {
 		super.doProcess();
 	}
@@ -200,7 +205,7 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 
 	@Override
 	public String getName() {
-		return "MediaPlayerVLCSPI";
+		return "org.or5e.mp.vlc.MediaPlayerVLCSPI";
 	}
 
 	public void isMuted(boolean muted) {
