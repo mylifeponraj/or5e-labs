@@ -18,8 +18,6 @@ import org.or5e.core.PluginException;
 import org.or5e.core.filefilter.JarFileFilter;
 import org.or5e.core.plugin.intent.IntentQueueSPI;
 
-import javafx.application.Platform;
-
 public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 	private URLClassLoader urlClassLoader = null;

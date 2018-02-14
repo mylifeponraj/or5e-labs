@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -14,7 +15,6 @@ public class IntentQueueSPI extends BaseObject implements IntentQueue {
 	private BlockingQueue<Intent> defaultQueue;
 	private Map<String, List<ConsumeIntent>> consumerIntentMap;
 	private Map<String, IntentConsumerThread> consumerThreadMap;
-	
 	private static IntentQueue intendQueue;
 	static {
 		queueMap = new HashMap<>();
@@ -40,6 +40,7 @@ public class IntentQueueSPI extends BaseObject implements IntentQueue {
 	@Override public String getName() {
 		return "org.or5e.core.plugin.intent.IntentQueueSPI";
 	}
+
 	@Override public void createQueue(String queueName) {
 		if(!queueMap.containsKey(queueName)) {
 			BlockingQueue<Intent> queue = new ArrayBlockingQueue<Intent>(20);
@@ -95,6 +96,14 @@ public class IntentQueueSPI extends BaseObject implements IntentQueue {
 			queueMap.get(queueName).add(new Intent(intentName, intentMessage));
 		}
 	}
+	@Override public Map<String, Integer> getIntentList() {
+		Map<String, Integer> response = new HashMap<>();
+		this.consumerIntentMap.forEach((K, V) -> {
+			response.put(K, ((List<ConsumeIntent>)V).size());
+		});
+		return response;
+	}
+
 	public static void main(String[] args)  {
 		IntentQueue queue = IntentQueueSPI.getIntentQueue();
 		try {
@@ -104,5 +113,4 @@ public class IntentQueueSPI extends BaseObject implements IntentQueue {
 		}
 		queue.stopIntentQueue();
 	}
-
 }

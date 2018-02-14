@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.or5e.core.PluginException;
+import org.or5e.core.plugin.intent.Intent;
 import org.or5e.mp.MediaPlaylerSPI;
 import org.or5e.mp.RepeatMode;
 import org.or5e.mp.xtrememp.playlist.jspf.Track;
@@ -40,10 +41,6 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 	}
 
 	
-	private void initilizeEvents() {
-		
-	}
-
 	@Override public void doProcess() {
 		super.doProcess();
 	}
@@ -65,23 +62,20 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		this.vlcMediaFactory.release();
 	}
 
-	@Override
-	public void play() {
+	@Override public void play() {
 		if(this.isAudioPlaying) {
 			this.vlcMediaPlayer.play();
 		}
 	}
 
-	@Override
-	public void play(String fileName) {
+	@Override public void play(String fileName) {
 		this.isPlayingPlaylist = Boolean.FALSE;
 		this.stop();
 		this.vlcMediaPlayer.playMedia(fileName);
 		this.isAudioPlaying = Boolean.TRUE;
 	}
 
-	@Override
-	public void playCurrentPlaylist() {
+	@Override public void playCurrentPlaylist() {
 		debug("Starting playing current Playlist....");
 		this._currentPlaylist = this._playlistManager.getCurrentPlaylist();
 		_playlistManager.selectPlaylist(this._currentPlaylist.getTitle());
@@ -91,76 +85,65 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		this.vlcMediaPlayer.playMedia(currentTrack.location);
 	}
 
-	@Override
-	public void play(URI fileURL) {
+	@Override public void play(URI fileURL) {
 		this.isPlayingPlaylist = Boolean.FALSE;
 		this.stop();
 		this.vlcMediaPlayer.playMedia(fileURL.toString());
 		this.isAudioPlaying = Boolean.TRUE;
 	}
 
-	@Override
-	public void pause() {
+	@Override public void pause() {
 		if(this.isAudioPlaying) {
 			this.vlcMediaPlayer.pause();
 		}
 	}
 
-	@Override
-	public void stop() {
+	@Override public void stop() {
 		if(isAudioPlaying) {
 			this.vlcMediaPlayer.stop();
 		}
 		this.isAudioPlaying = Boolean.FALSE;
 	}
 
-	@Override
-	public void next() {
+	@Override public void next() {
 		if(isAudioPlaying) {
 			this.vlcMediaPlayer.stop();
 		}
 		callNextAudio(Boolean.TRUE);
 	}
 
-	@Override
-	public void previous() {
+	@Override public void previous() {
 		if(isAudioPlaying) {
 			this.vlcMediaPlayer.stop();
 		}
 		callNextAudio(Boolean.FALSE);
 	}
 
-	@Override
-	public Boolean isShuffled() {
+	@Override public Boolean isShuffled() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Boolean isRepeated() {
+	@Override public Boolean isRepeated() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public void setShuffle(Boolean doShaffle) {
+	@Override public void setShuffle(Boolean doShaffle) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void setRepeated(RepeatMode mode, Boolean doRepeat) {
+	@Override public void setRepeated(RepeatMode mode, Boolean doRepeat) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public Set<String> getAllPlaylistNames() {
+	@Override public Set<String> getAllPlaylistNames() {
 		return _playlistManager.getAllPlaylistNames();
 	}
 
-	@Override
-	public void selectPlaylist(String playlistName) {
+	@Override public void selectPlaylist(String playlistName) {
 		if(isAudioPlaying) {
 			vlcMediaPlayer.stop();
 			isAudioPlaying = Boolean.FALSE;
@@ -170,28 +153,23 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		this.isPlayingPlaylist = Boolean.TRUE;
 	}
 
-	@Override
-	public List<String> getAllSongsInPlaylist(String playlist) {
+	@Override public List<String> getAllSongsInPlaylist(String playlist) {
 		return null;
 	}
 
-	@Override
-	public void addPlaylist(String playlist) {
+	@Override public void addPlaylist(String playlist) {
 		
 	}
 
-	@Override
-	public Set<String> getAllEQPreset() {
+	@Override public Set<String> getAllEQPreset() {
 		return equalizersAvailable.keySet();
 	}
 
-	@Override
-	public void setEqualizer(String eqName) {
+	@Override public void setEqualizer(String eqName) {
 		this.vlcMediaPlayer.setEqualizer(this.equalizersAvailable.get(defaultEQSettings));
 	}
 
-	@Override
-	public void initilizePlayer() {
+	@Override public void initilizePlayer() {
 		this.audioPlayer = new VLCMediaPlayerEventComponent(this);
         info("Initilizing the VLC Media Player SPI.");
         this.vlcMediaFactory = audioPlayer.getMediaPlayerFactory();
@@ -203,15 +181,17 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
         this.vlcMediaPlayer.setEqualizer(this.equalizersAvailable.get(defaultEQSettings));		
 	}
 
-	@Override
-	public String getName() {
+	@Override public String getName() {
 		return "org.or5e.mp.vlc.MediaPlayerVLCSPI";
 	}
 
 	public void isMuted(boolean muted) {
 		isMuted = Boolean.valueOf(muted);		
 	}
-	
+
+	@Override public void handleEvent(Intent intent) {
+		
+	}
 	protected uk.co.caprica.vlcj.player.MediaPlayer vlcMediaPlayer = null;
 	protected MediaPlayerFactory vlcMediaFactory = null;
 	protected AudioMediaPlayerComponent audioPlayer = null;

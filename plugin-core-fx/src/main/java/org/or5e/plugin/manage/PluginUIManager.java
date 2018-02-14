@@ -6,6 +6,7 @@ import org.or5e.core.BaseObject;
 import org.or5e.core.plugin.Plugin;
 import org.or5e.core.plugin.PluginEvent;
 import org.or5e.core.plugin.PluginLoaderSPI;
+import org.or5e.core.plugin.intent.IntentQueueSPI;
 
 public class PluginUIManager extends BaseObject {
 	private PluginLoaderSPI pluginSPI = null;
@@ -25,7 +26,9 @@ public class PluginUIManager extends BaseObject {
 		Map<String, Plugin> listAllPlugin = pluginSPI.listAllPlugin();
 		return listAllPlugin;
 	}
-	
+	public Map<String, Integer> getEventTableData() {
+		return IntentQueueSPI.getIntentQueue().getIntentList();
+	}
 	public void loadAllPluginDetails() {
 		
 	}

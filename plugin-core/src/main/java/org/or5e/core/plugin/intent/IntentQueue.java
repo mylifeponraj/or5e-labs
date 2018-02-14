@@ -1,5 +1,7 @@
 package org.or5e.core.plugin.intent;
 
+import java.util.Map;
+
 public interface IntentQueue {
 	public void createQueue(String queueName);
 	public void removeQueue(String queueName);
@@ -8,4 +10,6 @@ public interface IntentQueue {
 	public void raiseIntentToDefaultQueue(String intentName, Object intentMessage);
 	public void raiseIntentToQueue(String intentName, Object intentMessage, String queueName);
 	public void stopIntentQueue();
+	
+	public Map<String, Integer> getIntentList();
 }

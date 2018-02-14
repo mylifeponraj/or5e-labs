@@ -7,6 +7,7 @@ import java.util.Map;
 import org.or5e.core.BaseObject;
 import org.or5e.core.plugin.Plugin;
 import org.or5e.core.plugin.PluginEvent;
+import org.or5e.plugin.manage.EventData;
 import org.or5e.plugin.manage.PluginData;
 import org.or5e.plugin.manage.PluginUIManager;
 
@@ -67,12 +68,27 @@ public class PluginManagerController extends BaseObject {
 	@FXML
 	private TableView<PluginData> pluginTable;
 
+	@FXML
+	private TableColumn<EventData, String> eventName;
+	@FXML
+	private TableColumn<EventData, String> eventListenerCount;
+	@FXML
+	private TableColumn<EventData, String> eventListeningPluginName;
+	@FXML
+	private TableView<EventData> eventTable;
+
+	
 	public void initilizeUIComponents() {
 		pluginName.setCellValueFactory(new PropertyValueFactory<>("pluginID"));
 		pluginJar.setCellValueFactory(new PropertyValueFactory<>("pluginName"));
 		pluginMain.setCellValueFactory(new PropertyValueFactory<>("pluginMain"));
 		pluginAction.setCellValueFactory(new PropertyValueFactory<>("pluginAction"));
 
+		eventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+		eventListenerCount.setCellValueFactory(new PropertyValueFactory<>("eventListenerCount"));
+		eventListeningPluginName.setCellValueFactory(new PropertyValueFactory<>("eventListeningPluginName"));
+
+		
 		Map<String, Plugin> pluginTableData = this.manager.getPluginTableData();
 		List<PluginData> pluginDataList = new ArrayList<>();
 		pluginTableData.forEach((K, V) -> {
@@ -84,10 +100,22 @@ public class PluginManagerController extends BaseObject {
 			data.setPluginAction("");
 			pluginDataList.add(data);
 		} );
-		
-		ObservableList<PluginData> list = FXCollections.observableArrayList(pluginDataList);
-		pluginTable.setItems(list);
-		
+
+		Map<String, Integer> eventTableData = this.manager.getEventTableData();
+		List<EventData> eventDataList = new ArrayList<>();
+		eventTableData.forEach((K, V) -> {
+			EventData data = new EventData();
+			data.setEventListenerCount(String.valueOf(V));
+			data.setEventListeningPluginName("");
+			data.setEventName((String)K);
+			eventDataList.add(data);
+		} );
+
+		ObservableList<PluginData> pluginTableList = FXCollections.observableArrayList(pluginDataList);
+		pluginTable.setItems(pluginTableList);
+
+		ObservableList<EventData> eventTableList = FXCollections.observableArrayList(eventDataList);
+		eventTable.setItems(eventTableList);
 	}
 
 	// Close Btn Operation
