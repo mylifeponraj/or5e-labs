@@ -94,10 +94,11 @@
                                     <Font name="Arial" size="24.0" />
                                  </font>
                               </Label>
-                              <TableView prefHeight="615.0" prefWidth="1280.0">
+                              <TableView fx:id="eventTable" prefHeight="615.0" prefWidth="1280.0">
                                 <columns>
-                                  <TableColumn prefWidth="108.0" text="Event Name" />
-                                  <TableColumn prefWidth="132.0" text="Plugin Name" />
+                                  <TableColumn fx:id="eventName" prefWidth="108.0" text="Event Name" />
+                                    <TableColumn fx:id="eventListenerCount" prefWidth="112.0" text="Listening Total" />
+                                  <TableColumn fx:id="eventListeningPluginName" prefWidth="95.0" text="Plugin Name" />
                                 </columns>
                               </TableView>
                            </children>
