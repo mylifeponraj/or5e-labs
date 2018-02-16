@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -68,7 +67,7 @@ public class IntentQueueSPI extends BaseObject implements IntentQueue {
 		}
 	}
 	@Override public synchronized void listenToIntent(ConsumeIntent intentHandler, String... intentNameList) {
-		for(int index=0 ; index <= intentNameList.length ; index ++) {
+		for(int index=0 ; index < intentNameList.length ; index ++) {
 			String intentName = intentNameList[index];
 			if(consumerIntentMap.containsKey(intentName)) {
 				consumerIntentMap.get(intentName).add(intentHandler);

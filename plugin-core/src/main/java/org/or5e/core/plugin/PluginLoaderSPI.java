@@ -17,6 +17,7 @@ import org.or5e.core.BaseObject;
 import org.or5e.core.PluginException;
 import org.or5e.core.filefilter.JarFileFilter;
 import org.or5e.core.plugin.intent.IntentQueueSPI;
+import org.or5e.core.rawsoc.RawTestServerSocket;
 
 public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
@@ -60,6 +61,8 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 //		initilizePropertiesEvent();
 		if(event != null) event.complete("Initilizing all the main classes.", 100);
 		debug("Initilization process of all the plugins is completed successfully.");
+		
+//		new RawTestServerSocket().start();
 	}
 	private void initilizeEventQueue() {
 		IntentQueueSPI.getIntentQueue();
