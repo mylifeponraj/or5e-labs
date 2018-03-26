@@ -1,7 +1,7 @@
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterNodeAvailabilityManager.java
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterManagerSPI.java
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\MulticastSocketServer.java
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\MulticastSocketClient.java
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\ui\ClusterUI.java
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterNode.java
-E:\Project\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterManager.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\MulticastSocketServer.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\MulticastSocketClient.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterNodeAvailabilityManager.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterNode.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterManager.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\core\ClusterManagerSPI.java
+C:\HOH\06-Workspace\or5e-labs\ffmpeg-cluster\src\main\java\org\or5e\ffmpeg\cluster\ui\ClusterUI.java

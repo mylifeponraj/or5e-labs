@@ -1,5 +1,0 @@
-org\or5e\arduino\ArduinoPortRequestHandler.class
-org\or5e\arduino\event\ArduinoIO.class
-org\or5e\arduino\ArduinoEsploraControlerAPI.class
-org\or5e\arduino\event\EventConsumedProcessor.class
-org\or5e\arduino\event\EventProducerProcessor.class
