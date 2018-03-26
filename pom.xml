@@ -13,8 +13,8 @@
     <module>ffmpeg-wrapper</module>
     <module>ffmpeg-cluster</module>
     <module>media-player</module>
-    <module>plugin-core-server</module>
-    <module>plugin-core-ui</module>
+    
+    
     <module>keyboard-event</module>
     <module>ITunesSync</module>
     <module>plugin-node-connector</module>
