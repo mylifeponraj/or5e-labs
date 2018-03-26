@@ -13,7 +13,7 @@
 	<br>
 	<textarea id="echoText" rows="5" cols="30"></textarea>
 	<script type="text/javascript">
-		var webSocket = new WebSocket("ws://localhost:8080/home-automation/hmautomation");
+		var webSocket = new WebSocket("ws://localhost:8080/home-automation/hmautomation/ponraj");
 		var echoText = document.getElementById("echoText");
 		echoText.value = "";
 		var message = document.getElementById("message");
@@ -25,7 +25,10 @@
 			echoText.value += "Connected ... \n";
 		}
 		function wsSendMessage(){
-			webSocket.send(message.value);
+			//Message Type: Register, Status: send to Server;; "Command": Send from Server
+			var sendTo = "{'messageFrom':'ponraj', 'messageTo':'Server', 'messageType':'Register', 'message':message.value}";
+		//	webSocket.send(message.value);
+			webSocket.send(sendTo);
 			echoText.value += "Message sended to the server : " + message.value + "\n";
 			message.value = "";
 		}
@@ -33,7 +36,8 @@
 			webSocket.close();
 		}
 		function wsGetMessage(message){
-			echoText.value += "Message received from to the server : " + message.data + "\n";
+			var serverCommand = message.data;
+			echoText.value += "Message received from to the server : " + serverCommand.message + "\n";
 		}
 		function wsClose(message){
 			echoText.value += "Disconnect ... \n";
