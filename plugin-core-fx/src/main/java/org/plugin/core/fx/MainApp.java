@@ -51,6 +51,9 @@ public class MainApp extends Application {
 	private PluginManagerController controller;
 	private java.awt.SystemTray tray;
 	private java.awt.TrayIcon trayIcon;
+	private double xOffset;
+	private double yOffset;
+	
 	public static void main(String[] args) throws Exception {
 		launch(args);
 	}
@@ -138,46 +141,28 @@ public class MainApp extends Application {
 		Scene scene = new Scene(rootNode, 1280, 800);
 		System.out.println("Adding Style...");
 		scene.getStylesheets().add("/styles/styles.css");
-
 		mainStage.setTitle("Plugin Manager");
 		mainStage.setAlwaysOnTop(Boolean.TRUE);
 		mainStage.initStyle(StageStyle.UNDECORATED);
 		mainStage.setResizable(Boolean.FALSE);
 		mainStage.setScene(scene);
+
+		scene.setOnMousePressed(event -> {
+            xOffset = mainStage.getX() - event.getScreenX();
+            yOffset = mainStage.getY() - event.getScreenY();
+        });
+        //Lambda mouse event handler
+        scene.setOnMouseDragged(event -> {
+        	mainStage.setX(event.getScreenX() + xOffset);
+        	mainStage.setY(event.getScreenY() + yOffset);
+        });
+
 		mainStage.show();
 		this.controller.setApp(this);
 	}
 
-	/**
-	 * @Override public void start(Stage stage) throws Exception { String fxmlFile =
-	 *           "/fxml/plugin-manager.fxml"; FXMLLoader loader = new FXMLLoader();
-	 *           rootNode = (Parent)
-	 *           loader.load(getClass().getResourceAsStream(fxmlFile));
-	 *           PluginManagerController controller = (PluginManagerController)
-	 *           loader.getController();
-	 * 
-	 *           final Task<ObservableList<String>> friendTask = new
-	 *           Task<ObservableList<String>>() {
-	 * @Override protected ObservableList<String> call() throws InterruptedException
-	 *           { ObservableList<String> foundFriends =
-	 *           FXCollections.<String>observableArrayList(); ObservableList<String>
-	 *           availableFriends = FXCollections.observableArrayList("Fili",
-	 *           "Kili", "Oin", "Gloin", "Thorin", "Dwalin", "Balin", "Bifur",
-	 *           "Bofur", "Bombur", "Dori", "Nori", "Ori");
-	 * 
-	 *           updateMessage("Finding friends . . ."); for (int i = 0; i <
-	 *           availableFriends.size(); i++) { Thread.sleep(400); updateProgress(i
-	 *           + 1, availableFriends.size()); String nextFriend =
-	 *           availableFriends.get(i); foundFriends.add(nextFriend);
-	 *           updateMessage("Finding friends . . . found " + nextFriend); }
-	 *           Thread.sleep(400); updateMessage("All friends found.");
-	 *           controller.initilizeApplication(); return foundFriends; } };
-	 * 
-	 *           showSplash(stage, friendTask, () ->
-	 *           showMainStage(friendTask.valueProperty())); new
-	 *           Thread(friendTask).start(); }
-	 */
-	
+	public void draggableWindow() {
+	}
 	private void addAppToTray() {
 		try {
 			java.awt.Toolkit.getDefaultToolkit();
