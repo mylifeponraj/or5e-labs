@@ -2,33 +2,32 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Plugin Core Configurations</comment>
-
 <!-- Application Configurations -->
 <entry key="Author">Ponraj Suthanthiramani</entry>
 <entry key="Email">mylife.ponraj@gmail.com</entry>
 <entry key="Version">1.0b</entry>
-<entry key="pluginFolder">E:\01-Application\01-Plugins\</entry>
-<entry key="json-settings-file">D:\02-Application\config\application-properties.json</entry>
+<entry key="pluginFolder">D:\02-Application\00-plugin\</entry>
+<entry key="json-settings-file">D:\02-Application\01-config\application-properties.json</entry>
 <!-- Sync Module Configuration -->
-<entry key="sync-folder-music">E:\00-SYNC\00-AUDIO\</entry>
-<entry key="sync-folder-image">E:\00-SYNC\03-GALLARY\</entry>
-<entry key="sync-folder-video">E:\00-SYNC\01-VIDEO\</entry>
+<entry key="sync-folder-music">D:\02-Application\03-Audio\</entry>
+<entry key="sync-folder-image">D:\02-Application\05-Gallary\</entry>
+<entry key="sync-folder-video">D:\02-Application\04-Video\</entry>
 
 
 <!-- ITunes Sync Module Configuration -->
-<entry key="audio-folder-name">E:\11 - ITunes\Songs\</entry>
-<entry key="video-folder-name">E:\11 - ITunes\Itunes Media\Podcasts\</entry>
-<entry key="itunes-xml">E:\01-Application\02-Playlist\iTunes Music Library.xml</entry>
-<entry key="playlist-path">E:\01-Application\02-Playlist\</entry>
+<entry key="audio-folder-name">C:\HOH\00-Application\07-Sync\Songs\</entry>
+<entry key="video-folder-name">C:\HOH\00-Application\07-Sync\Itunes Media\Podcasts\</entry>
+<entry key="itunes-xml">D:\02-Application\playlistt\iTunes Music Library.xml</entry>
+<entry key="playlist-path">D:\02-Application\playlist\</entry>
 
 <!-- FFMPEG Module Configuration -->
-<entry key="ffmpeg">E:\01-Application\05-ffmpeg\bin\ffmpeg.exe</entry>
-<entry key="ffmpegprobe">E:\01-Application\05-ffmpeg\bin\ffprobe.exe</entry>
+<entry key="ffmpeg">D:\02-Application\06-ffmpeg\bin\ffmpeg.exe</entry>
+<entry key="ffmpegprobe">D:\02-Application\06-ffmpeg\bin\ffprobe.exe</entry>
 <entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
 <entry key="ffmpegClusterMulticastPort">8888</entry>
 
 <!-- Arudino Module Configuration -->
-<entry key="comPort">COM3</entry>
+<entry key="comPort">COM10</entry>
 
 <!-- Media Player Module Configuration -->
 <entry key="vlcNative">D:\Program Files\VideoLAN\VLC\</entry>

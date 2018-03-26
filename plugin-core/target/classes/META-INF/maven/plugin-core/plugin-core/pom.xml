@@ -111,14 +111,43 @@
 				<configuration>
 					<mainClass>org.or5e.core.plugin.PluginLoaderSPI</mainClass>
 					<arguments>-cp</arguments>
-					<arguments>E:\01-Application\00-Config</arguments>
+					<arguments>C:\HOH\00-Application\01-Config</arguments>
 					<systemProperties>
 						<systemProperty>
 							<key>CLASSPATH</key>
-							<value>E:\01-Application\00-Config;%CLASSPATH%</value>
+							<value>C:\HOH\00-Application\01-Config;%CLASSPATH%</value>
 						</systemProperty>
 					</systemProperties>
 				</configuration>
+			</plugin>
+			<!-- Maven Assembly Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<!-- get all project dependencies -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- MainClass in mainfest make a executable jar -->
+					<archive>
+						<manifest>
+							<mainClass>${mainClass}</mainClass>
+						</manifest>
+					</archive>
+
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- bind to the packaging phase -->
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
