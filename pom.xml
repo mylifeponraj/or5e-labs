@@ -9,21 +9,17 @@
   <modules>
     <module>plugin-core</module>
     <module>folder-to-list</module>
-    
     <module>arduino-control</module>
     <module>ffmpeg-wrapper</module>
     <module>ffmpeg-cluster</module>
     <module>media-player</module>
     <module>plugin-core-server</module>
     <module>plugin-core-ui</module>
-    <module>ItunesConverter</module>
     <module>keyboard-event</module>
     <module>ITunesSync</module>
     <module>plugin-node-connector</module>
     <module>home-automation</module>
     <module>home-automation-application</module>
     <module>plugin-core-fx</module>
-    <module>home-automation-server</module>
-    <module>plugin-license</module>
   </modules>
 </project>
