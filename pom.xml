@@ -23,5 +23,7 @@
     <module>home-automation</module>
     <module>home-automation-application</module>
     <module>plugin-core-fx</module>
+    <module>home-automation-server</module>
+    <module>plugin-license</module>
   </modules>
 </project>
