@@ -25,8 +25,15 @@ public class MasterUnitController {
 	public void addAllUsers(List<String> userList) {
 		for (String user : userList) {
 			allUsers.add(user);
-			allUserSessions.put(user, null);
+			allUserSessions.put(user, "NULL");
 		}
+	}
+	public void makeUserAvailable(String user, Session session) {
+		makeUserAvailable(user, session);
+	}
+	public void makeUserNotAvailable(String user) {
+		removeUser(user);
+		
 	}
 	public void addUser(String user, Session session) {
 		currentOnlineUsers.add(user);
@@ -53,6 +60,9 @@ public class MasterUnitController {
 			}
 		}
 		return offlineCustomers;
+	}
+	public Map<String, Object> getAllUserSessions() {
+		return allUserSessions;
 	}
 	
 	public static void main(String[] args) {

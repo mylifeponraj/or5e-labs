@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tomcat WebSocket</title>
+</head>
+<body>
+	<form>
+		<input id="message" type="text">
+		<input onclick="wsSendMessage();" value="Echo" type="button">
+		<input onclick="wsCloseConnection();" value="Disconnect" type="button">
+	</form>
+	<br>
+	<textarea id="echoText" rows="5" cols="30"></textarea>
+	<script type="text/javascript">
+		if (!window.WebSocket) alert("WebSocket not supported by this browser");
+		else alert('Web Socket is supported...');
+
+		var message = document.getElementById("message");
+		var echoText = document.getElementById("echoText");
+		echoText.value = "";
+
+		var webSocket = new WebSocket("ws://localhost:8080/home-automation/hmautomation/ponraj");
+		webSocket.onopen = function(message){ wsOpen(message);};
+		webSocket.onmessage = function(message){ wsGetMessage(message);};
+		webSocket.onclose = function(message){ wsClose(message);};
+		webSocket.onerror = function(message){ wsError(message);};
+
+		function wsOpen(message){
+			echoText.value += "Connected ... \n";
+		}
+		function wsSendMessage(){
+			//Message Type: Register, Status: send to Server;; "Command": Send from Server
+			//var sendTo = "{'messageFrom':'ponraj', 'messageTo':'CLOUD', 'messageType':'ADD-MERQ', 'message':message.value}";
+			var sendTo = "{'messageFrom':'Sujitra', 'messageTo':'CLOUD', 'messageType':'ADD-MERQ', 'message':message.value}";
+			webSocket.send(sendTo);
+			echoText.value += "Message sended to the server : " + message.value + "\n";
+			message.value = "";
+		}
+		function wsCloseConnection(){
+			webSocket.close();
+		}
+		function wsGetMessage(message){
+			var response = JSON.parse(message.data)
+			echoText.value += "Message received from to the server : " + response.message + "\n";
+		}
+		function wsClose(message){
+			echoText.value += "Disconnect ... \n";
+		}
+
+		function wserror(message){
+			echoText.value += "Error ... \n";
+		}
+	</script>
+</body>
+</html>
