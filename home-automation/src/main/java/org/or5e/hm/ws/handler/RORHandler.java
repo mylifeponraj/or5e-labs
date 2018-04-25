@@ -1,11 +1,12 @@
-package org.or5e.hm.service;
+package org.or5e.hm.ws.handler;
 
 import javax.websocket.Session;
 
+import org.or5e.core.BaseObject;
 import org.or5e.hm.sm.MasterUnitController;
 import org.or5e.hm.ws.message.Message;
 
-public abstract class RORHandler {
+public abstract class RORHandler extends BaseObject{
 	protected Message message;
 	protected Session session;
 	protected MasterUnitController controller = MasterUnitController.getController();

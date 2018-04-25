@@ -14,7 +14,7 @@ import org.or5e.hm.ws.message.Message;
 
 public class HeartbeatScheduler {
 
-	private Timer time = new Timer();
+	protected Timer time = new Timer();
 	protected MasterUnitController controller;
 	protected Map<String, Object> allUserSessions;
 	protected Message message = new Message();
@@ -28,18 +28,25 @@ public class HeartbeatScheduler {
 		message.setMessageType("HEARTBEATRQ");
 		message.setMessage("Are You Alive!!");
 		HeartBeatEvent hbe = new HeartBeatEvent();
-		time.schedule(hbe, 0, 5000);
+		time.schedule(hbe, 0, 150000);
 	}
 	public static void initilizeHeartBeatSecheduler() {
-		if(scheduler == null) scheduler = new HeartbeatScheduler();
+		if(scheduler == null) {
+			scheduler = new HeartbeatScheduler();
+			Runtime.getRuntime().addShutdownHook(new Thread(() ->  {
+				scheduler.stopTimer();
+			}));
+		}
+	}
+	public void stopTimer() {
+		time.cancel();
+		time.purge();
 	}
 	class HeartBeatEvent extends TimerTask {
 		private List<String> allOnlineUsers;
 		@Override public void run() {
 			allOnlineUsers = controller.getAllOnlineUsers();
-//			System.out.println("Checking for online Users..."+allOnlineUsers.size());
 			for (String user : allOnlineUsers) {
-				System.out.println("Checking for user: "+user);
 				Object object = allUserSessions.get(user);
 				if(object != null) {
 					Session userSession = (Session) object;

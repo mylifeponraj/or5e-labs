@@ -1,4 +1,4 @@
-package org.or5e.hm.service;
+package org.or5e.hm.ws.handler;
 
 import java.io.IOException;
 
@@ -19,8 +19,9 @@ public class UserRegister extends RORHandler {
 	}
 
 	@Override public void handleRequest() { 
-		if(response.getMessageType().equalsIgnoreCase("ADD-ME")) {
+		if(message.getMessageType().equalsIgnoreCase("ADD-MERQ")) {
 			try {
+				debug("Sending response to client..");
 				session.getBasicRemote().sendObject(response);
 			} catch (IOException | EncodeException e) {
 				e.printStackTrace();
@@ -29,5 +30,8 @@ public class UserRegister extends RORHandler {
 			controller.makeUserAvailable(response.getMessageFrom(), session);
 			//TODO Update USER EVENT to DB
 		}
+	}
+	@Override public String getName() {
+		return "org.or5e.hm.service.UserRegister";
 	}
 }

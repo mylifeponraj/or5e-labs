@@ -9,14 +9,37 @@
         This application is designed to server Or5E Labs for its Plugin module and its home Automation...
     </description>
 
-	<servlet>
-		<servlet-name>HelloServlet</servlet-name>
-		<servlet-class>examples.Hello</servlet-class>
-	</servlet>
+	<!-- Spring context loading. -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext*.xml</param-value>
+	</context-param>
 
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Rest Service configuration -->
+	<servlet>
+		<servlet-name>HomeAutomationRest</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>org.or5e.hm.rest</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet-mapping>
-		<servlet-name>HelloServlet</servlet-name>
-		<url-pattern>/hello</url-pattern>
+		<servlet-name>HomeAutomationRest</servlet-name>
+		<url-pattern>/api/v1/*</url-pattern>
 	</servlet-mapping>
+
+	<!-- Spring configuration
+	<servlet>
+		<servlet-name>SpringInitilize</servlet-name>
+		<servlet-class>org.or5e.hm.AppInitilizer</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	 -->
 
 </web-app>

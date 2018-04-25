@@ -3,13 +3,20 @@ package org.or5e.hm.repository;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.or5e.hm.vo.UserMaster;
 
 public class UserMasterRepository extends BaseRepository{
-
+	private static UserMasterRepository _repository = null;
+	private UserMasterRepository() {
+		
+	}
+	public static UserMasterRepository getUserRepository() {
+		if(_repository == null) _repository = new UserMasterRepository();
+		return _repository;
+	}
 	public UserMaster getUser(String userName, String userKey) {
 
 		Session userMasterSession = sessionFactory.openSession();

@@ -1,9 +1,9 @@
-package org.or5e.hm.service;
+package org.or5e.hm.ws.handler;
 
 import java.util.List;
+
 import javax.websocket.Session;
 
-import org.or5e.hm.sm.MasterUnitController;
 import org.or5e.hm.ws.message.Message;
 
 public class HeartbeatHandler extends RORHandler {
@@ -18,5 +18,9 @@ public class HeartbeatHandler extends RORHandler {
 				controller.makeUserAvailable(user, session);
 			}
 		}
+	}
+
+	@Override public String getName() {
+		return "org.or5e.hm.service.HeartbeatHandler";
 	}
 }

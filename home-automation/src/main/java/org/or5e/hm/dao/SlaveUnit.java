@@ -31,7 +31,7 @@ public class SlaveUnit {
 	@Column(name="MasterUnitID")
 	private int masterUnitID;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "SlaveUnitID")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "slaveUnitID")
 	private Set<SensorUnit> sensorList = new HashSet<>(0);
 
 	public int getSlaveUnitID() {

@@ -1,4 +1,4 @@
-package org.or5e.hm.service;
+package org.or5e.hm.ws.handler;
 
 import java.io.IOException;
 
@@ -25,4 +25,7 @@ public class DefaultHandler extends RORHandler {
 		}
 	}
 
+	@Override public String getName() {
+		return "org.or5e.hm.service.DefaultHandler";
+	}
 }

@@ -29,7 +29,7 @@ public class MasterUnitController {
 		}
 	}
 	public void makeUserAvailable(String user, Session session) {
-		makeUserAvailable(user, session);
+		addUser(user, session);
 	}
 	public void makeUserNotAvailable(String user) {
 		removeUser(user);

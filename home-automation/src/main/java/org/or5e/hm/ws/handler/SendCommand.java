@@ -1,4 +1,4 @@
-package org.or5e.hm.service;
+package org.or5e.hm.ws.handler;
 
 import java.io.IOException;
 
@@ -17,5 +17,8 @@ public class SendCommand extends RORHandler {
 		} catch (IOException | EncodeException e) {
 			e.printStackTrace();
 		}
+	}
+	@Override public String getName() {
+		return "org.or5e.hm.service.SendCommand";
 	}
 }
