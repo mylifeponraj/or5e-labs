@@ -18,12 +18,12 @@ public abstract class BaseObject {
 			systemResource = ClassLoader.getSystemResource("application.xml");
 			System.out.println(systemResource);
 			_props.loadFromXML(ClassLoader.getSystemResourceAsStream("application.xml"));
-			Runtime.getRuntime().addShutdownHook(new Thread() {
-				@Override public void run() {
-					System.out.println("Writting Properties Files...");
-					writeProperties();
-				}
-			});
+//			Runtime.getRuntime().addShutdownHook(new Thread() {
+//				@Override public void run() {
+//					System.out.println("Writting Properties Files...");
+//					writeProperties();
+//				}
+//			});
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);

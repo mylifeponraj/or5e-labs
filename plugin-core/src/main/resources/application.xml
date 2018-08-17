@@ -6,8 +6,8 @@
 <entry key="Author">Ponraj Suthanthiramani</entry>
 <entry key="Email">mylife.ponraj@gmail.com</entry>
 <entry key="Version">1.0b</entry>
-<entry key="pluginFolder">D:\02-Application\00-plugin\</entry>
-<entry key="json-settings-file">D:\02-Application\01-config\application-properties.json</entry>
+<entry key="pluginFolder">C:\HOH\00-Application\03-plugin\</entry>
+<entry key="json-settings-file">C:\HOH\00-Application\01-config\application-properties.json</entry>
 <!-- Sync Module Configuration -->
 <entry key="sync-folder-music">D:\02-Application\03-Audio\</entry>
 <entry key="sync-folder-image">D:\02-Application\05-Gallary\</entry>
@@ -30,7 +30,7 @@
 <entry key="comPort">COM10</entry>
 
 <!-- Media Player Module Configuration -->
-<entry key="vlcNative">D:\Program Files\VideoLAN\VLC\</entry>
+<entry key="vlcNative">C:\Program Files\VideoLAN\VLC\</entry>
 
 <!-- Server Module Configurations -->
 <entry key="nettyport">9999</entry>
