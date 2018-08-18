@@ -7,6 +7,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.jar.Attributes;
@@ -16,14 +18,18 @@ import java.util.jar.Manifest;
 import org.or5e.core.BaseObject;
 import org.or5e.core.PluginException;
 import org.or5e.core.filefilter.JarFileFilter;
+import org.or5e.core.plugin.executors.GetAllMainClassForPlugins;
+import org.or5e.core.plugin.executors.LoadAllJarsToClasspath;
+import org.or5e.core.plugin.executors.LoadAllPluginByCallingMainClass;
+import org.or5e.core.plugin.executors.TaskExecute;
 import org.or5e.core.plugin.intent.IntentQueueSPI;
-import org.or5e.core.rawsoc.RawTestServerSocket;
 
 public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 	private URLClassLoader urlClassLoader = null;
 	private Map<String, Plugin> pluginList = null;
 	private static PluginLoaderSPI pluginManagerSPI = null;
+	private List<TaskExecute> taskExecutors = null;
 	static {
 		pluginManagerSPI = new PluginLoaderSPI();
 		System.out.println("Initilizing Plugins...");
@@ -31,8 +37,14 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 	@Override public void initilize() {
 		initilize(null);
 	}
+	@SuppressWarnings("unchecked")
 	@Override public void initilize(PluginEvent event)  throws PluginException{
 		pluginList = new HashMap<>();
+		taskExecutors = new LinkedList<>();
+
+		taskExecutors.add(new LoadAllJarsToClasspath());
+		taskExecutors.add(new GetAllMainClassForPlugins());
+		taskExecutors.add(new LoadAllPluginByCallingMainClass());
 
 		debug("Initilization process of all the plugins is started.");
 
@@ -42,15 +54,18 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 		debug("Getting all the plugins jar file from the plugin folder.");
 		if(event != null) event.complete("Loading all plugins from plugin folder.", 20);
-		File[] listOfPluginJars = getAllJarFilesInPluginFolder();
+		File[] listOfPluginJars = (File[]) taskExecutors.get(0).executeTask(null);
+		//File[] listOfPluginJars = getAllJarFilesInPluginFolder();
 
 		debug("Getting all the main files name from all the jars present in the plugin folder.");
 		if(event != null) event.complete("Getting all the main classes.", 30);
-		Map<URL, String> pluginMainclassMap = getPluginMainClassDetails(listOfPluginJars);
+		Map<URL, String> pluginMainclassMap =  (Map<URL, String>) taskExecutors.get(1).executeTask(listOfPluginJars);
+		//Map<URL, String> pluginMainclassMap = getPluginMainClassDetails(listOfPluginJars);
 
 		debug("Loading all the jar files in the current class loader.");
 		if(event != null) event.complete("Loading all the main classes.", 40);
-		loadAllPluginsInClassloader(pluginMainclassMap);
+		taskExecutors.get(2).executeTask(pluginMainclassMap);
+//		loadAllPluginsInClassloader(pluginMainclassMap);
 
 		debug("Initilizing all the plugins.");
 		if(event != null) event.complete("Initilizing all the main classes.", 80);
@@ -88,48 +103,48 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 		return this.pluginList;
 	}
 
-	private File[] getAllJarFilesInPluginFolder() {
-		File pluginFolder = new File(getProperties("pluginFolder"));
-		debug("Searching plugins in: "+pluginFolder.getAbsolutePath());
-		File[] listOfPluginJars = pluginFolder.listFiles(new JarFileFilter());
-		return listOfPluginJars;
-	}
-
-	@SuppressWarnings("deprecation")
-	private Map<URL, String> getPluginMainClassDetails(File[] listOfPluginJars) {
-		Map<URL, String> pluginMainclassMap = new HashMap<URL, String>(listOfPluginJars.length);
-		for (File pluginJar : listOfPluginJars) {
-			try {
-				JarInputStream jarStream = new JarInputStream(new FileInputStream(pluginJar));
-				Manifest maniFest = jarStream.getManifest();
-				Attributes attributes = maniFest.getMainAttributes();
-				String mainClass = attributes.getValue("main-class");
-				debug("Main Class["+pluginJar.toURL()+"]: "+mainClass);
-				if(mainClass != null) {
-					pluginMainclassMap.put(pluginJar.toURL(), mainClass);
-				}
-				jarStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return pluginMainclassMap;
-	}
-
-	private void loadAllPluginsInClassloader(Map<URL, String> pluginMainclassMap) throws PluginException {
-		Set<URL> urlKeySet = pluginMainclassMap.keySet();
-		URL[] urls = new URL[urlKeySet.size()];
-		int index = 0;
-		for (URL url : urlKeySet) {
-			urls[index++] = url;
-		}
-		if(urlClassLoader == null) {
-			urlClassLoader = new URLClassLoader(urls, this.getClass().getClassLoader());
-		}
-		else {
-			throw new PluginException("Plugin Manager Already Loaded... You cannot Load Two times...");
-		}
-	}
+//	private File[] getAllJarFilesInPluginFolder() {
+//		File pluginFolder = new File(getProperties("pluginFolder"));
+//		debug("Searching plugins in: "+pluginFolder.getAbsolutePath());
+//		File[] listOfPluginJars = pluginFolder.listFiles(new JarFileFilter());
+//		return listOfPluginJars;
+//	}
+//
+//	@SuppressWarnings("deprecation")
+//	private Map<URL, String> getPluginMainClassDetails(File[] listOfPluginJars) {
+//		Map<URL, String> pluginMainclassMap = new HashMap<URL, String>(listOfPluginJars.length);
+//		for (File pluginJar : listOfPluginJars) {
+//			try {
+//				JarInputStream jarStream = new JarInputStream(new FileInputStream(pluginJar));
+//				Manifest maniFest = jarStream.getManifest();
+//				Attributes attributes = maniFest.getMainAttributes();
+//				String mainClass = attributes.getValue("main-class");
+//				debug("Main Class["+pluginJar.toURL()+"]: "+mainClass);
+//				if(mainClass != null) {
+//					pluginMainclassMap.put(pluginJar.toURL(), mainClass);
+//				}
+//				jarStream.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return pluginMainclassMap;
+//	}
+//
+//	private void loadAllPluginsInClassloader(Map<URL, String> pluginMainclassMap) throws PluginException {
+//		Set<URL> urlKeySet = pluginMainclassMap.keySet();
+//		URL[] urls = new URL[urlKeySet.size()];
+//		int index = 0;
+//		for (URL url : urlKeySet) {
+//			urls[index++] = url;
+//		}
+//		if(urlClassLoader == null) {
+//			urlClassLoader = new URLClassLoader(urls, this.getClass().getClassLoader());
+//		}
+//		else {
+//			throw new PluginException("Plugin Manager Already Loaded... You cannot Load Two times...");
+//		}
+//	}
 
 	private void initilizeAndRunAllPlugins(Map<URL, String> pluginMainclassMap) {
 		Set<URL> urlKeySet = pluginMainclassMap.keySet();

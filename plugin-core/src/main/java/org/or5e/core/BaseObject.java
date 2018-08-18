@@ -1,8 +1,9 @@
 package org.or5e.core;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -10,14 +11,16 @@ import org.apache.log4j.Logger;
 public abstract class BaseObject {
 	protected static Properties _props = null;
 	private static FileOutputStream outStream = null;
-	private static URL systemResource = null;
+	private static String rootDrive = null;
+	private static String configFileName = null;
 	private Logger _logger;
 	static {
 		_props = new Properties();
 		try {
-			systemResource = ClassLoader.getSystemResource("application.xml");
-			System.out.println(systemResource);
-			_props.loadFromXML(ClassLoader.getSystemResourceAsStream("application.xml"));
+			rootDrive = Paths.get(".").toAbsolutePath().getRoot().toString()+"000-Application\\09-AppData\\";
+			configFileName = rootDrive+"03-Config\\application.xml";
+			System.out.println("Loading config file: "+configFileName);
+			_props.loadFromXML(new FileInputStream(configFileName));
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				@Override public void run() {
 					System.out.println("Writting Properties Files...");
@@ -58,7 +61,7 @@ public abstract class BaseObject {
 	}
 	public static void writeProperties() {
 		try {
-			outStream = new FileOutputStream(systemResource.getFile());
+			outStream = new FileOutputStream(configFileName);
 			_props.storeToXML(outStream, "Plugin Core Configurations");
 			outStream.flush();
 			outStream.close();
