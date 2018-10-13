@@ -32,12 +32,12 @@ public class ItunesSyncPluginSPI extends PluginLifecycleAdaptor {
 	}
 
 	@Override
-	public void initilize() throws PluginException {
+	public void initilizeService() throws PluginException {
 		info("Itunes Sync Plugin is initilizing....");
 	}
 
 	@Override
-	public void destroy() {
+	public void destroyService() {
 		info("Itunes Sync Plugin is Shutting down....");
 	}
 

@@ -25,7 +25,7 @@ public abstract class PluginLifecycle extends BaseObject implements Plugin {
 					e.printStackTrace();
 				}
 			}
-			destroy();
+			destroyService();
 		}
 	}
 }

@@ -26,7 +26,7 @@ public abstract class MediaPlaylerSPI extends PluginLifecycleAdaptor implements 
 	public Boolean isPlayingPlaylist = Boolean.FALSE;
 	public Boolean isMuted = Boolean.FALSE;
 
-	@Override public void initilize() throws PluginException {
+	@Override public void initilizeService() throws PluginException {
 		this._playlistManager = new JSONPlaylistManager();
 		debug("Loading all the playlist...");
 		this._playlistManager.loadAllPlaylist();

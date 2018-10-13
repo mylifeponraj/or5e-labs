@@ -31,7 +31,7 @@ public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 	}
 
 	@Override
-	public void initilize() throws PluginException {
+	public void initilizeService() throws PluginException {
 		debug("Initilzing Node JS Connector Module...");
 		config.setHostname("localhost");
 		config.setPort(PORT);
@@ -83,9 +83,9 @@ public class NodeJSConnectorAPI extends PluginLifecycleAdaptor {
 	}
 
 	@Override
-	public void destroy() {
+	public void destroyService() {
 		debug("Destroying Node JS Connector Module...");
-		super.destroy();
+		super.destroyService();
 		if(this._serverSocket != null) {
 			this._serverSocket.stop();
 		}

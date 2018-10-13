@@ -41,7 +41,7 @@ public class ArduinoEsploraControlerAPI extends PluginLifecycleAdaptor {
 		return "ArduinoEsplora";
 	}
 
-	@Override public void initilize() throws PluginException { 
+	@Override public void initilizeService() throws PluginException { 
 		eventThatWillBeRaised();
 	}
 	public void eventThatWillBeRaised() {
@@ -103,8 +103,8 @@ public class ArduinoEsploraControlerAPI extends PluginLifecycleAdaptor {
 	@Override public String getName() {
 		return "org.or5e.arduino.ArduinoEsploraControlerAPI";
 	}
-	@Override public void destroy() {
-		super.destroy();
+	@Override public void destroyService() {
+		super.destroyService();
 		debug("Destroying Arduino Esplora.");
 		this.stopFlag = Boolean.TRUE;
 		if (this._serialPort != null) {
@@ -121,7 +121,7 @@ public class ArduinoEsploraControlerAPI extends PluginLifecycleAdaptor {
 			e.printStackTrace();
 		}
 		System.out.println("Plugin is about to Destory");
-		plugin.destroy();
+		plugin.destroyService();
 		System.out.println("Main Exiting...");
 	}
 }

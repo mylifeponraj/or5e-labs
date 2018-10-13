@@ -79,7 +79,7 @@ public class BroadcastSystemStatusAndReceiveJobs extends PluginLifecycleAdaptor 
 		return getName();
 	}
 
-	@Override public void initilize() throws PluginException {
+	@Override public void initilizeService() throws PluginException {
 		
 	}
 
@@ -110,7 +110,7 @@ public class BroadcastSystemStatusAndReceiveJobs extends PluginLifecycleAdaptor 
 
 	
 	@Override
-	public void destroy() {
+	public void destroyService() {
 		this.scheduledFuture.cancel(Boolean.TRUE);
 		this.executorService.shutdown();
 	}
@@ -139,6 +139,6 @@ public class BroadcastSystemStatusAndReceiveJobs extends PluginLifecycleAdaptor 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		_plugin.destroy();
+		_plugin.destroyService();
 	}
 }

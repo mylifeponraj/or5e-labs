@@ -34,7 +34,7 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 		pluginManagerSPI = new PluginLoaderSPI();
 		System.out.println("Initilizing Plugins...");
 	}
-	@Override public void initilize() {
+	@Override public void initilizeService() {
 		initilize(null);
 	}
 	@SuppressWarnings("unchecked")
@@ -87,12 +87,12 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 //		_eventQueue.listenForEventInQueue(new PropertiesEventProcessor(), "add-properties", "get-properties", "delete-properties");
 //	}
 
-	@Override public void destroy() {
+	@Override public void destroyService() {
 		debug("Destroy plugin loader.");
 		if(pluginList != null) {
 			Set<String> plugins = pluginList.keySet();
 			for (String plugin : plugins) {
-				pluginList.get(plugin).destroy();
+				pluginList.get(plugin).destroyService();
 			}
 		}
 		debug("Destroy Intent Queue.");
@@ -183,13 +183,13 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
 	public static void main(String[] args) throws PluginException{
 		PluginLoaderSPI spi = PluginLoaderSPI.getPluginManager();
-		spi.initilize();
+		spi.initilizeService();
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		spi.destroy();
+		spi.destroyService();
 	}
 	@Override public String getName() {
 		return "PluginManagerSPI";

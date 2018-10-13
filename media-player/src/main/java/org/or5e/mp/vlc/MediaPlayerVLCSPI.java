@@ -34,8 +34,8 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		return "MediaPlayer";
 	}
 
-	@Override public void initilize() throws PluginException {
-		super.initilize();
+	@Override public void initilizeService() throws PluginException {
+		super.initilizeService();
 		initilizePlayer();
 		initilizeEvents();
 	}
@@ -45,14 +45,14 @@ public class MediaPlayerVLCSPI extends MediaPlaylerSPI{
 		super.doProcess();
 	}
 	
-	@Override public void destroy() {
+	@Override public void destroyService() {
 		if(isDestroyed) {
 			debug("Plugin "+getName()+" is already destroyed.");
 			return;
 		}
 		isDestroyed = Boolean.TRUE;
 		info("Destroying the VLC Media Player SPI");
-		super.destroy();
+		super.destroyService();
 		if(this.vlcMediaPlayer.isPlaying()) {
 			info("Stopping the current audio played");
 			this.vlcMediaPlayer.stop();

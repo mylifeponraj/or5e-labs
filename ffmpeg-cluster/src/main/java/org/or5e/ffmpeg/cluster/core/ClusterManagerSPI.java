@@ -44,12 +44,12 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 		return "FFMPEGClusterManager";
 	}
 
-	@Override public void initilize() throws PluginException {
+	@Override public void initilizeService() throws PluginException {
 	}
 	@Override public void doProcess() throws PluginException {
 		startListeningToCluster();
 	}
-	@Override public void destroy() {
+	@Override public void destroyService() {
 		shutdownCluster();
 	}
 
@@ -165,7 +165,7 @@ public class ClusterManagerSPI extends PluginLifecycleAdaptor implements Cluster
 			e.printStackTrace();
 		}
 		System.out.println("Plugin is about to Destory");
-		plugin.destroy();
+		plugin.destroyService();
 		System.out.println("Main Exiting...");
 	}
 }

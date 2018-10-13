@@ -10,12 +10,12 @@ public class ScanFolderServiceImpl extends PluginLifecycleAdaptor implements Sca
 	private static Boolean _isServiceRunning = Boolean.FALSE;
 
 	@Override
-	public void initilize() throws PluginException {
+	public void initilizeService() throws PluginException {
 		info("Plugin is initilizing....");
 	}
 
 	@Override
-	public void destroy() {
+	public void destroyService() {
 		info("Plugin is Shutting down....");
 	}
 

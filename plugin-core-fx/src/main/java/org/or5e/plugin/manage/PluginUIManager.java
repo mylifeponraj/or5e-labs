@@ -36,6 +36,6 @@ public class PluginUIManager extends BaseObject {
 		return "org.or5e.plugin.manage.PluginUIManager";
 	}
 	public void destroy() {
-		this.pluginSPI.destroy();
+		this.pluginSPI.destroyService();
 	}
 }

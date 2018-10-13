@@ -9,7 +9,7 @@ public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
 	@Override public void startPlugin() {
 		if(!isProcessing()) {
 			setIsProcessing(Boolean.TRUE);
-			initilize();
+			initilizeService();
 		
 			ExecutorService executorService = Executors.newSingleThreadExecutor();
 			executorService.execute(new Runnable() {
@@ -29,5 +29,5 @@ public abstract class PluginLifecycleAdaptor extends PluginLifecycle {
 
 	@Override public void doProcess() { }
 //	@Override public Object processRequestFromStream(String message) {return null;}
-	@Override public void destroy() {}
+	@Override public void destroyService() {}
 }

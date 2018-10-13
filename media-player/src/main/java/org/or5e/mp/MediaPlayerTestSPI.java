@@ -31,7 +31,7 @@ public class MediaPlayerTestSPI extends PluginLifecycleAdaptor{
 		return getName();
 	}
 
-	@Override public void initilize() throws PluginException {
+	@Override public void initilizeService() throws PluginException {
 	}
 
 	
