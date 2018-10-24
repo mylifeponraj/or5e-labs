@@ -10,6 +10,7 @@ import org.or5e.plugin.fs.filters.VideoFileNameFilter;
 public class ScanFolderHelper extends BaseObject {
 	public static void scanVideoAndCreatePlaylist(File videoFolder) {
 		File[] listOfFilesAndFolder = videoFolder.listFiles(new VideoFileNameFilter());
+		
 		for (File fileOrFolder : listOfFilesAndFolder) {
 			if (fileOrFolder.isDirectory()) {
 				scanVideoAndCreatePlaylist(fileOrFolder);

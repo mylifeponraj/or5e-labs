@@ -1,55 +1,69 @@
 package org.or5e.core.service.v1;
 
+import static spark.Spark.get;
+import static spark.Spark.post;
+
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.options;
-import static spark.Spark.before;
-
-import org.or5e.core.BaseObject;
+import org.or5e.core.PluginException;
 
 import spark.Request;
 import spark.Response;
 import spark.ResponseTransformer;
 import spark.Route;
 
-public class RestServiceSPI extends BaseObject implements RestServiceV1 {
+public class RestServiceSPI extends PluginWithRestServiceAdaptor implements RestServiceV1 {
 	private static RestServiceSPI _service;
 	static {
 		_service = new RestServiceSPI();
 	}
 	private ResponseTransformer transformer = new JsonResponseTransformer();
-
-	private RestServiceSPI() {
-	}
+	private RestServiceSPI() {}
 
 	public static RestServiceSPI getRestService() {
 		return _service;
 	}
 
-	public void initilizeAllServices() {
-		options("/*", (request, response) -> {
+	@Override public String getName() {
+		return "org.or5e.core.service.v1.RestServiceV1";
+	}
 
-			String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
-			if (accessControlRequestHeaders != null) {
-				response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
-			}
+	@Override public Map<String, String> getAllProperties() {
+		Map<String, String> returnData = new HashMap<>();
+		Properties prop = getAllPropertiesFromFile();
+		Set<Object> keySet = prop.keySet();
+		for (Object keyObj : keySet) {
+			String key = (String) keyObj;
+			returnData.put(key, prop.getProperty(key));
+		}
+		return returnData;
+	}
 
-			String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
-			if (accessControlRequestMethod != null) {
-				response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
-			}
+	@Override public Boolean addProperty(String key, String value) {
+		setProperties(key, value);
+		writeProperties();
+		return Boolean.TRUE;
+	}
 
-			return "OK";
-		});
+	@Override public Boolean updateProperty(String key, String value) {
+		String propValue = getProperties(key);
+		if (propValue != null) {
+			setProperties(key, value);
+			writeProperties();
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
 
-		before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+	public static void main(String[] args) {
+		RestServiceSPI.getRestService().initilizeService();
+	}
+
+	@Override public void initilizeService() {
 		get("/getAllProperties", (req, res) -> {
 			res.type("application/json");
 			Map<String, String> allProperties = getAllProperties();
@@ -83,41 +97,11 @@ public class RestServiceSPI extends BaseObject implements RestServiceV1 {
 	}
 
 	@Override
-	public String getName() {
-		return "org.or5e.core.service.v1.RestServiceV1";
+	public String getPluginID() {
+		return getName();
 	}
 
-	@Override
-	public Map<String, String> getAllProperties() {
-		Map<String, String> returnData = new HashMap<>();
-		Properties prop = getAllPropertiesFromFile();
-		Set<Object> keySet = prop.keySet();
-		for (Object keyObj : keySet) {
-			String key = (String) keyObj;
-			returnData.put(key, prop.getProperty(key));
-		}
-		return returnData;
-	}
-
-	@Override
-	public Boolean addProperty(String key, String value) {
-		setProperties(key, value);
-		writeProperties();
-		return Boolean.TRUE;
-	}
-
-	@Override
-	public Boolean updateProperty(String key, String value) {
-		String propValue = getProperties(key);
-		if (propValue != null) {
-			setProperties(key, value);
-			writeProperties();
-			return Boolean.TRUE;
-		}
-		return Boolean.FALSE;
-	}
-
-	public static void main(String[] args) {
-		RestServiceSPI.getRestService().initilizeAllServices();
+	@Override public void initilize() throws PluginException {
+		
 	}
 }

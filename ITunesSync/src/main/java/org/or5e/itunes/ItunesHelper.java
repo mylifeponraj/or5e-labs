@@ -46,6 +46,9 @@ public class ItunesHelper extends BaseObject{
 							org.or5e.itunes.jaxb.binding.String songLocation = (org.or5e.itunes.jaxb.binding.String)trackDetailsIterator.next();
 							music.addFields("trackLocation", songLocation);
 							info("Adding Song: "+songLocation.getvalue());
+						case "Size":
+							org.or5e.itunes.jaxb.binding.String songDuration = (org.or5e.itunes.jaxb.binding.String)trackDetailsIterator.next();
+							music.addFields("trackDuration", songDuration);
 						}
 					}
 				}

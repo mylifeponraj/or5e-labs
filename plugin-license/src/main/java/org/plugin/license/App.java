@@ -9,7 +9,8 @@ import com.google.common.hash.Hashing;
 public class App {
 
 	public static void main(String[] args) {
-		String userName = "Ponraj Suthanthiramani";
+		//String userName = "Ponraj Suthanthiramani";
+		String userName = "mylife.ponraj@gmail.com";
 		String productKey = "ARDUINO-UNO";
 		String versionNumber = "1";
 

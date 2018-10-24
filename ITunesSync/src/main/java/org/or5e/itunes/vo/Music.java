@@ -2,10 +2,17 @@ package org.or5e.itunes.vo;
 
 public class Music {
 	public Integer trackID = null;
+	public String trackDuration = null;
 	public String trackName = null;
 	public String trackLocation = null;
 	public Integer getTrackID() {
 		return trackID;
+	}
+	public String getTrackDuration() {
+		return trackDuration;
+	}
+	public void setTrackDuration(String trackDuration) {
+		this.trackDuration = trackDuration;
 	}
 	public void setTrackID(Integer trackID) {
 		this.trackID = trackID;
@@ -32,6 +39,11 @@ public class Music {
 			break;
 		case "trackLocation":
 			this.trackLocation = ((org.or5e.itunes.jaxb.binding.String)value).getvalue();
+		case "trackDuration":
+			this.trackDuration = ((org.or5e.itunes.jaxb.binding.String)value).getvalue();
 		}
+	}
+	@Override public String toString() {
+		return "#EXTINF:"+trackDuration+","+trackName+"\n"+trackLocation+"\n";
 	}
 }
