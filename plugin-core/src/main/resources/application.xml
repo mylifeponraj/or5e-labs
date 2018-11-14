@@ -37,4 +37,15 @@
 
 <!-- Node JS Connector Configuration -->
 <entry key="nodeServerPort">1234</entry>
+
+<!-- Spark Server Connector Configuration -->
+<entry key="sparkStaticPath">D:\000-Application\09-AppData\05-www\</entry>
+
+<!-- DB Configuration -->
+<entry key="dataSource">org.postgresql.ds.PGPoolingDataSource</entry>
+<entry key="dbServer">localhost</entry>
+<entry key="dbUsername">postgres</entry>
+<entry key="dbPassword">Welcome123#</entry>
+<entry key="database">HOME_AUTOMATION</entry>
+<entry key="maxConnection">10</entry>
 </properties>

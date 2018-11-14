@@ -18,6 +18,4 @@ public class AppInitilizer extends HttpServlet {
 		_context.register(HibernateConfiguration.class);
 		_context.register(ApplicationConfiguration.class);
 	}
-    
- 
 }

@@ -7,14 +7,13 @@
     <artifactId>or5e-labs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>or5e-labs</groupId>
+  <groupId>plugin-cloud-server</groupId>
   <artifactId>plugin-cloud-server</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>plugin-cloud-server Jersey Webapp</name>
   <properties>
     <glassfish.version>3.1.1</glassfish.version>
-    <jersey.version>1.20-SNAPSHOT</jersey.version>
+    <jersey.version>1.19.4</jersey.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>

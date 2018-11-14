@@ -4,12 +4,16 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.or5e.core.PluginException;
+import org.or5e.core.ds.ExpenceManager;
+import org.or5e.core.ds.vo.ExpenceType;
+import org.or5e.core.plugin.Plugin;
+import org.or5e.core.plugin.PluginWithRestServiceAdaptor;
 
 import spark.Request;
 import spark.Response;
@@ -94,14 +98,15 @@ public class RestServiceSPI extends PluginWithRestServiceAdaptor implements Rest
 				return "{'admin':'admin', 'pwd':'abcd1234'}";
 			}
 		});
-	}
+		get("/getAllExpenceType", (req, res) -> {
+			res.type("application/json");
+			ExpenceManager em = new ExpenceManager();
+			List<ExpenceType> expenceType = em.getExpenceType();
+			return expenceType;
+		}, transformer);
 
-	@Override
-	public String getPluginID() {
+	}
+	@Override public String getPluginID() {
 		return getName();
-	}
-
-	@Override public void initilize() throws PluginException {
-		
 	}
 }
