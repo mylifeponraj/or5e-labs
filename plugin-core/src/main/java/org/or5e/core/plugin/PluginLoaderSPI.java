@@ -1,7 +1,6 @@
 package org.or5e.core.plugin;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -11,18 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.Attributes;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
+import static spark.Spark.stop;
 
 import org.or5e.core.BaseObject;
 import org.or5e.core.PluginException;
-import org.or5e.core.filefilter.JarFileFilter;
 import org.or5e.core.plugin.executors.GetAllMainClassForPlugins;
 import org.or5e.core.plugin.executors.LoadAllJarsToClasspath;
 import org.or5e.core.plugin.executors.LoadAllPluginByCallingMainClass;
 import org.or5e.core.plugin.executors.TaskExecute;
 import org.or5e.core.plugin.intent.IntentQueueSPI;
+import org.or5e.core.service.v1.RestServiceSPI;
 
 public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 
@@ -51,6 +48,9 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 		debug("Initilizing event queue for properties.");
 		if(event != null) event.complete("Initilizing all Queue.", 10);
 		initilizeEventQueue();
+
+		debug("Initilizing the default Plugins.");
+		initilizeDefaultServices();
 
 		debug("Getting all the plugins jar file from the plugin folder.");
 		if(event != null) event.complete("Loading all plugins from plugin folder.", 20);
@@ -94,6 +94,7 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 			for (String plugin : plugins) {
 				pluginList.get(plugin).destroyService();
 			}
+			stop();
 		}
 		debug("Destroy Intent Queue.");
 		IntentQueueSPI.getIntentQueue().stopIntentQueue();
@@ -146,6 +147,11 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 //		}
 //	}
 
+	private void initilizeDefaultServices() {
+		RestServiceSPI plugin = RestServiceSPI.getRestService();
+		plugin.initilizeService();
+		
+	}
 	private void initilizeAndRunAllPlugins(Map<URL, String> pluginMainclassMap) {
 		Set<URL> urlKeySet = pluginMainclassMap.keySet();
 		for (URL pluginURL : urlKeySet) {
@@ -185,8 +191,9 @@ public class PluginLoaderSPI extends BaseObject implements PluginLoader {
 		PluginLoaderSPI spi = PluginLoaderSPI.getPluginManager();
 		spi.initilizeService();
 		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
+			System.out.println("Enter any key to end: ");
+			System.in.read();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		spi.destroyService();

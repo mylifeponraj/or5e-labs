@@ -1,8 +1,11 @@
 package org.or5e.core.service.v1;
 
+import static spark.Spark.before;
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.post;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +13,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.or5e.core.BaseObject;
 import org.or5e.core.ds.ExpenceManager;
 import org.or5e.core.ds.vo.ExpenceType;
 import org.or5e.core.plugin.Plugin;
@@ -20,7 +24,7 @@ import spark.Response;
 import spark.ResponseTransformer;
 import spark.Route;
 
-public class RestServiceSPI extends PluginWithRestServiceAdaptor implements RestServiceV1 {
+public class RestServiceSPI extends BaseObject implements RestServiceV1 {
 	private static RestServiceSPI _service;
 	static {
 		_service = new RestServiceSPI();
@@ -63,11 +67,33 @@ public class RestServiceSPI extends PluginWithRestServiceAdaptor implements Rest
 		return Boolean.FALSE;
 	}
 
-	public static void main(String[] args) {
-		RestServiceSPI.getRestService().initilizeService();
+	public static void main(String[] args) throws InterruptedException{
+		RestServiceSPI plugin = RestServiceSPI.getRestService();
+		plugin.initilizeService();
+		Thread.sleep(10000);
 	}
 
-	@Override public void initilizeService() {
+	public void initilizeService() {
+		options("/*", (request, response) -> {
+	        String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+	        if (accessControlRequestHeaders != null) {
+	            response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+	        }
+
+	        String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+	        if (accessControlRequestMethod != null) {
+	            response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+	        }
+
+	        return "OK";
+	    });
+
+	    before((request, response) -> {
+	        response.header("Access-Control-Allow-Origin", "*");
+	        response.header("Access-Control-Request-Method", "*");
+	        response.header("Access-Control-Allow-Headers", "*");
+	    });
+	    debug("Starting Serivce: getAllProperties");
 		get("/getAllProperties", (req, res) -> {
 			res.type("application/json");
 			Map<String, String> allProperties = getAllProperties();
@@ -75,6 +101,7 @@ public class RestServiceSPI extends PluginWithRestServiceAdaptor implements Rest
 			return allProperties;
 		}, transformer);
 
+		debug("Starting Serivce: addProp");
 		post("/addProp/*", new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
@@ -98,6 +125,9 @@ public class RestServiceSPI extends PluginWithRestServiceAdaptor implements Rest
 				return "{'admin':'admin', 'pwd':'abcd1234'}";
 			}
 		});
+
+
+		debug("Starting Serivce: getAllExpenceType");
 		get("/getAllExpenceType", (req, res) -> {
 			res.type("application/json");
 			ExpenceManager em = new ExpenceManager();
@@ -105,8 +135,5 @@ public class RestServiceSPI extends PluginWithRestServiceAdaptor implements Rest
 			return expenceType;
 		}, transformer);
 
-	}
-	@Override public String getPluginID() {
-		return getName();
 	}
 }

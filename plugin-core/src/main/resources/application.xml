@@ -6,31 +6,32 @@
 <entry key="Author">Ponraj Suthanthiramani</entry>
 <entry key="Email">mylife.ponraj@gmail.com</entry>
 <entry key="Version">1.0b</entry>
-<entry key="pluginFolder">C:\HOH\00-Application\03-plugin\</entry>
+<entry key="pluginFolder">D:\000-Application\09-AppData\01-Plugin\</entry>
 <entry key="json-settings-file">C:\HOH\00-Application\01-config\application-properties.json</entry>
 <!-- Sync Module Configuration -->
-<entry key="sync-folder-music">D:\02-Application\03-Audio\</entry>
-<entry key="sync-folder-image">D:\02-Application\05-Gallary\</entry>
-<entry key="sync-folder-video">D:\02-Application\04-Video\</entry>
+<entry key="sync-folder-music">D:\000-Application\09-AppData\00-Storage\00-Songs\</entry>
+<entry key="sync-folder-image">D:\000-Application\09-AppData\00-Storage\02-Gallary\</entry>
+<entry key="sync-folder-video">D:\000-Application\09-AppData\00-Storage\01-Videos\</entry>
 
 
 <!-- ITunes Sync Module Configuration -->
-<entry key="audio-folder-name">C:\HOH\00-Application\07-Sync\Songs\</entry>
-<entry key="video-folder-name">C:\HOH\00-Application\07-Sync\Itunes Media\Podcasts\</entry>
-<entry key="itunes-xml">D:\02-Application\playlistt\iTunes Music Library.xml</entry>
-<entry key="playlist-path">D:\02-Application\playlist\</entry>
+<entry key="audio-folder-name">D:\000-Application\09-AppData\00-Storage\00-Songs\</entry>
+<entry key="video-folder-name">D:\000-Application\09-AppData\00-Storage\04-Podcasts\</entry>
+<entry key="itunes-xml">D:\000-Application\09-AppData\03-Config\iTunes Music Library.xml</entry>
+<entry key="playlist-path">D:\000-Application\09-AppData\02-Playlist\</entry>
 
 <!-- FFMPEG Module Configuration -->
-<entry key="ffmpeg">D:\02-Application\06-ffmpeg\bin\ffmpeg.exe</entry>
-<entry key="ffmpegprobe">D:\02-Application\06-ffmpeg\bin\ffprobe.exe</entry>
+<entry key="ffmpeg">D:\000-Application\08-Ffmpeg\bin\ffmpeg.exe</entry>
+<entry key="ffmpegprobe">D:\000-Application\08-Ffmpeg\bin\ffprobe.exe</entry>
 <entry key="ffmpegClusterMulticastAddress">224.0.0.3</entry>
 <entry key="ffmpegClusterMulticastPort">8888</entry>
 
 <!-- Arudino Module Configuration -->
 <entry key="comPort">COM10</entry>
 
-<!-- Media Player Module Configuration -->
+<!-- Media Player Module Configuration 
 <entry key="vlcNative">C:\Program Files\VideoLAN\VLC\</entry>
+-->
 
 <!-- Server Module Configurations -->
 <entry key="nettyport">9999</entry>
@@ -40,6 +41,9 @@
 
 <!-- Spark Server Connector Configuration -->
 <entry key="sparkStaticPath">D:\000-Application\09-AppData\05-www\</entry>
+<entry key="spark.minThread">2</entry>
+<entry key="spark.maxThread">8</entry>
+<entry key="spark.port">1234</entry>
 
 <!-- DB Configuration -->
 <entry key="dataSource">org.postgresql.ds.PGPoolingDataSource</entry>

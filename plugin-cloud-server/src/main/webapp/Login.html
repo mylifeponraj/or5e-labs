@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IAMITN Application</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
+<!-- jQuery library -->
+<script src="js/jquery-3.3.1.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<form action="login.do" method="post">
+			<div class="form-group">
+				<label for="email">UserID:</label> <input type="text"
+					class="form-control" id="userID" name="userID">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password:</label> <input type="password"
+					class="form-control" id="userKey" name="userKey">
+			</div>
+			<div class="form-group form-check">
+				<label class="form-check-label"> <input
+					class="form-check-input" type="checkbox"> Remember me
+				</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+</body>
+</html>
