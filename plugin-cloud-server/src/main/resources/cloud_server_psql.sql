@@ -164,8 +164,8 @@ drop table sensorstatus;
 drop table sensorunit;
 drop table slaveunit;
 drop table masterunitcontroller;
+drop table fin_fd_master;
 drop table usermaster;
-drop table fin_fd_details;
 
 drop sequence exp_his_details_seq;
 drop sequence exp_details_seq;
