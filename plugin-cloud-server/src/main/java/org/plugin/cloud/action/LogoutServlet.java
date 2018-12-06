@@ -17,9 +17,13 @@ public class LogoutServlet extends HttpServlet{
 		ck.setMaxAge(0);
 		Cookie ck1=new Cookie("userType","");
 		ck1.setMaxAge(0);
+		Cookie ck2=new Cookie("userDisplayName","");
+		ck2.setMaxAge(0);
 		
 		response.addCookie(ck);
 		response.addCookie(ck1);
+		response.addCookie(ck2);
+
 		request.getRequestDispatcher("Login.html?message=LoginFailed").include(request, response);
 	}
 

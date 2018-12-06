@@ -1,6 +1,12 @@
 <html lang="en">
 <head>
 
+<%
+if(session.getAttribute("userDisplayName") == null) {
+	response.sendRedirect("login.do");
+}
+%>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IAMITN Application</title>

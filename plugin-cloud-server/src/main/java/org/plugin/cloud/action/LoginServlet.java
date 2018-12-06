@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userName", validUser.getUserName());
 			session.setAttribute("userDisplayName", validUser.getDisplayName());
 			Cookie userIDCookie = new Cookie("userID",validUser.getUserName());
-			Cookie userDisplayCookie = new Cookie("userDisplayName",validUser.getDisplayName().replaceAll(" ", "_"));
+			Cookie userDisplayCookie = new Cookie("userDisplayName",(validUser.getDisplayName() != null)? validUser.getDisplayName().replaceAll(" ", "_"):"");
 			Cookie userTypeCookie = new Cookie("userType",validUser.getUserType());
 			response.addCookie(userTypeCookie);
 			response.addCookie(userIDCookie);

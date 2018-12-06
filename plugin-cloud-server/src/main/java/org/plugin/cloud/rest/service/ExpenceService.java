@@ -1,4 +1,4 @@
-package org.plugin.cloud.server;
+package org.plugin.cloud.rest.service;
 
 import java.util.List;
 

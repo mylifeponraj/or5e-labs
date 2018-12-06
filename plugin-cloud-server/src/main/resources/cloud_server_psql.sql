@@ -98,7 +98,7 @@ create table masterunitmessage (
   foreign key (masterunitid) references masterunitcontroller(masterunitid)
 );
 
-create table fin_fd_master (
+create table finfdmaster (
   fd_id integer default nextval('fd_details_seq'),
   fd_number varchar(50) not null,
   fd_date timestamp,
@@ -164,7 +164,7 @@ drop table sensorstatus;
 drop table sensorunit;
 drop table slaveunit;
 drop table masterunitcontroller;
-drop table fin_fd_master;
+drop table finfdmaster;
 drop table usermaster;
 
 drop sequence exp_his_details_seq;

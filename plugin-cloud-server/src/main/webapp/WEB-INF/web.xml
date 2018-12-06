@@ -23,7 +23,7 @@
 		<!-- Register resources and providers -->
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>org.plugin.cloud.server</param-value>
+			<param-value>org.plugin.cloud.rest.service</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

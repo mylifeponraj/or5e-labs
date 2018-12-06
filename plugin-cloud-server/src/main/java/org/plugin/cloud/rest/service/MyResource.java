@@ -1,5 +1,5 @@
 
-package org.plugin.cloud.server;
+package org.plugin.cloud.rest.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
