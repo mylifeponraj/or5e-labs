@@ -21,13 +21,18 @@ public class LoginServlet extends HttpServlet {
 
 	@Autowired
 	UserMasterDAOImpl userMasterDAOImpl;
-	@Override public void init(ServletConfig config) throws ServletException {
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		userMasterDAOImpl = (UserMasterDAOImpl)webApplicationContext.getBean("userMasterDAOImpl");
+		WebApplicationContext webApplicationContext = WebApplicationContextUtils
+				.getWebApplicationContext(getServletContext());
+		userMasterDAOImpl = (UserMasterDAOImpl) webApplicationContext.getBean("userMasterDAOImpl");
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		response.setContentType("text/html");
 
 		String name = request.getParameter("userID");
@@ -38,13 +43,14 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userID", validUser.getUserID());
 			session.setAttribute("userName", validUser.getUserName());
 			session.setAttribute("userDisplayName", validUser.getDisplayName());
-			Cookie userIDCookie = new Cookie("userID",validUser.getUserName());
-			Cookie userDisplayCookie = new Cookie("userDisplayName",(validUser.getDisplayName() != null)? validUser.getDisplayName().replaceAll(" ", "_"):"");
-			Cookie userTypeCookie = new Cookie("userType",validUser.getUserType());
+			Cookie userIDCookie = new Cookie("userID", validUser.getUserName());
+			Cookie userDisplayCookie = new Cookie("userDisplayName",
+					(validUser.getDisplayName() != null) ? validUser.getDisplayName().replaceAll(" ", "_") : "");
+			Cookie userTypeCookie = new Cookie("userType", validUser.getUserType());
 			response.addCookie(userTypeCookie);
 			response.addCookie(userIDCookie);
 			response.addCookie(userDisplayCookie);
-			//request.getRequestDispatcher("index.jsp").include(request, response);
+			// request.getRequestDispatcher("index.jsp").include(request, response);
 			response.sendRedirect("index.jsp");
 		} else {
 			request.getRequestDispatcher("login.html?message=LoginFailed").include(request, response);

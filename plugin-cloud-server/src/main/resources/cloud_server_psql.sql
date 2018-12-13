@@ -107,6 +107,7 @@ create table finfdmaster (
   fd_userid integer not null,
   fd_maturity_amt integer not null,
   fd_maturity_date timestamp not null,
+  fd_status varchar(1) default '1',
   primary key (fd_id),
   foreign key (fd_userid) references usermaster(userid)
 );

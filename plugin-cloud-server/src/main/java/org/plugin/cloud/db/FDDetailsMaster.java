@@ -11,6 +11,14 @@ public class FDDetailsMaster {
 	private Integer fdUserID;
 	private Integer fdMaturityAmount;
 	private Timestamp fdMaturityDate;
+	private String fdStatus;
+	
+	public String getFdStatus() {
+		return fdStatus;
+	}
+	public void setFdStatus(String fdStatus) {
+		this.fdStatus = fdStatus;
+	}
 	public Integer getFdID() {
 		return fdID;
 	}

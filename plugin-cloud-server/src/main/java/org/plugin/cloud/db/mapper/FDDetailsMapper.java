@@ -18,6 +18,7 @@ public class FDDetailsMapper implements RowMapper<FDDetailsMaster>{
 		fdMaster.setFdName(rs.getString("fd_name"));
 		fdMaster.setFdNumber(rs.getString("fd_number"));
 		fdMaster.setFdUserID(rs.getInt("fd_userid"));
+		fdMaster.setFdStatus(rs.getString("fd_status"));
 		return fdMaster;
 	}
 }
