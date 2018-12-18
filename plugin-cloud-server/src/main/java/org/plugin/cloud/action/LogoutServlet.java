@@ -24,7 +24,7 @@ public class LogoutServlet extends HttpServlet{
 		response.addCookie(ck1);
 		response.addCookie(ck2);
 
-		request.getRequestDispatcher("Login.html?message=LoginFailed").include(request, response);
+		request.getRequestDispatcher("login.html?message=LoginFailed").include(request, response);
 	}
 
 	

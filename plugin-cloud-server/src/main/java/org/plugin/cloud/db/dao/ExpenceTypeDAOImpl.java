@@ -11,14 +11,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("expenceTypeDAOImpl")
-public class ExpenceTypeDAOImpl implements ExpenceTypeDAO{
+public class ExpenceTypeDAOImpl implements ExpenceTypeDAO, ExpencesQueries{
 	
 	public JdbcTemplate jdbcTemplate;
 	
-	private final String GET_ALL_EXP_TYPE = "select * from expence_type";
-	private final String DEACTIVATE_EXP_TYPE = "update expence_type set exp_status='N' where exp_id=?";
-	private final String ACTIVATE_EXP_TYPE = "update expence_type set exp_status='Y' where exp_id=?";
-
 	@Autowired
 	public ExpenceTypeDAOImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);

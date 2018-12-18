@@ -8,6 +8,14 @@ public class FDDetails {
 	public String fdMatDate;
 	public String fdMatAmt;
 	public String userID;
+	public String rateOfInterest;
+	
+	public String getRateOfInterest() {
+		return rateOfInterest;
+	}
+	public void setRateOfInterest(String rateOfInterest) {
+		this.rateOfInterest = rateOfInterest;
+	}
 	public String getFdNumber() {
 		return fdNumber;
 	}

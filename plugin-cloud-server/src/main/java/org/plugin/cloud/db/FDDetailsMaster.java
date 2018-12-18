@@ -1,16 +1,19 @@
 package org.plugin.cloud.db;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FDDetailsMaster {
 	private Integer fdID;
 	private String fdName;
 	private String fdNumber;
 	private Integer fdAmount;
-	private Timestamp fdDepositDate;
+	private String fdDepositDate;
 	private Integer fdUserID;
 	private Integer fdMaturityAmount;
-	private Timestamp fdMaturityDate;
+	private String fdMaturityDate;
 	private String fdStatus;
 	
 	public String getFdStatus() {
@@ -43,11 +46,12 @@ public class FDDetailsMaster {
 	public void setFdAmount(Integer fdAmount) {
 		this.fdAmount = fdAmount;
 	}
-	public Timestamp getFdDepositDate() {
+	public String getFdDepositDate() {
 		return fdDepositDate;
 	}
-	public void setFdDepositDate(Timestamp fdDepositDate) {
-		this.fdDepositDate = fdDepositDate;
+	public void setFdDepositDate(Date fdDepositDate) {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		this.fdDepositDate = dateFormat.format(fdDepositDate);
 	}
 	public Integer getFdUserID() {
 		return fdUserID;
@@ -61,10 +65,11 @@ public class FDDetailsMaster {
 	public void setFdMaturityAmount(Integer fdMaturityAmount) {
 		this.fdMaturityAmount = fdMaturityAmount;
 	}
-	public Timestamp getFdMaturityDate() {
+	public String getFdMaturityDate() {
 		return fdMaturityDate;
 	}
-	public void setFdMaturityDate(Timestamp fdMaturityDate) {
-		this.fdMaturityDate = fdMaturityDate;
+	public void setFdMaturityDate(Date fdMaturityDate) {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		this.fdMaturityDate = dateFormat.format(fdMaturityDate);
 	}
 }

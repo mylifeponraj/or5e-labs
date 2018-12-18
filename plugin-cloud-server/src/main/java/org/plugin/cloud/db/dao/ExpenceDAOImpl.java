@@ -30,7 +30,7 @@ public class ExpenceDAOImpl implements ExpenceDAO {
 		return jdbcTemplate.query(GET_ALL_FD, new FDDetailsMapper(), Integer.parseInt(userID));
 	}
 	@Override public Boolean createFDRecord(FDDetails fdDetails) {
-		int updateStatus = jdbcTemplate.update(INSERT_FD, Integer.parseInt(fdDetails.getFdNumber()), fdDetails.getFdName(), fdDetails.getFdDepDate(), Integer.parseInt(fdDetails.getFdDepAmt()), fdDetails.getFdMatDate(), Integer.parseInt(fdDetails.getFdMatAmt()), Integer.parseInt(fdDetails.getUserID()));
+		int updateStatus = jdbcTemplate.update(INSERT_FD, fdDetails.getFdNumber(), fdDetails.getFdName(), fdDetails.getFdDepDate(), Integer.parseInt(fdDetails.getFdDepAmt()), fdDetails.getFdMatDate(), Integer.parseInt(fdDetails.getFdMatAmt()), Integer.parseInt(fdDetails.getUserID()));
 		return (updateStatus>1);
 	}
 	@Override

@@ -35,7 +35,7 @@ public class ExpenceService {
         return (allExpenceType != null) ? Response.status(200).entity(allExpenceType).build():Response.status(200).entity(new Error("Expence Service Failed.")).build();
     }
 	@POST
-	@Path("addExpence")
+	@Path("/addExpence")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addExpences(Expences exp) {
@@ -46,7 +46,7 @@ public class ExpenceService {
 	}
 
 	@POST
-	@Path("addFD")
+	@Path("/addFD")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addFD(FDDetails fdDetails) {
@@ -57,7 +57,7 @@ public class ExpenceService {
 	}
 
 	@GET
-	@Path("getFDetails/{userID}")
+	@Path("/getFDetails/{userID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFDDetails(@PathParam("userID") String userID) {
@@ -72,7 +72,7 @@ public class ExpenceService {
 		}
 	}
 	@GET
-	@Path("getAllExpences/{userID}")
+	@Path("/getAllExpences/{userID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllExpenceDetails(@PathParam("userID") String userID) {

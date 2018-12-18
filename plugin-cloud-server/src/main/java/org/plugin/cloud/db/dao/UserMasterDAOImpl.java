@@ -12,12 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("userMasterDAOImpl")
-public class UserMasterDAOImpl implements UserMasterDAO {
+public class UserMasterDAOImpl implements UserMasterDAO, UserMasterQueries {
 	public JdbcTemplate jdbcTemplate;
-	private final String GET_ALL_USERS = "select * from usermaster";
-	private final String IS_VALID_USER = "select * from usermaster where username=? and userkey=?";
-	private final String ACTIVATE_VALID_USER = "update usermaster set userstatus='Y' where userid=?";
-	private final String DEACTIVATE_VALID_USER = "update usermaster set userstatus='N' where userid=?";
 
 	@Autowired
 	public UserMasterDAOImpl(DataSource dataSource) {
@@ -39,7 +35,7 @@ public class UserMasterDAOImpl implements UserMasterDAO {
 
 	@Override
 	public Boolean createUser(UserMaster user) {
-		return null;
+		return jdbcTemplate.update(ADD_USER, user.getUserName(), user.getUserKey().hashCode(), 'Y', user.getUserType(), user.getDisplayName()) > 0;
 	}
 
 	@Override

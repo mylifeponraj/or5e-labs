@@ -8,11 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("fdManagerDAOImpl")
-public class FDManagerDAOImpl implements FDManagerDAO {
+public class FDManagerDAOImpl implements FDManagerDAO, FDQueries {
 	public JdbcTemplate jdbcTemplate;
-	private final String GET_ALL_FD = "select * from finfdmaster";
-	private final String GET_FD_FOR_USER = "select * from finfdmaster where fd_userid=?";
-	private final String GET_FD_FOR_USER_AFTER_TODAY = "select * from finfdmaster where fd_userid=? and fd_maturity_date>?";
 
 	@Override public List<FDDetailsMaster> getAllFDDetailsForUser(String userID, Boolean postToday) {
 		return jdbcTemplate.query(((postToday)?GET_FD_FOR_USER:GET_FD_FOR_USER_AFTER_TODAY), new FDDetailsMapper());
