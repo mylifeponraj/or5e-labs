@@ -28,11 +28,38 @@
 <!-- 
 <script src="js/gijgo.min.js"></script>
  -->
-    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js"
+	type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css"
+	rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('#fdRecord').hide();
 		addFDDetails();
+		$('#fdMatDate').datepicker({
+			uiLibrary : 'bootstrap4'
+		});
+		$('#fdDepDate').datepicker({
+			uiLibrary : 'bootstrap4'
+		});
+		loadFinanceDashboard();
+		$('#refereshFinDash').click(function() {
+			loadFinanceDashboard();
+		});
+		$('#showFDRecords').click(function() {
+			if($('#fdRecord').is(':visible')) {
+				$('#showFDRecords').removeClass('fa-eye-slash');
+				$('#showFDRecords').addClass('fa-eye');
+				$('#fdRecord').slideUp(500);
+			}
+			else {
+				$('#showFDRecords').removeClass('fa-eye');
+				$('#showFDRecords').addClass('fa-eye-slash');
+				
+				$('#fdRecord').slideDown(500);
+			}
+		});
 	});
 </script>
 </head>
@@ -55,9 +82,11 @@
 					class="nav-link dropdown-toggle" href="#" id="navbardrop"
 					data-toggle="dropdown"> Finance </a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#addExpModal">Add Expence</a> 
-						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFDModal">Add FD</a> 
-						<a class="dropdown-item" href="#">View Details</a>
+						<a class="dropdown-item" href="#" data-toggle="modal"
+							data-target="#addExpModal">Add Expence</a> <a
+							class="dropdown-item" href="#" data-toggle="modal"
+							data-target="#addFDModal">Add FD</a> <a class="dropdown-item"
+							href="#">View Details</a>
 					</div></li>
 				<li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
 			</ul>
@@ -75,78 +104,63 @@
 	<br />
 	<br />
 	<br />
-	<div class="container-fluid">
+	<div class="container">
 		<script type="text/javascript">
 			loadAddExpenceModel();
 			addExpenceType();
+			loadFDModel();
 		</script>
-
-		<!-- The Modal -->
-		<div class="modal" id="addFDModal" data-keyboard='false' data-backdrop='static'>
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<h4 class="modal-title">Add Fixed Deposit</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-
-					<!-- Modal body -->
-					<div class="modal-body">
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">FD number</span>
-							</div>
-							<input type="text" id='fdNum' name='fdNum' class="form-control" placeholder="FD number">
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">FD Name</span>
-							</div>
-							<input type="text" id='fdName' name='fdName' class="form-control" placeholder="FD Name">
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">FD Date</span>
-							</div>
-							<input id="fdDepDate" name="fdDepDate" class="form-control" width="276" />
-							<script>
-						        $('#fdDepDate').datepicker({
-						            uiLibrary: 'bootstrap4'
-						        });
-							</script>
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend"">
-								<span class="input-group-text">FD Amount</span>
-							</div>
-							<input type="text" id='fdDepAmt' name='fdDepAmt' class="form-control" placeholder="FD Amount">
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend"">
-								<span class="input-group-text">FD Maturity Date</span>
-							</div>
-							<input id="fdMatDate" name="fdMatDate" class="form-control" width="276" />
-							<script>
-						        $('#fdMatDate').datepicker({
-						            uiLibrary: 'bootstrap4'
-						        });
-							</script>
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend"">
-								<span class="input-group-text">FD Maturity Amount</span>
-							</div>
-							<input type="text" id='fdMatAmt' name='fdMatAmt' class="form-control" placeholder="FD Maturity Amount">
-						</div>
-					</div>
-
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type='button' class='btn btn-primary' id='addFDBtn' name='addFDBtn'>Add Deposit</button>
-						<button type="button" id='clearAddFDBtn' class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-
+		<div>
+			<p>
+				<A href='#' id='refereshFinDash'>Referesh Data</A>
+			</p>
+			<h4>Fixed Deposit Details:</h4>
+			<div class="card bg-light">
+				<div class="card-body">
+					<h4 class="card-title btn-secondary text-center">Total Deposit
+						Form</h4>
+					<p class="card-text text-center" id='totalFDFrm'>0</p>
+				</div>
+			</div>
+			<br />
+			<div class="card bg-light">
+				<div class="card-body">
+					<h4 class="card-title btn-info text-center">Total Deposit
+						Amount</h4>
+					<p class="card-text text-center" id='totalFDDeposit'>0 INR</p>
+				</div>
+			</div>
+			<br />
+			<div class="card bg-light">
+				<div class="card-body">
+					<h4 class="card-title btn-success text-center">Total Maturity
+						Amount</h4>
+					<p class="card-text text-center" id='totalFDMaturity'>0 INR</p>
+				</div>
+			</div>
+			<br />
+			<p>Show records: <i id='showFDRecords' class="far fa-eye"></i></p>
+			<div id='fdRecord' style='border: 1px solid black'>
+				<table id='FDTable' class="table table-striped">
+					<thead>
+						<tr>
+							<th>Account</th>
+							<th>Deposit Date</th>
+							<th>Deposit Amount</th>
+							<th>Maturity Date</th>
+							<th>Maturity Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<h4>Expence Details Details:</h4>
+			<div class="card bg-light">
+				<div class="card-body">
+					<h4 class="card-title btn-secondary text-center">Total
+						Expences</h4>
+					<p class="card-text text-center" id='totalExpenceAmt'>0 INR</p>
 				</div>
 			</div>
 		</div>
