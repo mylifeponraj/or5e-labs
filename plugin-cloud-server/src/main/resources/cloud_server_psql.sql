@@ -16,7 +16,7 @@ select nextval('user_id_seq');
 
 create table usermaster (
    userid integer default nextval('user_id_seq'),
-   username varchar(40) not null,
+   username varchar(40) not null UNIQUE,
    userkey varchar(50) not null,
    userstatus varchar(1) default 'y',
    usertype varchar(1) default 'c',
@@ -27,13 +27,13 @@ create table usermaster (
    state varchar(50) null,
    country varchar(50) null,
    pincode varchar(10) null,
-   displayname varchar(100) null,
+   displayname varchar(100) not null,
    primary key(userid)
 );
 create table masterunitcontroller (
    masterunitid integer default nextval('master_id_seq'),
-   masterunitname varchar(50) not null,
-   masterunitmacid varchar(50) not null,
+   masterunitname varchar(50) not null UNIQUE,
+   masterunitmacid varchar(50) not null UNIQUE,
    masterunitipaddr varchar(20) not null,
    masterunitsoftwareversion varchar(50) not null,
    masterunitlicense varchar(50) not null,
@@ -45,7 +45,7 @@ create table masterunitcontroller (
 );
 create table slaveunit (
    slaveunitid integer default nextval('slave_id_seq'),
-   masterunitid integer not null,
+   masterunitid integer not null UNIQUE,
    slaveunitname varchar(50) not null,
    slaveunittype varchar(50) not null,
    primary key(slaveunitid),
@@ -53,7 +53,7 @@ create table slaveunit (
 );
 create table sensorunit (
    sensorid integer default nextval('sensor_id_seq'),
-   slaveunitid integer not null,
+   slaveunitid integer not null UNIQUE,
    sensorname varchar(50) not null,
    sensorvalue varchar(3) null,
    sensortype varchar(10) null,
@@ -63,7 +63,7 @@ create table sensorunit (
 );
 create table sensorstatus (
    sensorstatusid integer default nextval('sensor_status_seq'),
-   sensorid integer not null,
+   sensorid integer not null UNIQUE,
    sensorontime timestamp,
    sensorofftime timestamp,
    sensorduration integer,
@@ -100,9 +100,10 @@ create table masterunitmessage (
 
 create table finfdmaster (
   fd_id integer default nextval('fd_details_seq'),
-  fd_number varchar(50) not null,
+  fd_number varchar(50) not null UNIQUE,
   fd_date timestamp,
   fd_amount integer not null,
+  fd_roi varchar(5) null,
   fd_name varchar(60) not null,
   fd_userid integer not null,
   fd_maturity_amt integer not null,
@@ -131,7 +132,9 @@ create table expence_history (
 );
 
 -- Passcode = "Welcome123#
-insert into usermaster (username, userkey, userstatus, usertype) values ('admin', '1663027827', 'Y', 'A');
+insert into usermaster (username, userkey, userstatus, usertype, displayname) values ('admin', '1663027827', 'Y', 'A', 'IAMITN Admin');
+insert into usermaster (username, userkey, userstatus, usertype, displayname) values ('suthap', '1663027827', 'Y', 'U', 'Ponraj Suthanthiramani');
+insert into usermaster (username, userkey, userstatus, usertype, displayname) values ('sujir', '1663027827', 'Y', 'U', 'Sujitra Devi Dhayalan');
 insert into expence_type (exp_name) values ('HOME RENT');
 insert into expence_type (exp_name) values ('POWER UNIT');
 insert into expence_type (exp_name) values ('INTERNET BILL');
