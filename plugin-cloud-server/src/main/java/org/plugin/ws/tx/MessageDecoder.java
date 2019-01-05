@@ -11,8 +11,8 @@ public class MessageDecoder implements Decoder.Text<Message> {
 	private static Gson gson = new Gson();
 
 	@Override
-	public Message decode(String s) throws DecodeException {
-		return gson.fromJson(s, Message.class);
+	public Message decode(String txtMessage) throws DecodeException {
+		return gson.fromJson(txtMessage, Message.class);
 	}
 
 	@Override
@@ -22,11 +22,8 @@ public class MessageDecoder implements Decoder.Text<Message> {
 
 	@Override
 	public void init(EndpointConfig endpointConfig) {
-		// Custom initialization logic
 	}
 
-	@Override
-	public void destroy() {
-		// Close resources
+	@Override public void destroy() {
 	}
 }

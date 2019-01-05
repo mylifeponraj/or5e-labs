@@ -23,6 +23,9 @@ public class UserMasterDAOImpl implements UserMasterDAO, UserMasterQueries {
 	@Override public List<UserMaster> getAllUsers() {
 		return jdbcTemplate.query(GET_ALL_USERS, new UserMasterMapper());
 	}
+	@Override public List<UserMaster> getUser(String userID) {
+		return jdbcTemplate.query(GET_ACTIVE_USER, new UserMasterMapper());
+	}
 
 	@Override public UserMaster isValidUser(String username, String userKey) {
 		try {
@@ -33,20 +36,18 @@ public class UserMasterDAOImpl implements UserMasterDAO, UserMasterQueries {
 		}
 	}
 
-	@Override
-	public Boolean createUser(UserMaster user) {
+	@Override public Boolean createUser(UserMaster user) {
 		return jdbcTemplate.update(ADD_USER, user.getUserName(), user.getUserKey().hashCode(), 'Y', user.getUserType(), user.getDisplayName()) > 0;
 	}
 
-	@Override
-	public Boolean deactivateUser(String userID) {
+	@Override public Boolean deactivateUser(String userID) {
 		return jdbcTemplate.update(DEACTIVATE_VALID_USER, new Object[] {userID}) > 1;
 	}
 
-	@Override
-	public Boolean activateUser(String userID) {
+	@Override public Boolean activateUser(String userID) {
 		return jdbcTemplate.update(ACTIVATE_VALID_USER, new Object[] {userID}) > 1;
 	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome123#".hashCode()+":1663027827");
 	}
