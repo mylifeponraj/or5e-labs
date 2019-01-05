@@ -194,7 +194,6 @@ public class AudioPlayer implements Callable<Void> {
      * Inits AudioInputStream and AudioFileFormat from the data source.
      * @throws PlayerException
      */
-    @SuppressWarnings("unchecked")
     protected void initAudioInputStream() throws PlayerException {
         // Close any previous opened audio stream before creating a new one.
         closeStream();
