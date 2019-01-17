@@ -44,8 +44,16 @@ public class UserService {
 		userMaster.setDisplayName(user.getDisplayName());
 		userMaster.setUserKey(user.getUserKey());
 		userMaster.setUserName(user.getUserName());
+		userMaster.setUserEmail(user.getUserEmail());
 		userMaster.setUserType(user.getUserType());
 		userMaster.setUserStatus(Boolean.TRUE);
+		userMaster.setAddress1(user.getAddress1());
+		userMaster.setAddress2(user.getAddress2());
+		userMaster.setCity(user.getCity());
+		userMaster.setState(user.getState());
+		userMaster.setCountry("IN");
+		userMaster.setPincode(user.getPincode());
+		
 		Boolean createUser = userMasterDAOImpl.createUser(userMaster);
 
         return (createUser) ? Response.status(200).entity(new Success("User is been added successfully.", "200")).build():Response.status(200).entity(new Error("User is not Valid.")).build();

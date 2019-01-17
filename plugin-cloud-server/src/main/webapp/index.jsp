@@ -19,6 +19,7 @@
 <!-- jQuery library -->
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/expence-management.js"></script>
+<script src="js/administration.js"></script>
 
 <!-- Latest compiled JavaScript -->
 <script src="js/bootstrap.min.js"></script>
@@ -60,6 +61,7 @@
 				$('#fdRecord').slideDown(500);
 			}
 		});
+		addUserAction();
 	});
 </script>
 </head>
@@ -73,15 +75,22 @@
 		</button>
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav mr-auto">
-
-<!-- 
  				<li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Home Automation</a></li>
--->
+				<li class="nav-item"><a class="nav-link" href="#">Mapping</a></li>
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbardrop"
-					data-toggle="dropdown"> Finance </a>
+					data-toggle="dropdown"> Add Resources </a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#addUserModal">Add Customer</a> 
+						<a class="dropdown-item" href="#">Add Master Unit</a> 
+						<a class="dropdown-item" href="#">Add Slave Unit</a> 
+						<a class="dropdown-item" href="#">Add Sensor</a>
+					</div>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Finance </a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="#" data-toggle="modal"
 							data-target="#addExpModal">Add Expence</a> <a
@@ -110,6 +119,7 @@
 			loadAddExpenceModel();
 			addExpenceType();
 			loadFDModel();
+			writeAddUserModel();
 		</script>
 		<div>
 			<p>

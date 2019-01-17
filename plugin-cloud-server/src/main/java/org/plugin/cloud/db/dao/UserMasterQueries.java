@@ -6,5 +6,5 @@ public interface UserMasterQueries {
 	public final String IS_VALID_USER = "select * from usermaster where username=? and userkey=?";
 	public final String ACTIVATE_VALID_USER = "update usermaster set userstatus='Y' where userid=?";
 	public final String DEACTIVATE_VALID_USER = "update usermaster set userstatus='N' where userid=?";
-	public final String ADD_USER = "insert into usermaster (username, userkey, userstatus, usertype, displayname) values (?,?,?,?,?)";
+	public final String ADD_USER = "insert into usermaster (username, userkey, userstatus, usertype, displayname, userEmail, address1, address2, city, state, country, pincode) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 }

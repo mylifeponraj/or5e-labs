@@ -17,6 +17,14 @@ public class UserMasterMapper implements RowMapper<UserMaster>{
 		userMaster.setUserType(resultSet.getString("usertype"));
 		userMaster.setLastLoginDate(resultSet.getDate("lastloggedin"));
 		userMaster.setDisplayName(resultSet.getString("displayname"));
+		userMaster.setUserEmail(resultSet.getString("useremail"));
+		userMaster.setAddress1(resultSet.getString("address1"));
+		userMaster.setAddress2(resultSet.getString("address2"));
+		userMaster.setCity(resultSet.getString("city"));
+		userMaster.setState(resultSet.getString("state"));
+		userMaster.setCountry(resultSet.getString("country"));
+		userMaster.setPincode(resultSet.getString("pincode"));
+		userMaster.setUserphone(resultSet.getString("userphone"));
 		return userMaster;
 	}
 }

@@ -37,7 +37,20 @@ public class UserMasterDAOImpl implements UserMasterDAO, UserMasterQueries {
 	}
 
 	@Override public Boolean createUser(UserMaster user) {
-		return jdbcTemplate.update(ADD_USER, user.getUserName(), user.getUserKey().hashCode(), 'Y', user.getUserType(), user.getDisplayName()) > 0;
+		return jdbcTemplate.update(ADD_USER, 
+					user.getUserName(), 
+					"Welcome123#".hashCode(), 
+					'Y', 
+					user.getUserType(), 
+					user.getDisplayName(),
+					user.getUserEmail(),
+					user.getAddress1(),
+					user.getAddress2(),
+					user.getCity(),
+					user.getState(),
+					user.getCountry(),
+					user.getPincode()
+				) > 0;
 	}
 
 	@Override public Boolean deactivateUser(String userID) {
