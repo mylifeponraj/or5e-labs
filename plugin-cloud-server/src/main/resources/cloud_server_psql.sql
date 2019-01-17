@@ -17,11 +17,13 @@ select nextval('user_id_seq');
 create table usermaster (
    userid integer default nextval('user_id_seq'),
    username varchar(40) not null UNIQUE,
+   useremail varchar(100) not null UNIQUE,
+   userphone varchar(20) default '',
    userkey varchar(50) not null,
    userstatus varchar(1) default 'y',
    usertype varchar(1) default 'c',
    lastloggedin timestamp default current_timestamp,
-   address1 varchar(100) null,
+   address1 varchar(150) null,
    address2 varchar(100) null,
    city varchar(50) null,
    state varchar(50) null,
@@ -132,9 +134,9 @@ create table expence_history (
 );
 
 -- Passcode = "Welcome123#
-insert into usermaster (username, userkey, userstatus, usertype, displayname) values ('admin', '1663027827', 'Y', 'A', 'IAMITN Admin');
-insert into usermaster (username, userkey, userstatus, usertype, displayname) values ('suthap', '1663027827', 'Y', 'U', 'Ponraj Suthanthiramani');
-insert into usermaster (username, userkey, userstatus, usertype, displayname) values ('sujir', '1663027827', 'Y', 'U', 'Sujitra Devi Dhayalan');
+insert into usermaster (username, userkey, userstatus, usertype, displayname, useremail) values ('admin', '1663027827', 'Y', 'A', 'IAMITN Admin', 'admin@iamitn.com');
+insert into usermaster (username, userkey, userstatus, usertype, displayname, useremail) values ('suthap', '1663027827', 'Y', 'U', 'Ponraj Suthanthiramani', 'mylife.ponraj@gmail.com');
+insert into usermaster (username, userkey, userstatus, usertype, displayname, useremail) values ('sujir', '1663027827', 'Y', 'U', 'Sujitra Devi Dhayalan', 'suji.vasanth@gmail.com');
 insert into expence_type (exp_name) values ('HOME RENT');
 insert into expence_type (exp_name) values ('POWER UNIT');
 insert into expence_type (exp_name) values ('INTERNET BILL');
