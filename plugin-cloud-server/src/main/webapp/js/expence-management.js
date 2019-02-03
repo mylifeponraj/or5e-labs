@@ -85,9 +85,7 @@ function resetAddFDModelForm() {
 function addExpenceType() {
 	$.getJSON('rest/expences/getAllExpenceType', function(data) {
 		$.each(data, function(index, obj) {
-			$('#expType').append(
-					'<option value="' + obj.expenceID + '">' + obj.expenceName
-							+ '</opton>');
+			$('#expType').append('<option value="' + obj.expenceID + '">' + obj.expenceName + '</opton>');
 		});
 	});
 	$('#addExpBtn').click(function() {
