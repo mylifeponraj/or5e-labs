@@ -424,6 +424,7 @@ div.content1 {
 <body>
 	<!-- The sidebar -->
 	<div class="sidebar">
+		<i class="fas fa-user"></i>
 		<i class="fas fa-home" id='showHm'></i> 
 		<i class="fas fa-microchip" id='showAdm'></i> 
 		<i class="fas fa-video" id='showFFMPEG'></i>

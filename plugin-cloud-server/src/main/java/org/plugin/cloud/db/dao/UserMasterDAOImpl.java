@@ -1,6 +1,8 @@
 package org.plugin.cloud.db.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -26,8 +28,13 @@ public class UserMasterDAOImpl implements UserMasterDAO, UserMasterQueries {
 	@Override public List<UserMaster> getUser(String userID) {
 		return jdbcTemplate.query(GET_ACTIVE_USER, new UserMasterMapper());
 	}
-
+	@Override public List<UserMaster> getUserLike(String userName) {
+		userName+="%";
+		return jdbcTemplate.query(GET_ALL_LIKE_USERS, new UserMasterMapper(), userName);
+		
+	}
 	@Override public UserMaster isValidUser(String username, String userKey) {
+		
 		try {
 			return jdbcTemplate.queryForObject(IS_VALID_USER, new UserMasterMapper(), username, (String)(userKey.hashCode()+""));
 		}

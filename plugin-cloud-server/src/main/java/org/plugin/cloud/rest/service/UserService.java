@@ -68,5 +68,18 @@ public class UserService {
 
 		return (userMaster != null && userMaster.size()>0) ? Response.status(200).entity(userMaster).build():Response.status(200).entity(new Error("User is not Available.")).build();
     }
+	
+	@GET
+	@Path("/getUserByName/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+    public Response getLikeUser(@PathParam("userName") String userName) {
+		List<UserMaster> userMaster = userMasterDAOImpl.getUserLike(userName);
+		List<String> userNameList = new LinkedList<>();
+		for (UserMaster user : userMaster) {
+			userNameList.add(user.getUserName());
+		}
+		return (userNameList != null && userNameList.size()>0) ? Response.status(200).entity(userNameList).build():Response.status(200).entity(new Error("User is not Available.")).build();
+    }
 
 }

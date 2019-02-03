@@ -11,6 +11,7 @@
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap3-typeahead.min.js"></script> 
 
 <style type="text/css">
 body {
@@ -76,6 +77,7 @@ select:focus {
 	background-color: #555;
 	color: white;
 }
+
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content1 {
@@ -473,7 +475,29 @@ div.content1 {
 
 			<div id='addLicenseFrm'>
 			<script type="text/javascript">
-				writeTextField('User ID', 'Sold To:', ' ');
+				writeTextField('userLicenseName', 'Sold To:', ' ');
+
+				$('#userLicenseName').typeahead({
+				    source:  function (query, process) {
+			        return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+query, 
+			        			{}, 
+			        			function (data) {
+				            		return process(data);
+				        		}
+			        		);
+				    }
+				});
+				$('#userLicenseName').keypress(function( event ) {
+					if($('#userLicenseName').val().length > 2) {
+						$('#userLicenseName').autocomplete({
+							source: "http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+$('#userLicenseName').val(),
+							minLength: 2,
+							select: function( event, ui ) {
+								$('#userLicenseName').val(ui.item.value)
+						      }
+						});
+					}
+				});
 				writeTextField('userEmail', 'Customer Email:', ' ');
 				writeTextField('userLicense', 'Master Unit License(AUTO GENERATED):', ' ', true);
 				writePanelSubmitAsSaveMessage('genLicenseSaveBtn', 'agenLicenseCancelBtn', 'addLicPanelSubmit()', 'addLicPanelCancel()', 'Generate License');

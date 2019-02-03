@@ -51,7 +51,8 @@ public class LoginServlet extends HttpServlet {
 			response.addCookie(userIDCookie);
 			response.addCookie(userDisplayCookie);
 			// request.getRequestDispatcher("index.jsp").include(request, response);
-			response.sendRedirect("index.jsp");
+			//response.sendRedirect("index.jsp");
+			response.sendRedirect("home.jsp");
 		} else {
 			request.getRequestDispatcher("login.html?message=LoginFailed").include(request, response);
 		}
