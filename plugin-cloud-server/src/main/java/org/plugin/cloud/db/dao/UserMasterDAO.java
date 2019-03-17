@@ -12,4 +12,5 @@ public interface UserMasterDAO {
 	public Boolean createUser(UserMaster user);
 	public Boolean deactivateUser(String userID);
 	public Boolean activateUser(String userID);
+	public Boolean updateUserLicense(String userID, String userLicense);
 }

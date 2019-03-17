@@ -38,9 +38,9 @@ create table masterunitcontroller (
    masterunitmacid varchar(50) not null UNIQUE,
    masterunitipaddr varchar(20) not null,
    masterunitsoftwareversion varchar(50) not null,
-   masterunitlicense varchar(50) not null,
+   masterunitlicense varchar(50) null,
    masterunitstatus varchar(1) default 'n',
-   userid integer not null,
+   userid integer null,
    masterunitlastloggedin timestamp default current_timestamp,
    primary key(masterunitid),
    foreign key (userid) references usermaster(userid)

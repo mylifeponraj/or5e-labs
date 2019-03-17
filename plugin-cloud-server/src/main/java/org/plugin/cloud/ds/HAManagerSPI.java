@@ -1,6 +1,6 @@
 package org.plugin.cloud.ds;
 
-import org.plugin.cloud.db.MasterControllerMaster;
+import org.plugin.cloud.db.MCUDetails;
 import org.plugin.cloud.db.SensorUnitMaster;
 import org.plugin.cloud.db.SlaveUnitMaster;
 import org.plugin.cloud.db.UserMaster;
@@ -17,7 +17,7 @@ public class HAManagerSPI implements HAManager {
 		return userMasterDAOImpl.createUser(userMaster);
 	}
 
-	@Override public void addMCU(MasterControllerMaster masterUnit) {
+	@Override public void addMCU(MCUDetails masterUnit) {
 
 	}
 

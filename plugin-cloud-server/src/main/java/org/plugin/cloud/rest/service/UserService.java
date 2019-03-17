@@ -1,5 +1,6 @@
 package org.plugin.cloud.rest.service;
 
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,9 +21,14 @@ import org.plugin.cloud.request.Success;
 import org.plugin.cloud.request.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+
 @Path("/user")
 public class UserService {
-
+	private static final String DEFAULT_STABLE_PRODUCT_VERSION="1.0";
+	
 	@Autowired
 	UserMasterDAOImpl userMasterDAOImpl;
 
@@ -81,5 +87,45 @@ public class UserService {
 		}
 		return (userNameList != null && userNameList.size()>0) ? Response.status(200).entity(userNameList).build():Response.status(200).entity(new Error("User is not Available.")).build();
     }
+	@GET
+	@Path("/createLicense/{userID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+    public Response createLicenseUser(@PathParam("userID") String userID) {
+		List<UserMaster> userMasterList = userID.equals("ALL")?userMasterDAOImpl.getAllUsers():userMasterDAOImpl.getUser(userID);
+		UserMaster userMaster = (userMasterList != null && userMasterList.size()>0) ? userMasterList.get(0):null;
+		if(userMaster != null ) {
+			if(userMaster.getUserLicense() == null || userMaster.getUserLicense().trim().equals("")) {
+				String userLicense = createLicenseKey(userMaster.getUserName(), userMaster.getUserEmail(), DEFAULT_STABLE_PRODUCT_VERSION);
+				userMaster.setUserLicense(userLicense);
+				if(userMasterDAOImpl.updateUserLicense(userID, userLicense))
+					return Response.status(200).entity(userMaster).build();
+				else
+					return Response.status(204).entity(new Error("Not Able to Update License...")).build();
+			}
+			else {
+				return Response.status(200).entity(userMaster).build();
+			}
+		}
+		else
+			return Response.status(204).entity(new Error("User is not Available or already has License")).build();
+    }
+	private String createLicenseKey(String userName, String productKey, String versionNumber) {
+		final String s = userName + "|" + productKey + "|" + versionNumber;
+		final HashFunction hashFunction = Hashing.sha1();
+		final HashCode hashCode = hashFunction.hashString(s, Charset.forName("UTF-8"));
+		final String upper = hashCode.toString().toUpperCase();
+		return group(upper);
+	}
+	private String group(String s) {
+		String result = "";
+		for (int i = 0; i < s.length(); i++) {
+			if (i % 6 == 0 && i > 0) {
+				result += '-';
+			}
+			result += s.charAt(i);
+		}
+		return result;
+	}
 
 }

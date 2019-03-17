@@ -25,6 +25,7 @@ public class UserMasterMapper implements RowMapper<UserMaster>{
 		userMaster.setCountry(resultSet.getString("country"));
 		userMaster.setPincode(resultSet.getString("pincode"));
 		userMaster.setUserphone(resultSet.getString("userphone"));
+		userMaster.setUserLicense(resultSet.getString("userlicense"));
 		return userMaster;
 	}
 }

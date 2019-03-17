@@ -93,6 +93,12 @@ public class UserMaster {
 	public void setUserphone(String userphone) {
 		this.userphone = userphone;
 	}
+	public String getUserLicense() {
+		return userLicense;
+	}
+	public void setUserLicense(String userLicense) {
+		this.userLicense = userLicense;
+	}
 
 	public Integer userID;
 	public String userName;
@@ -109,4 +115,5 @@ public class UserMaster {
 	public String country="IN";
 	public String pincode;
 	public String userphone;
+	public String userLicense;
 }

@@ -479,12 +479,12 @@ div.content1 {
 
 				$('#userLicenseName').typeahead({
 				    source:  function (query, process) {
-			        return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+query, 
-			        			{}, 
-			        			function (data) {
-				            		return process(data);
-				        		}
-			        		);
+		        		return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+query, 
+		        			{}, 
+		        			function (data) {
+			            		return process(data);
+			        		}
+		        		);
 				    }
 				});
 				$('#userLicenseName').keypress(function( event ) {
