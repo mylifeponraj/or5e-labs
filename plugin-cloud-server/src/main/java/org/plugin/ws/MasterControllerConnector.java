@@ -28,10 +28,10 @@ public class MasterControllerConnector {
 	@OnOpen public void onOpen(Session session) throws IOException {
 		System.out.println("Session Opened...");
 		Message message = new Message();
-		message.setFrom("HAServer");
-		message.setTo(session.getId());
+		message.setMessageFrom("HAServer");
+		message.setMessageTo(session.getId());
 		message.setMessageType(MessageType.MCUEVT.name());
-		message.setContent("REG");
+		message.setMessage("REG");
 
 		try {
 			session.getBasicRemote().sendObject(message);
@@ -56,10 +56,10 @@ public class MasterControllerConnector {
 		try {
 			if(session.isOpen()) {
 				Message message = new Message();
-				message.setFrom("HAServer");
-				message.setTo(session.getId());
+				message.setMessageFrom("HAServer");
+				message.setMessageTo(session.getId());
 				message.setMessageType(MessageType.ERRRES.name());
-				message.setContent("Something wrong when you send message. We are closing it.");
+				message.setMessage("Something wrong when you send message. We are closing it.");
 				session.getBasicRemote().sendObject(message);
 				session.close();
 			}

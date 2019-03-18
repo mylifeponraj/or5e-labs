@@ -26,14 +26,14 @@ public class SessionPoolManagerImpl implements SessionPoolManager {
 	}
 	
 	@Override public Boolean addSession(Session session, Message message) {
-		if(message.getFrom().equals("HAServerAPP")) {
+		if(message.getMessageFrom().equals("HAServerAPP")) {
 			adminSessions.add(session);
 			return Boolean.TRUE;
 		}
-		else if(sessionCache.get(message.getFrom()) != null) {
+		else if(sessionCache.get(message.getMessageFrom()) != null) {
 			return Boolean.FALSE;
 		}
-		sessionCache.put(message.getFrom(), session);
+		sessionCache.put(message.getMessageFrom(), session);
 		return Boolean.TRUE;
 	}
 

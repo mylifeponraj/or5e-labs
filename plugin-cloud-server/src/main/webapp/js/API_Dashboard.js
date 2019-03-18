@@ -19,8 +19,8 @@ function loadAllMasterUnitIntoDashboard() {
 
 		});
 		appendEndDiv(addRecord);
+		initilizeWebSocket();
 	});
-	initilizeWebSocket();
 }
 function appendEndDiv(addRecord) {
 	$('#mcuDB').html('<div class="row">' + addRecord + "</div>");
@@ -47,6 +47,7 @@ function wsOpen(message){
 function wsSendMessage(){
 	//Message Type: Register, Status: send to Server;; "Command": Send from Server
 	var sendTo = "{'messageFrom':'"+browserClient+"', 'messageTo':'HAServer', 'messageType':'REG', 'masterUnitLicense':'ADMIN', 'message':'I am a Admin Application'}";
+	console.log(sendTo);
 	webSocket.send(sendTo);
 	console.log("Message sended to the server");
 }
