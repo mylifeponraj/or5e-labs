@@ -91,3 +91,29 @@ div.content1 {
 		float: none;
 	}
 }
+
+/** Grid of dashboard */
+div.mcurecord {
+	border: 1px solid orange;
+	margin: 2px;
+}
+div.mcurecordColor {
+	background-color: darkgreen;
+}
+ol.gridUL {
+    counter-reset: index;
+    counter-increment: index;
+    list-style: none;
+}
+
+ol.gridUL li:nth-child(4n+0) {
+    counter-increment: index;
+}
+
+ol.gridUL li:not(:nth-child(4n+0)):before {
+    content: counter(index)". ";
+}
+
+ol.gridUL li:nth-child(4n+0):before {
+    content: "";
+}

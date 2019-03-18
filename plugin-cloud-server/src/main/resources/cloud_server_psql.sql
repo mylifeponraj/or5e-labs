@@ -30,6 +30,7 @@ create table usermaster (
    country varchar(50) null,
    pincode varchar(10) null,
    displayname varchar(100) not null,
+   userlicense varchar(100) null,
    primary key(userid)
 );
 create table masterunitcontroller (

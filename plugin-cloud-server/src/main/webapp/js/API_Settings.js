@@ -6,9 +6,8 @@ function initilizeSettings() {
 	hideAllSettingsPane();
 	$('#showSet').click(function() {
 		hideAllSettingsPane();
+		hideAllPanels();
 		$('#settingsPanel').show();
-		$('#financePanel').hide();
-		$('#hmAutoPanel').hide();
 	});
 	$('#setGen').click(function() {
 		hideAllSettingsPane();

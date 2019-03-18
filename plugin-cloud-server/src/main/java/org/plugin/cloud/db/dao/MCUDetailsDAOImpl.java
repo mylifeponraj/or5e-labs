@@ -2,22 +2,36 @@ package org.plugin.cloud.db.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.plugin.cloud.db.MCUDetails;
-import org.plugin.cloud.db.mapper.FDDetailsMapper;
-import org.plugin.cloud.db.mapper.MCUMapper;
+import org.plugin.cloud.db.request.mapper.MCUMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("mcuDetailsDAOImpl")
 public class MCUDetailsDAOImpl implements MCUDetailsDAO, MCUDetailsQuery{
 	public JdbcTemplate jdbcTemplate;
-
-	@Override public void addMCUDetails(MCUDetails mcu) {
-		
+	@Autowired
+	public MCUDetailsDAOImpl(DataSource dataSource) {
+		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	@Override public Boolean addMCUDetails(MCUDetails mcu) {
+		return jdbcTemplate.update(
+				INSERT_MCU,
+				mcu.getMasterUnitName(),
+				mcu.getMasterUnitMacID(),
+				mcu.getMasterUnitSoftwareVersion(),
+				((mcu.getMasterUnitStatus() == null)? "n":"y"),
+				mcu.getUserID(),
+				mcu.getMasterUnitLicense()
+				) > 0;
 	}
 
-	@Override public void createMCULicense(MCUDetails mcu) {
-		
+	@Override public Boolean createMCULicense(MCUDetails mcu) {
+		return Boolean.FALSE;
 	}
 
 	@Override public void activateMCU(Integer mcuID) {

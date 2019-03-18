@@ -17,10 +17,13 @@
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/API_Panel.js"></script>
 <script src="js/API_Expence.js"></script>
 <script src="js/API_Settings.js"></script>
 <script src="js/API_User.js"></script>
 <script src="js/API_HomeAutomation.js"></script>
+<script src="js/API_mcu.js"></script>
+<script src="js/API_Dashboard.js"></script>
 <script src="js/API_HTMLElements.js"></script>
 <script src="js/bootstrap3-typeahead.min.js"></script> 
 
@@ -30,6 +33,7 @@
 		initilizeHomeAutomation();
 		initilizeExpences();
 		initilizeSettings();
+		initilizeDashboard();
 	});
 	function writeSideBar() {
 		document.write("<div class='sidebar'><i class='fas'><br/><br/></i><i class='fas fa-home' id='showHm'></i><i class='fas fa-microchip' id='showAdm'></i><i class='fas fa-video' id='showFFMPEG'></i><i class='fab fa-bitcoin' id='showFin'></i><i class='fas fa-cog' id='showSet'></i></div>");
@@ -47,6 +51,12 @@
 		<div class='row'>
 			<div class='col-sm-4' style="color: white; font-size: 20px;">IAMI<font style='color: orange'><b>TN</b></font> Admin Console</div>
 			<div class='col-sm-8 text-right' style="color: white; font-size: 20px;">Hello : <font color='orange'><%=(String) session.getAttribute("userDisplayName")%></font> | <a href="logout.do">Logout</a></div>
+		</div>
+		<div id='mcuDashboardPanel'>
+			<br/><h2>Master Controller Dashboard</h2> | <a href='javascript: loadAllMasterUnitIntoDashboard();'>Reload</a> | <a href='javascript: wsSendMessage()'>Register Socket</a><br />
+			<div id='mcuDB'>
+
+			</div>
 		</div>
 		<div id="hmAutoPanel">
 			<br/><h2>Home Automation</h2><br />
@@ -82,8 +92,8 @@
 				writeTextField('masterUnitMacID', 'Master Unit MAC ID:', ' ');
 				writeTextField('masterUnitSoftwareVer', 'Master Unit Software Version:', ' ');
 				writeTextField('masterUnitLicense', 'Master Unit License:', ' ');
-				writeTextField('userDetail', 'Sold To:', ' ');
-				$('#userDetail').typeahead({
+				writeTextField('mcuUserID', 'Sold To:', ' ');
+				$('#mcuUserID').typeahead({
 				    source:  function (query, process) {
 						return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+query, 
 		        			{}, 
@@ -94,10 +104,14 @@
 				    },
 				    afterSelect: function (selectedItem) {
 				    	console.log('Selected : '+selectedItem);
+				    	$('#mcuUserName').val(selectedItem);
+				    	alert($('#mcuUserName').val());
 				    }
 				});
 				writePanelSubmit('addMUSaveBtn', 'addMUCancelBtn', 'addMUPanelSubmit()', 'addMUPanelCancel()');
 			</script>
+			<input type="hidden" id=mcuUID' name='mcuUID' value=''/>
+			<input type="hidden" id='mcuUserName' name='mcuUserName' value=''/>
 			</div>
 
 
@@ -192,7 +206,7 @@
 			<div id='financeHome'>
 			<br/>
 				<div class='row'>
-				Dashboard Comes here...
+					
 				</div>
 			</div>
 

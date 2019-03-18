@@ -5,7 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.plugin.cloud.db.ExpenceType;
-import org.plugin.cloud.db.mapper.ExpenceTypeMapper;
+import org.plugin.cloud.db.request.mapper.ExpenceTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;

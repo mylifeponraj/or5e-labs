@@ -3,7 +3,7 @@ package org.plugin.cloud.db.dao;
 import java.util.List;
 
 import org.plugin.cloud.db.FDDetailsMaster;
-import org.plugin.cloud.db.mapper.FDDetailsMapper;
+import org.plugin.cloud.db.request.mapper.FDDetailsMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 

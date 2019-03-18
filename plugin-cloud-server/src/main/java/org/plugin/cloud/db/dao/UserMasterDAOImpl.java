@@ -5,7 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.plugin.cloud.db.UserMaster;
-import org.plugin.cloud.db.mapper.UserMasterMapper;
+import org.plugin.cloud.db.request.mapper.UserMasterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

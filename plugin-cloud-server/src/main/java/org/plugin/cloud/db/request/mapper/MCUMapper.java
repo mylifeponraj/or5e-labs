@@ -1,4 +1,4 @@
-package org.plugin.cloud.db.mapper;
+package org.plugin.cloud.db.request.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

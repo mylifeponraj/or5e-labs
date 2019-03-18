@@ -5,8 +5,8 @@ import java.util.List;
 import org.plugin.cloud.db.MCUDetails;
 
 public interface MCUDetailsDAO {
-	public void addMCUDetails(MCUDetails mcu);
-	public void createMCULicense(MCUDetails mcu);
+	public Boolean addMCUDetails(MCUDetails mcu);
+	public Boolean createMCULicense(MCUDetails mcu);
 
 	public List<MCUDetails> getAllActiveMCUDetails();
 	public List<MCUDetails> getAllDeactiveMCUDetails();

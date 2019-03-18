@@ -16,9 +16,8 @@ function initilizeExpences() {
 	$('#financePanel').hide();
 	$('#showFin').click(function() {
 		hideAllExpencePane();
+		hideAllPanels();
 		$('#financePanel').show();
-		$('#settingsPanel').hide();
-		$('#hmAutoPanel').hide();
 	});
 	hideAllExpencePane();
 	$('#fnExp').click(function() {

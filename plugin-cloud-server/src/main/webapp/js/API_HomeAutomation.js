@@ -8,12 +8,7 @@ function addUserPanelSubmit() {
 function addUserPanelCancel() {
 	alert('Add User Canceled!!!');
 }
-function addMUPanelSubmit() {
-	alert('Add Master Unit Clicked!!!');
-}
-function addMUPanelCancel() {
-	alert('Add Master Unit Canceled!!!');
-}
+
 function addControllerPanelSubmit() {
 	alert('Controller Save Clicked!!!');
 }
@@ -78,19 +73,9 @@ function initilizeHomeAutomation() {
 		$('#mappingFrm').slideDown();
 	});
 
-	$('#showHm').click(function() {
-		$('#notificationPane').html('Showing Home...');
-		$('#notificationPane').slideDown(500, function() {
-			setTimeout(function() {
-				$('#notificationPane').slideUp(500);
-			}, 2000);
-		});
-	});
-
 	$('#showAdm').click(function() {
 		hideAllHomeAutomation();
+		hideAllPanels();
 		$('#hmAutoPanel').show();
-		$('#settingsPanel').hide();
-		$('#financePanel').hide();
 	});
 }
