@@ -37,7 +37,7 @@ create table masterunitcontroller (
    masterunitid integer default nextval('master_id_seq'),
    masterunitname varchar(50) not null UNIQUE,
    masterunitmacid varchar(50) not null UNIQUE,
-   masterunitipaddr varchar(20) not null,
+   masterunitipaddr varchar(20) null,
    masterunitsoftwareversion varchar(50) not null,
    masterunitlicense varchar(50) null,
    masterunitstatus varchar(1) default 'n',
