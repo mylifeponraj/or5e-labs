@@ -1,3 +1,3 @@
 package org.plugin.ws.tx;
 
-public enum MessageType {MCUREG, MCUEVT, ERRRES}
+public enum MessageType {REG, SCE, ERRRES, CNT, DIS}

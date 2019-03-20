@@ -1,4 +1,4 @@
-package org.plugin.ws.manager;
+package org.plugin.ws.session;
 
 import javax.websocket.Session;
 

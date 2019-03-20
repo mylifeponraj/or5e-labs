@@ -12,6 +12,7 @@ public interface MCUDetailsDAO {
 	public List<MCUDetails> getAllDeactiveMCUDetails();
 	public MCUDetails getActiveMCUDetails(Integer mcuID);
 
-	public void activateMCU(Integer mcuID);
-	public void deactivateMCU(Integer mcuID);
+	public void activateMCU(String mcuID);
+	public void deactivateMCU(String mcuID);
+	public Boolean validateUser(String userName, String license, String ipAddress);
 }

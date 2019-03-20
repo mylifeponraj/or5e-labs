@@ -29,17 +29,23 @@ public class MCUDetailsDAOImpl implements MCUDetailsDAO, MCUDetailsQuery{
 				mcu.getMasterUnitLicense()
 				) > 0;
 	}
-
+	@Override public Boolean validateUser(String userName, String license, String ipAddress) {
+		List<MCUDetails> isValidUserList = jdbcTemplate.query(VALIDATE_MCU_REG, new MCUMapper(), userName, license);
+		if(isValidUserList != null && isValidUserList.size()>0) {
+			return (jdbcTemplate.update(MCU_ALLOWED, ipAddress, isValidUserList.get(0).getMasterUnitId()))>0;
+		}
+		return Boolean.FALSE;
+	}
 	@Override public Boolean createMCULicense(MCUDetails mcu) {
 		return Boolean.FALSE;
 	}
 
-	@Override public void activateMCU(Integer mcuID) {
-		
+	@Override public void activateMCU(String mcuID) {
+		jdbcTemplate.update(ACTIVATE_MCU, mcuID);
 	}
 
-	@Override public void deactivateMCU(Integer mcuID) {
-		
+	@Override public void deactivateMCU(String mcuID) {
+		jdbcTemplate.update(DEACTIVATE_MCU, mcuID);
 	}
 
 	@Override public List<MCUDetails> getAllActiveMCUDetails() {

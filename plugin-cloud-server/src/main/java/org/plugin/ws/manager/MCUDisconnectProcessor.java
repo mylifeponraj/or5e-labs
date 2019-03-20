@@ -1,9 +1,9 @@
-package org.plugin.ws.processor;
+package org.plugin.ws.manager;
 
 import javax.websocket.Session;
 
-import org.plugin.ws.manager.SessionPoolManager;
-import org.plugin.ws.manager.SessionPoolManagerImpl;
+import org.plugin.ws.session.SessionPoolManager;
+import org.plugin.ws.session.SessionPoolManagerImpl;
 import org.plugin.ws.tx.Message;
 
 public class MCUDisconnectProcessor implements RequestProcessor {
