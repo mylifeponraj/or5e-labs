@@ -30,6 +30,10 @@ public class RequestManager implements Runnable{
 			processor = new MCUDisconnectProcessor();
 			processor.process(session, message);
 			break;
+		case "MUU":
+			processor = new MasterUnitUpdateProcessor();
+			processor.process(session, message);
+			break;
 		}
 	}
 }

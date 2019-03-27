@@ -16,6 +16,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.plugin.cloud.db.dao.MCUDetailsDAO;
 import org.plugin.ws.manager.RequestManager;
 import org.plugin.ws.manager.RequestManagerContextHelper;
 import org.plugin.ws.session.SessionPoolManagerImpl;
@@ -79,20 +80,23 @@ public class MasterControllerConnector implements ServletContextListener {
 	@OnError
 	public void onError(Session session, Throwable throwable) {
 		try {
+			SessionPoolManagerImpl.getSessionPoolManager().deleteSession(session);
 			if (session.isOpen()) {
-				Message message = new Message();
-				message.setMessageFrom("HAServer");
-				message.setMessageTo(session.getId());
-				message.setMessageType(MessageType.ERRRES.name());
-				message.setMessage("Something wrong when you send message. We are closing it.");
-				session.getBasicRemote().sendObject(message);
+//				Message message = new Message();
+//				message.setMessageFrom("HAServer");
+//				message.setMessageTo(session.getId());
+//				message.setMessageType(MessageType.ERRRES.name());
+//				message.setMessage("Something wrong when you send message. We are closing it.");
+//				session.getBasicRemote().sendObject(message);
 				session.close();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (EncodeException e) {
-			e.printStackTrace();
-		}
+		} 
+//		catch (EncodeException e) {
+//			e.printStackTrace();
+//		}
 		System.out.println("Error and Session Closed...");
 	}
 }

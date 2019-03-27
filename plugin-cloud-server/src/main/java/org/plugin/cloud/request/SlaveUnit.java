@@ -1,8 +1,9 @@
-package org.plugin.cloud.db;
+package org.plugin.cloud.request;
 
-public class SlaveUnitMaster {
+public class SlaveUnit {
 	public Integer slaveUnitID;
 	public Integer masterUnitID;
+	public String masterUnitName;
 	public String slaveUnitName;
 	public String slaveUnitType;
 	public Integer slaveSwitchCnt;
@@ -21,6 +22,12 @@ public class SlaveUnitMaster {
 	}
 	public void setSlaveSwitchCnt(Integer slaveswitchcnt) {
 		this.slaveSwitchCnt = slaveswitchcnt;
+	}
+	public String getMasterUnitName() {
+		return masterUnitName;
+	}
+	public void setMasterUnitName(String masterUnitName) {
+		this.masterUnitName = masterUnitName;
 	}
 	public String getSlaveUnitPort() {
 		return slaveUnitPort;

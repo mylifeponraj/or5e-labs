@@ -2,13 +2,26 @@
  * http://usejsdoc.org/
  */
 function addMUPanelSubmit() {
-	alert('Add Master Unit Clicked!!!');
+	//alert('Add Master Unit Clicked!!!');
 	$.getJSON("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+$('#mcuUserName').val(), function(data) {
 		$('#mcuUID').val(data.userID);
-		raiseAddRequest();
+		raiseAddMCURequest();
 	});
 }
-function raiseAddRequest() {
+function addMUPanelCancel() {
+	alert('Add Master Unit Canceled!!!');
+	resetMCUForm();
+}
+function resetMCUForm() {
+	$('#masterUnitName').val('');
+	$('#masterUnitMacID').val('');
+	$('#masterUnitSoftwareVer').val('');
+	$('#masterUnitLicense').val('');
+	$('#mcuUserID').val('');
+	$('#mcuUID').val('');
+}
+
+function raiseAddMCURequest() {
 	masterUnitName = $('#masterUnitName').val();
 	masterUnitMacID = $('#masterUnitMacID').val();
 	masterUnitSoftwareVersion = $('#masterUnitSoftwareVer').val();
@@ -20,7 +33,7 @@ function raiseAddRequest() {
 		"masterUnitSoftwareVersion" : masterUnitSoftwareVersion,
 		"masterUnitLicense" : masterUnitLicense,
 		"masterUnitStatus" : masterUnitStatus,
-		"userID" : $('#mcuUID').val()
+		"masterUnitId" : $('#mcuUID').val()
 	};
 	$.ajax({
 		url : 'rest/mcu/addMCU',
@@ -38,15 +51,3 @@ function raiseAddRequest() {
 		}
 	});
 }
-function addMUPanelCancel() {
-	alert('Add Master Unit Canceled!!!');
-}
-function resetMCUForm() {
-	$('#masterUnitName').val('');
-	$('#masterUnitMacID').val('');
-	$('#masterUnitSoftwareVer').val('');
-	$('#masterUnitLicense').val('');
-	$('#mcuUserID').val('');
-	$('#mcuUID').val('');
-}
-

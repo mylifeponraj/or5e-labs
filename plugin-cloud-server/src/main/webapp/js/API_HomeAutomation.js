@@ -8,13 +8,6 @@ function addUserPanelSubmit() {
 function addUserPanelCancel() {
 	alert('Add User Canceled!!!');
 }
-
-function addControllerPanelSubmit() {
-	alert('Controller Save Clicked!!!');
-}
-function addControllerPanelCancel() {
-	alert('Controller Canceled!!!');
-}
 function addSensorPanelSubmit() {
 	alert('Sensor Save Clicked!!!');
 }

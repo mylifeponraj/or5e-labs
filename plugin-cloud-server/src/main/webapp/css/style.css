@@ -97,8 +97,14 @@ div.mcurecord {
 	border: 1px solid orange;
 	margin: 2px;
 }
+div.mcurecordRedColor {
+	background-color: red;
+}
+div.mcurecordGreenColor {
+	background-color: green;
+}
 div.mcurecordColor {
-	background-color: darkgreen;
+	background-color: gray;
 }
 ol.gridUL {
     counter-reset: index;

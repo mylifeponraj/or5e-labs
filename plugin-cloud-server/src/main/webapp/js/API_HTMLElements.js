@@ -68,3 +68,22 @@ function writePanelSubmitAsSaveMessage(saveBtnID, cancelBtnID, saveFn,
 			+ "' onclick='javascript:" + cancelFn
 			+ ";' class='btn btn-danger'>Cancel</button></div></div>");
 }
+
+/**
+ * <div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Link 1</a>
+    <a class="dropdown-item" href="#">Link 2</a>
+    <a class="dropdown-item" href="#">Link 3</a>
+  </div>
+</div>
+*/
+function writeBlankDropDown(fieldID, fieldName) {
+	document.write("<br/><div class='row'><div class='col-sm-2 text-right'>"
+			+ fieldName + "&nbsp;</div><div class='col-sm-8'><div class='dropdown'><button id='"
+			+fieldID+"' type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>"
+			+fieldName+"</button><div class='dropdown-menu'></div></div></div></div>");
+}

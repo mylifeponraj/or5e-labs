@@ -1,5 +1,6 @@
 package org.plugin.cloud.rest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -44,15 +45,23 @@ public class MasterUnitService {
 	
 	@GET
 	@Path("/getMCU/{masterUnitName}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getMCUDetails(@PathParam("masterUnitName") String masterUnitName) {
-		
-		return null;
+		List<MCUDetails> activeMCUDetails = mcuDAOImpl.getActiveMCUDetails(masterUnitName);
+		List<String> response = new ArrayList<>();
+		for (MCUDetails mcuDetails : activeMCUDetails) {
+			response.add(mcuDetails.getMasterUnitName());
+		}
+		return (response.size()>0)?
+				Response.status(200).entity(response).build():
+				Response.status(200).entity(new Error("No MasterUnit Available.")).build();
 	}
 	
 	@GET
 	@Path("/getAllMCU")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getALLMCUDetails() {
-		List<MCUDetails> allActiveMCUDetails = mcuDAOImpl.getAllActiveMCUDetails();
+		List<MCUDetails> allActiveMCUDetails = mcuDAOImpl.getAllMCUDetails();
 		return (allActiveMCUDetails.size()>0)?Response.status(200).entity(allActiveMCUDetails).build():Response.status(200).entity(new Error("No Master Unit Availablit.")).build();
 	}
 }

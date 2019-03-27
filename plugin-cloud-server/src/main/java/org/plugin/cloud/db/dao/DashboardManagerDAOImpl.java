@@ -20,6 +20,7 @@ public class DashboardManagerDAOImpl implements DashboardManagerDAO, ExpencesQue
 	@Autowired
 	public DashboardManagerDAOImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+		System.out.println("Initilizing Dashboard Manager DAO.");
 	}
 
 	@Override

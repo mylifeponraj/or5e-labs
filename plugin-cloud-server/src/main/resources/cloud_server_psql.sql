@@ -4,6 +4,7 @@ create sequence user_id_seq start 101;
 create sequence master_id_seq start 101;
 create sequence slave_id_seq start 101;
 create sequence sensor_id_seq start 101;
+create sequence device_id_seq start 100;
 create sequence sensor_history_seq start 100;
 create sequence sensor_status_seq start 100;
 create sequence master_history_seq start 100;
@@ -11,8 +12,6 @@ create sequence master_message_seq start 100;
 create sequence fd_details_seq start 100;
 create sequence exp_details_seq start 100;
 create sequence exp_his_details_seq start 1;
-
-select nextval('user_id_seq');
 
 create table usermaster (
    userid integer default nextval('user_id_seq'),
@@ -50,19 +49,37 @@ create table slaveunit (
    slaveunitid integer default nextval('slave_id_seq'),
    masterunitid integer not null UNIQUE,
    slaveunitname varchar(50) not null,
+   slaveunitport varchar(50) not null default '',
+   slaveswitchcnt integer not null default 0,
    slaveunittype varchar(50) not null,
+   sw01 integer not null default 0,
+   sw02 integer not null default 0,
+   sw03 integer not null default 0,
+   sw04 integer not null default 0,
+   sw05 integer not null default 0,
+   sw06 integer not null default 0,
+   sw07 integer not null default 0,
+   sw08 integer not null default 0,
+   
    primary key(slaveunitid),
    foreign key (masterunitid) references masterunitcontroller(masterunitid)
+);
+create table devicemaster (
+   deviceId integer default nextval('device_id_seq'),
+   devicename varchar(30) not null,
+   devicetype varchar(1) not null,
+   primary key(deviceId)
 );
 create table sensorunit (
    sensorid integer default nextval('sensor_id_seq'),
    slaveunitid integer not null UNIQUE,
    sensorname varchar(50) not null,
-   sensorvalue varchar(3) null,
-   sensortype varchar(10) null,
+   sensornumber Integer null,
+   sensordevice integer not null,
    sensorlastchange timestamp default current_timestamp,
    primary key (sensorid),
-   foreign key (slaveunitid) references slaveunit(slaveunitid)
+   foreign key (slaveunitid) references slaveunit(slaveunitid),
+   foreign key (sensordevice) references devicemaster(deviceId)
 );
 create table sensorstatus (
    sensorstatusid integer default nextval('sensor_status_seq'),
@@ -157,9 +174,26 @@ insert into expence_type (exp_name) values ('PARENTS EXPENCE');
 insert into expence_type (exp_name) values ('TOLL EXPENCES');
 insert into expence_type (exp_name) values ('TRAVEL EXPENCES');
 
+insert into devicemaster (devicename, devicetype) values ('No Device','N');
+insert into devicemaster (devicename, devicetype) values ('Light','O');
+insert into devicemaster (devicename, devicetype) values ('Fan','O');
+insert into devicemaster (devicename, devicetype) values ('Plug Point','O');
+insert into devicemaster (devicename, devicetype) values ('Night Light','O');
+insert into devicemaster (devicename, devicetype) values ('Television','O');
+insert into devicemaster (devicename, devicetype) values ('Audio Player','O');
+insert into devicemaster (devicename, devicetype) values ('DVD Player','O');
+insert into devicemaster (devicename, devicetype) values ('Desktop','O');
+
+insert into devicemaster (devicename, devicetype) values ('TempSensor','I');
+insert into devicemaster (devicename, devicetype) values ('LightSensor','I');
+insert into devicemaster (devicename, devicetype) values ('PIR','I');
+insert into devicemaster (devicename, devicetype) values ('Touch','I');
 
 commit;
-Select * from usermaster;
+select * from usermaster;
+select * from devicemaster;
+select * from expence_type;
+
 delete from usermaster;
 
 drop table expence_history;
@@ -169,6 +203,7 @@ drop table masterunithistory;
 drop table sensorhistory;
 drop table sensorstatus;
 drop table sensorunit;
+drop table devicemaster;
 drop table slaveunit;
 drop table masterunitcontroller;
 drop table finfdmaster;
@@ -182,6 +217,7 @@ drop sequence master_history_seq;
 drop sequence sensor_status_seq;
 drop sequence sensor_history_seq;
 drop sequence sensor_id_seq;
+drop sequence device_id_seq;
 drop sequence slave_id_seq;
 drop sequence master_id_seq;
 drop sequence user_id_seq;

@@ -10,8 +10,7 @@ function loadAllMasterUnitIntoDashboard() {
 		index = 1;
 		addRecord = "";
 		$.each(data, function(key, val) {
-			console.log(val);
-			addRecord += '<div id="'+val.masterUnitName+'" name="'+val.masterUnitName+'" class="col-md-2 mcurecord mcurecordColor">'
+			addRecord += '<div id="'+val.masterUnitName+'" name="'+val.masterUnitName+'" class="col-md-2 mcurecord mcurecordRedColor">'
 					+ val.masterUnitName + '<br>' + val.masterUnitMacID
 					+ '<br>' + val.masterUnitSoftwareVersion + '<br>'
 					+ val.masterUnitIPaddr + '</div>';
@@ -33,7 +32,7 @@ var browserClient="HAServerAPP";
 function initilizeWebSocket() {
 	isConnected = false;
 	url = "ws://localhost:8080/plugin-cloud-server/has";
-	alert(url);
+//	alert(url);
 	webSocket = new WebSocket(url);
 	webSocket.onopen = function(message){ wsOpen(message);};
 	webSocket.onmessage = function(message){ wsGetMessage(message);};
@@ -41,22 +40,42 @@ function initilizeWebSocket() {
 	webSocket.onerror = function(message){ wsError(message);};
 }
 function wsOpen(message){
-	console.log("Connected ...");
 	isConnected = true;
 }
-function wsSendMessage(){
+function wsSendRegMessage(){
 	//Message Type: Register, Status: send to Server;; "Command": Send from Server
-	var sendTo = "{'messageFrom':'"+browserClient+"', 'messageTo':'HAServer', 'messageType':'REG', 'masterUnitLicense':'ADMIN', 'message':'I am a Admin Application'}";
-	console.log(sendTo);
+	var sendTo = "{'messageFrom':'"+browserClient+"', 'messageTo':'HAServer', 'messageType':'REG', 'masterUnitLicense':'ADMIN', 'message':'ADMIN'}";
 	webSocket.send(sendTo);
-	console.log("Message sended to the server");
+	updateStatus();
+	$('#liveUpdate').html('Disable Live');
+}
+function updateStatus() {
+	var sendTo = "{'messageFrom':'"+browserClient+"', 'messageTo':'HAServer', 'messageType':'MUU', 'masterUnitLicense':'ADMIN', 'message':'ADMIN'}";
+	webSocket.send(sendTo);
 }
 function wsCloseConnection(){
 	webSocket.close();
 }
 function wsGetMessage(message){
-	var response = JSON.parse(message.data)
-	console.log("Message received from to the server : " + response);
+	var response = JSON.parse(message.data);
+	console.log(response);
+	if(response.messageType === 'ACTMCU') {
+		$('#'+response.message).removeClass('mcurecordRedColor').addClass('mcurecordGreenColor');
+	}
+	else if(response.messageType === 'DISMCU') {
+		$('#'+response.message).removeClass('mcurecordGreenColor').addClass('mcurecordRedColor');
+	}
+	else if(response.messageType === 'MUU') {
+		var msg = new String(response.message);
+		var activeMCU = msg.split(',');
+		for(i = 1; i < activeMCU.length; i ++) {
+			alert(activeMCU[i-1]);
+			$('#'+activeMCU[i-1]).removeClass('mcurecordRedColor').addClass('mcurecordGreenColor');
+		}
+	}
+	else {
+		console.log('No Mapping: '+response.message);
+	}
 }
 function wsClose(message){
 	console.log("Disconnect");

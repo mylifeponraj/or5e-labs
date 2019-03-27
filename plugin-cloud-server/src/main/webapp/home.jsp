@@ -25,6 +25,7 @@
 <script src="js/API_mcu.js"></script>
 <script src="js/API_Dashboard.js"></script>
 <script src="js/API_HTMLElements.js"></script>
+<script src="js/API_SlaveUnit.js"></script>
 <script src="js/bootstrap3-typeahead.min.js"></script> 
 
 <script type="text/javascript">
@@ -53,7 +54,7 @@
 			<div class='col-sm-8 text-right' style="color: white; font-size: 20px;">Hello : <font color='orange'><%=(String) session.getAttribute("userDisplayName")%></font> | <a href="logout.do">Logout</a></div>
 		</div>
 		<div id='mcuDashboardPanel'>
-			<br/><h2>Master Controller Dashboard</h2> | <a href='javascript: loadAllMasterUnitIntoDashboard();'>Reload</a> | <a href='javascript: wsSendMessage()'>Register Socket</a><br />
+			<br/><h2>Master Controller Dashboard</h2> | <a href='javascript: loadAllMasterUnitIntoDashboard();'>Load MCU</a> | <a id='liveUpdate' href='javascript: wsSendRegMessage()'>Enable Live</a><br />
 			<div id='mcuDB'>
 
 			</div>
@@ -142,8 +143,37 @@
 			<script type="text/javascript">
 				writeTextField('controllerName', 'Controller Name:', ' ');
 				writeTextField('controllerType', 'Controller Type:', ' ');
-				writeTextField('controllerMacID', 'Controller MAC ID:', ' ');
+				$('#controllerType').typeahead({
+				    source:  function (query, process) {
+						return $.get("rest/su/getSlaveUnitTypes", 
+		        			{}, 
+		        			function (data) {
+			            		return process(data);
+			        		}
+		        		);
+				    },
+				    afterSelect: function (selectedItem) {
+				    	console.log('Selected : '+selectedItem);
+				    	$('#controllerType').val(selectedItem);
+				    }
+				});
+				writeTextField('controllerPort', 'Controller Port:', ' ');
+				writeTextField('controllerSwitchCnt', 'Controller Switching:', ' ');
 				writeTextField('controllerMasterUnit', 'Master Unit ID:', ' ');
+				$('#controllerMasterUnit').typeahead({
+				    source:  function (query, process) {
+						return $.get("rest/mcu/getMCU/"+query, 
+		        			{}, 
+		        			function (data) {
+			            		return process(data);
+			        		}
+		        		);
+				    },
+				    afterSelect: function (selectedItem) {
+				    	console.log('Selected : '+selectedItem);
+				    	$('#controllerMasterUnit').val(selectedItem);
+				    }
+				});
 				writePanelSubmit('addControllerSaveBtn', 'addControllerCancelBtn', 'addControllerPanelSubmit()', 'addControllerPanelCancel()');
 			</script>
 			</div>

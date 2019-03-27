@@ -1,12 +1,15 @@
 package org.plugin.ws.manager;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Session;
 
+import org.plugin.cloud.db.SlaveUnitMaster;
 import org.plugin.cloud.db.dao.MCUDetailsDAO;
+import org.plugin.cloud.db.dao.SlaveUnitDAOImpl;
 import org.plugin.ws.session.SessionPoolManagerImpl;
 import org.plugin.ws.tx.Message;
 import org.plugin.ws.tx.MessageType;
@@ -17,21 +20,64 @@ public class RegisterMCUProcessor implements RequestProcessor{
 		Boolean addSession = SessionPoolManagerImpl.getSessionPoolManager().addSession(session, message);
 		response.setMessageFrom("HAServer");
 		if(addSession) {
-			response.setMessageTo(message.getMessageFrom());
 			try {
 				String requestMessage = message.getMessage();
-				
+				if(message.getMessageFrom().equals("HAServerAPP")) {
+					response.setMessageTo("HAServerAPP");
+					response.setMessageType(MessageType.REG.name());
+					response.setMessage("Welcome.");
+					try {
+						session.getBasicRemote().sendObject(response);
+					} catch (IOException | EncodeException e) {
+						e.printStackTrace();
+					}
+					return;
+				}
 				MCUDetailsDAO mcuDAO = (MCUDetailsDAO)RequestManagerContextHelper.getRequestManagerContext().getBean("mcuDetailsDAOImpl");
+				SlaveUnitDAOImpl suDAO = (SlaveUnitDAOImpl)RequestManagerContextHelper.getRequestManagerContext().getBean("slvDAOImpl");
+				
+				Message adminMessage = new Message();
+				adminMessage.setMessageFrom("HAServer");
+				adminMessage.setMessageTo("HAServerAPP");
+				adminMessage.setMessage(message.getMessageFrom());
+				response.setMessageTo(message.getMessageFrom());
+
 				if(validateRequestMessage(requestMessage, mcuDAO)) {
 					mcuDAO.activateMCU(message.getMessageFrom());
 					response.setMessageType(MessageType.REG.name());
-					response.setMessage("Welcome!!!");
+					
+					//Send Slave Unit Details...
+					List<SlaveUnitMaster> slaveUnits = suDAO.getSlaveUnitByMasterUnitID(mcuDAO.getMCUDetailsByName(message.getMessageFrom()).getMasterUnitId());
+					if(slaveUnits != null && slaveUnits.size()>0 ) {
+						StringBuilder builder = new StringBuilder();
+						boolean firstItem = true;
+						for (SlaveUnitMaster slaveUnitMaster : slaveUnits) {
+							if(!firstItem) {
+								builder.append(",");
+								firstItem = false;
+							}
+							builder.append(slaveUnitMaster.getSlaveUnitType());
+							builder.append("|");
+							builder.append(slaveUnitMaster.getSlaveUnitName());
+							builder.append("|");
+							builder.append(slaveUnitMaster.getSlaveUnitPort());
+						}
+						response.setMessage(builder.toString());
+					}
+					else {
+						response.setMessage("No Slave Unit Registered");
+					}
+					adminMessage.setMessageType("ACTMCU");
+					
 				}
 				else {
+					mcuDAO.deactivateMCU(message.getMessageFrom());
 					response.setMessageType(MessageType.ERRRES.name());
 					response.setMessage("User Not able to bind or add to messaging service.");
+					adminMessage.setMessageType("DISMCU");
 				}
 				session.getBasicRemote().sendObject(response);
+				SessionPoolManagerImpl.getSessionPoolManager().sendAdminForMCUChange(adminMessage);
 			} catch (IOException | EncodeException e) {
 				e.printStackTrace();
 			}
@@ -39,7 +85,7 @@ public class RegisterMCUProcessor implements RequestProcessor{
 		else {
 			response.setMessageTo(message.getMessageFrom());
 			response.setMessageType(MessageType.ERRRES.name());
-			response.setMessage("Not able to add you.");
+			response.setMessage("You have already registered!!!");
 			try {
 				session.getBasicRemote().sendObject(response);
 				session.close();
@@ -52,8 +98,13 @@ public class RegisterMCUProcessor implements RequestProcessor{
 	private Boolean validateRequestMessage(String requestMessage, MCUDetailsDAO mcuDAO) {
 		StringTokenizer tokens = new StringTokenizer(requestMessage, ",");
 		String userName = tokens.nextToken();
-		String license = tokens.nextToken();
+		if(userName.equals("ADMIN")) {
+			return Boolean.TRUE;
+		}
+		String masterUnitName = tokens.nextToken();
 		String ipAddress = tokens.nextToken();
+		String license = tokens.nextToken();
+		String version = tokens.nextToken();
 		return mcuDAO.validateUser(userName, license, ipAddress);
 	}
 }

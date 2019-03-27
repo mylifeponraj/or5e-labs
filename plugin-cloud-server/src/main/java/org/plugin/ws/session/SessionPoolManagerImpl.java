@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Session;
 
+import org.plugin.cloud.db.dao.MCUDetailsDAO;
+import org.plugin.ws.manager.RequestManagerContextHelper;
 import org.plugin.ws.tx.Message;
 
 public class SessionPoolManagerImpl implements SessionPoolManager {
@@ -39,13 +42,32 @@ public class SessionPoolManagerImpl implements SessionPoolManager {
 
 	@Override public void deleteSession(Session session) {
 		//Removing if it is a customer session
-		sessionCache.entrySet().removeIf(matches -> matches.getValue().getId().equals(session.getId()));
+//		sessionCache.entrySet().removeIf(matches -> matches.getValue().getId().equals(session.getId()));
+		Set<String> sessionKeys = sessionCache.keySet();
+		String deletedKey="";
+		for (String keys : sessionKeys) {
+			if(sessionCache.get(keys).getId().equals(session.getId())) {
+				Message adminMessage = new Message();
+				adminMessage.setMessageFrom("HAServer");
+				adminMessage.setMessageTo("HAServerApp");
+				adminMessage.setMessageType("DISMCU");
+				adminMessage.setMessage(keys);
+				SessionPoolManagerImpl.getSessionPoolManager().sendAdminForMCUChange(adminMessage);
+				deletedKey = keys;
+				MCUDetailsDAO mcuDAO = (MCUDetailsDAO)RequestManagerContextHelper.getRequestManagerContext().getBean("mcuDetailsDAOImpl");
+				mcuDAO.deactivateMCU(deletedKey);
+				break;
+			}
+		}
+		sessionCache.remove(deletedKey);
 		
 		//Removing if it is a admin Session
-		adminSessions.removeIf(matches -> matches.getId().equals(session.getId()));
+		if(deletedKey.equals(""))
+			adminSessions.removeIf(matches -> matches.getId().equals(session.getId()));
 	}
 	
 	@Override public void sendAdminForMCUChange(Message message) {
+		System.out.println("About to send Message to All Admin Sessions : "+adminSessions.size());
 		if(adminSessions.size() > 0) {
 			for (Session session : adminSessions) {
 				try {
