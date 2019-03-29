@@ -43,10 +43,10 @@ function loadCity(state) {
 
 
 function populateUserEmail(userID, emailField) {
-	$.getJSON("http://localhost:8080/plugin-cloud-server/rest/user/getUser/"+userID, function(data) {
-			$('#'+emailField).val(data[0].userEmail);
-			$('#userLicense').val(data[0].userLicense);
-			console.log(emailField+": "+ data[0].userEmail);
+	$.getJSON("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+userID, function(data) {
+			$('#'+emailField).val(data.userEmail);
+			$('#userLicense').val(data.userLicense);
+			console.log(emailField+": "+ data.userEmail);
 			console.log($('#'+emailField));
 		}
 	);

@@ -5,7 +5,7 @@ function addMUPanelSubmit() {
 	//alert('Add Master Unit Clicked!!!');
 	$.getJSON("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+$('#mcuUserName').val(), function(data) {
 		$('#mcuUID').val(data.userID);
-		raiseAddMCURequest();
+		raiseAddMCURequest(data.userID);
 	});
 }
 function addMUPanelCancel() {
@@ -21,20 +21,23 @@ function resetMCUForm() {
 	$('#mcuUID').val('');
 }
 
-function raiseAddMCURequest() {
+function raiseAddMCURequest(usrID) {
+	alert(usrID);
 	masterUnitName = $('#masterUnitName').val();
 	masterUnitMacID = $('#masterUnitMacID').val();
 	masterUnitSoftwareVersion = $('#masterUnitSoftwareVer').val();
 	masterUnitLicense = $('#masterUnitLicense').val();
 	masterUnitStatus = 'n';
+	userID = usrID;
 	reqToAdd = {
 		"masterUnitName" : masterUnitName,
 		"masterUnitMacID" : masterUnitMacID,
 		"masterUnitSoftwareVersion" : masterUnitSoftwareVersion,
 		"masterUnitLicense" : masterUnitLicense,
 		"masterUnitStatus" : masterUnitStatus,
-		"masterUnitId" : $('#mcuUID').val()
+		"userID" : userID
 	};
+	alert(JSON.stringify(reqToAdd));
 	$.ajax({
 		url : 'rest/mcu/addMCU',
 		type : 'post',
@@ -43,11 +46,17 @@ function raiseAddMCURequest() {
 		dataType : "json",
 		success : function(data) {
 			if (data.statusCode == 200) {
-				alert('Master Unit Added successfully');
+				alert('Master Unit Added successfully..');
 			} else {
 				alert('Master Unit addition Unsuccessfully');
 			}
 			resetMCUForm();
 		}
 	});
+}
+function populateUserLicense(userID) {
+	$.getJSON("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+userID, function(data) {
+			$('#masterUnitLicense').val(data.userLicense);
+		}
+	);
 }

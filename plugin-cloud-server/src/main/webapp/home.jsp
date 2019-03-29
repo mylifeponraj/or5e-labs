@@ -92,11 +92,11 @@
 				writeTextField('masterUnitName', 'Master Unit Name(*Unique):', ' ');
 				writeTextField('masterUnitMacID', 'Master Unit MAC ID:', ' ');
 				writeTextField('masterUnitSoftwareVer', 'Master Unit Software Version:', ' ');
-				writeTextField('masterUnitLicense', 'Master Unit License:', ' ');
+				writeTextField('masterUnitLicense', 'Master Unit License:', ' ', true);
 				writeTextField('mcuUserID', 'Sold To:', ' ');
 				$('#mcuUserID').typeahead({
 				    source:  function (query, process) {
-						return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+query, 
+						return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getLikeUserByName/"+query, 
 		        			{}, 
 		        			function (data) {
 			            		return process(data);
@@ -106,7 +106,7 @@
 				    afterSelect: function (selectedItem) {
 				    	console.log('Selected : '+selectedItem);
 				    	$('#mcuUserName').val(selectedItem);
-				    	alert($('#mcuUserName').val());
+				    	populateUserLicense(selectedItem);
 				    }
 				});
 				writePanelSubmit('addMUSaveBtn', 'addMUCancelBtn', 'addMUPanelSubmit()', 'addMUPanelCancel()');
@@ -121,7 +121,7 @@
 				writeTextField('userLicenseName', 'Sold To:', ' ');
 				$('#userLicenseName').typeahead({
 				    source:  function (query, process) {
-						return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getUserByName/"+query, 
+						return $.get("http://localhost:8080/plugin-cloud-server/rest/user/getLikeUserByName/"+query, 
 		        			{}, 
 		        			function (data) {
 			            		return process(data);

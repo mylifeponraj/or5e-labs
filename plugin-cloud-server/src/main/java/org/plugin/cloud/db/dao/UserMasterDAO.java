@@ -7,6 +7,7 @@ import org.plugin.cloud.db.UserMaster;
 public interface UserMasterDAO {
 	public List<UserMaster> getAllUsers();
 	public List<UserMaster> getUserLike(String username);
+	public UserMaster getUserByName(String userName);
 	public List<UserMaster> getUser(String userID);
 	public UserMaster isValidUser(String username, String userKey);
 	public Boolean createUser(UserMaster user);

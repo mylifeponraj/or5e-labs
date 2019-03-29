@@ -31,6 +31,10 @@ public class UserMasterDAOImpl implements UserMasterDAO, UserMasterQueries {
 		return jdbcTemplate.query(GET_ALL_LIKE_USERS, new UserMasterMapper(), userName);
 		
 	}
+	@Override public UserMaster getUserByName(String userName) {
+		return jdbcTemplate.queryForObject(GET_USER_BY_NAME, new UserMasterMapper(), userName);
+		
+	}
 	@Override public UserMaster isValidUser(String username, String userKey) {
 		
 		try {

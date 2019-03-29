@@ -26,7 +26,6 @@ public class MCUDetailsDAOImpl implements MCUDetailsDAO, MCUDetailsQuery{
 				mcu.getMasterUnitName(),
 				mcu.getMasterUnitMacID(),
 				mcu.getMasterUnitSoftwareVersion(),
-				((mcu.getMasterUnitStatus() == null)? "n":"y"),
 				mcu.getUserID(),
 				mcu.getMasterUnitLicense()
 				) > 0;
