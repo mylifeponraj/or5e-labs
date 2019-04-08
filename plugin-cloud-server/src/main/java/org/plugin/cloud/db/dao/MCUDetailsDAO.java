@@ -15,6 +15,7 @@ public interface MCUDetailsDAO {
 	public MCUDetails getActiveMCUDetails(Integer mcuID);
 	public List<MCUDetails> getActiveMCUDetails(String mcuName);
 	public MCUDetails getMCUDetailsByName(String mcuName);
+	public MCUDetails getMCUDetailsForUserByID(Integer userID);
 	public MCUDetails getMCUDetailsByID(Integer mcuName);
 
 	public void activateMCU(String mcuID);

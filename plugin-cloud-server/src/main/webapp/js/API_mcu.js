@@ -22,7 +22,6 @@ function resetMCUForm() {
 }
 
 function raiseAddMCURequest(usrID) {
-	alert(usrID);
 	masterUnitName = $('#masterUnitName').val();
 	masterUnitMacID = $('#masterUnitMacID').val();
 	masterUnitSoftwareVersion = $('#masterUnitSoftwareVer').val();
@@ -37,7 +36,6 @@ function raiseAddMCURequest(usrID) {
 		"masterUnitStatus" : masterUnitStatus,
 		"userID" : userID
 	};
-	alert(JSON.stringify(reqToAdd));
 	$.ajax({
 		url : 'rest/mcu/addMCU',
 		type : 'post',

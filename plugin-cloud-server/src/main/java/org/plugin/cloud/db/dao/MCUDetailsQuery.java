@@ -5,6 +5,7 @@ public interface MCUDetailsQuery {
 	public static final String GET_ACTIVE_USER = "select * from usermaster where userstatus='Y' and username=?";
 	
 	public static final String QUERY_MCU = "select * from masterunitcontroller";
+	public static final String QUERY_MCU_FOR_USER = "select * from masterunitcontroller where userid=?";
 	public static final String QUERY_SINGLE_MCU = "select * from masterunitcontroller where masterunitname=?";
 	public static final String QUERY_SINGLE_MCU_ID = "select * from masterunitcontroller where masterunitid=?";
 	public static final String VALIDATE_MCU_REG = "select * from masterunitcontroller where userid=? and masterunitlicense=?";

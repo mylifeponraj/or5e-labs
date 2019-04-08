@@ -8,6 +8,7 @@ public class SlaveUnit {
 	public String slaveUnitType;
 	public Integer slaveSwitchCnt;
 	public String slaveUnitPort;
+	public String slaveUnitDisplayName;
 	public Integer sw01;
 	public Integer sw02;
 	public Integer sw03;
@@ -16,12 +17,18 @@ public class SlaveUnit {
 	public Integer sw06;
 	public Integer sw07;
 	public Integer sw08;
-	
+
 	public Integer getSlaveSwitchCnt() {
 		return slaveSwitchCnt;
 	}
 	public void setSlaveSwitchCnt(Integer slaveswitchcnt) {
 		this.slaveSwitchCnt = slaveswitchcnt;
+	}
+	public String getSlaveUnitDisplayName() {
+		return slaveUnitDisplayName;
+	}
+	public void setSlaveUnitDisplayName(String slaveUnitDisplayName) {
+		this.slaveUnitDisplayName = slaveUnitDisplayName;
 	}
 	public String getMasterUnitName() {
 		return masterUnitName;

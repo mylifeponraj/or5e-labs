@@ -34,8 +34,7 @@ public class RegisterMCUProcessor implements RequestProcessor{
 					return;
 				}
 				MCUDetailsDAO mcuDAO = (MCUDetailsDAO)RequestManagerContextHelper.getRequestManagerContext().getBean("mcuDetailsDAOImpl");
-				SlaveUnitDAOImpl suDAO = (SlaveUnitDAOImpl)RequestManagerContextHelper.getRequestManagerContext().getBean("slvDAOImpl");
-				
+
 				Message adminMessage = new Message();
 				adminMessage.setMessageFrom("HAServer");
 				adminMessage.setMessageTo("HAServerAPP");
@@ -45,30 +44,8 @@ public class RegisterMCUProcessor implements RequestProcessor{
 				if(validateRequestMessage(requestMessage, mcuDAO)) {
 					mcuDAO.activateMCU(message.getMessageFrom());
 					response.setMessageType(MessageType.REG.name());
-					
-					//Send Slave Unit Details...
-					List<SlaveUnitMaster> slaveUnits = suDAO.getSlaveUnitByMasterUnitID(mcuDAO.getMCUDetailsByName(message.getMessageFrom()).getMasterUnitId());
-					if(slaveUnits != null && slaveUnits.size()>0 ) {
-						StringBuilder builder = new StringBuilder();
-						boolean firstItem = true;
-						for (SlaveUnitMaster slaveUnitMaster : slaveUnits) {
-							if(!firstItem) {
-								builder.append(",");
-								firstItem = false;
-							}
-							builder.append(slaveUnitMaster.getSlaveUnitType());
-							builder.append("|");
-							builder.append(slaveUnitMaster.getSlaveUnitName());
-							builder.append("|");
-							builder.append(slaveUnitMaster.getSlaveUnitPort());
-						}
-						response.setMessage(builder.toString());
-					}
-					else {
-						response.setMessage("No Slave Unit Registered");
-					}
 					adminMessage.setMessageType("ACTMCU");
-					
+					response.setMessage("CNF");
 				}
 				else {
 					mcuDAO.deactivateMCU(message.getMessageFrom());

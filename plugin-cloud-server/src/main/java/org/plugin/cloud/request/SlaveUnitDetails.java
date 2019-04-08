@@ -1,6 +1,12 @@
-package org.plugin.cloud.db;
+package org.plugin.cloud.request;
 
-public class SlaveUnitMaster {
+import java.util.LinkedList;
+import java.util.List;
+
+import org.plugin.cloud.db.SensorUnitMaster;
+import org.plugin.cloud.db.SlaveUnitMaster;
+
+public class SlaveUnitDetails {
 	public Integer slaveUnitID;
 	public Integer masterUnitID;
 	public String slaveUnitName;
@@ -16,7 +22,14 @@ public class SlaveUnitMaster {
 	public Boolean sw06;
 	public Boolean sw07;
 	public Boolean sw08;
+	public List<SensorUnitMaster> sensors = new LinkedList<SensorUnitMaster>();
 	
+	public List<SensorUnitMaster> getSensors() {
+		return sensors;
+	}
+	public void addSensors(SensorUnitMaster sensor) {
+		this.sensors.add(sensor);
+	}
 	public Integer getSlaveSwitchCnt() {
 		return slaveSwitchCnt;
 	}
@@ -107,7 +120,21 @@ public class SlaveUnitMaster {
 	public void setSw08(Boolean sw08) {
 		this.sw08 = sw08;
 	}
-	@Override public String toString() {
-		return this.slaveUnitName;
+	public void mapSlaveUnitMaster(SlaveUnitMaster slaveUnit) {
+		this.masterUnitID = slaveUnit.getMasterUnitID();
+		this.slaveSwitchCnt = slaveUnit.getSlaveSwitchCnt();
+		this.slaveUnitDisplayName = slaveUnit.getSlaveUnitDisplayName();
+		this.slaveUnitID = slaveUnit.getSlaveUnitID();
+		this.slaveUnitName = slaveUnit.getSlaveUnitName();
+		this.slaveUnitPort = slaveUnit.getSlaveUnitPort();
+		this.slaveUnitType = slaveUnit.getSlaveUnitType();
+		this.sw01 = slaveUnit.getSw01();
+		this.sw02 = slaveUnit.getSw02();
+		this.sw03 = slaveUnit.getSw03();
+		this.sw04 = slaveUnit.getSw04();
+		this.sw05 = slaveUnit.getSw05();
+		this.sw06 = slaveUnit.getSw06();
+		this.sw07 = slaveUnit.getSw07();
+		this.sw08 = slaveUnit.getSw08();
 	}
 }

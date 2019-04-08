@@ -71,6 +71,9 @@ public class MCUDetailsDAOImpl implements MCUDetailsDAO, MCUDetailsQuery{
 	@Override public MCUDetails getMCUDetailsByName(String mcuName) {
 		return jdbcTemplate.queryForObject(QUERY_SINGLE_MCU, new MCUMapper(), mcuName);
 	}
+	@Override public MCUDetails getMCUDetailsForUserByID(Integer userID) {
+		return jdbcTemplate.queryForObject(QUERY_MCU_FOR_USER, new MCUMapper(), userID);
+	}
 	@Override public MCUDetails getMCUDetailsByID(Integer mcuName) {
 		return jdbcTemplate.queryForObject(QUERY_SINGLE_MCU_ID, new MCUMapper(), mcuName);
 	}

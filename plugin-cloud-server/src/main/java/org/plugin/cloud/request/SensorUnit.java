@@ -1,21 +1,11 @@
-package org.plugin.cloud.db;
+package org.plugin.cloud.request;
 
-import java.sql.Timestamp;
-
-public class SensorUnitMaster {
+public class SensorUnit {
 	public Integer sensorUnitID;
 	public Integer slaveUnitID; //Slave Unit ID
 	public Integer sensorDevice; //Device ID
 	public String  sensorName;
-	public Integer sensorSwitchNo;
 	public Integer sensorValue;
-	public Timestamp sensorLastChange;
-	public Integer getSensorSwitchNo() {
-		return sensorSwitchNo;
-	}
-	public void setSensorSwitchNo(Integer sensorSwitchNo) {
-		this.sensorSwitchNo = sensorSwitchNo;
-	}
 	public Integer getSensorUnitID() {
 		return sensorUnitID;
 	}
@@ -45,11 +35,5 @@ public class SensorUnitMaster {
 	}
 	public void setSensorValue(Integer sensorValue) {
 		this.sensorValue = sensorValue;
-	}
-	public Timestamp getSensorLastChange() {
-		return sensorLastChange;
-	}
-	public void setSensorLastChange(Timestamp sensorLastChange) {
-		this.sensorLastChange = sensorLastChange;
 	}
 }

@@ -272,7 +272,48 @@ div.content1 {
 			document.write("<br/><div class='row'><div class='col-sm-2 text-right'>"+fieldName+"&nbsp;</div><div class='col-sm-8'><input id="+fieldID+" type='text' value='"+fieldValue.trim()+"' disabled/></div></div>");
 		}
 	}
-
+	
+	var switchType;
+	
+	function writeSlaveSwitchField(switchTitle, switchID) {
+		document.write("<div class='col-sm-3 text-left'>"+switchTitle+"<br/><select id='"+switchID+"'name='"+switchID+"'></select></div>");
+	}
+	function loadSwitchConfiguration() {
+		$.getJSON('http://localhost:8080/plugin-cloud-server/rest/device/getSwitchingDevices', function(data) {
+			$('#sw01').append("<option value='100'>No Switch</option>");
+			$('#sw02').append("<option value='100'>No Switch</option>");
+			$('#sw03').append("<option value='100'>No Switch</option>");
+			$('#sw04').append("<option value='100'>No Switch</option>");
+			$('#sw05').append("<option value='100'>No Switch</option>");
+			$('#sw06').append("<option value='100'>No Switch</option>");
+			$('#sw07').append("<option value='100'>No Switch</option>");
+			$('#sw08').append("<option value='100'>No Switch</option>");
+			$.each(data, function(index, obj) {
+				$('#sw01').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw02').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw03').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw04').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw05').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw06').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw07').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sw08').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+			});
+		});
+	}
+	function loadSensorConfiguration() {
+		$.getJSON('http://localhost:8080/plugin-cloud-server/rest/device/getSensorDevices', function(data) {
+			$('#sen01').append("<option value='100'>No Sensor</option>");
+			$('#sen02').append("<option value='100'>No Sensor</option>");
+			$('#sen03').append("<option value='100'>No Sensor</option>");
+			$('#sen04').append("<option value='100'>No Sensor</option>");
+			$.each(data, function(index, obj) {
+				$('#sen01').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sen02').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sen03').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+				$('#sen04').append("<option value='"+obj.deviceID+"'>"+obj.deviceName+"</option>");
+			});
+		});
+	}
 //	<br/><div class='row'><div class='col-sm-2 text-right'>Expence Type: </div>
 //	<div class='col-sm-8'>
 //	<select id="sel1" name="sellist1">
@@ -510,6 +551,27 @@ div.content1 {
 				writeTextField('controllerType', 'Controller Type:', ' ');
 				writeTextField('controllerMacID', 'Controller MAC ID:', ' ');
 				writeTextField('controllerMasterUnit', 'Master Unit ID:', ' ');
+				document.write("<br/><hr style='color:white'/><h3>Switch Configuration</h3><br/><div class='row'>");
+				writeSlaveSwitchField('Switch 1', 'sw01');
+				writeSlaveSwitchField('Switch 2', 'sw02');
+				writeSlaveSwitchField('Switch 3', 'sw03');
+				writeSlaveSwitchField('Switch 4', 'sw04');
+				document.write("</div><br/><br/><div class='row'>");
+				writeSlaveSwitchField('Switch 5', 'sw05');
+				writeSlaveSwitchField('Switch 6', 'sw06');
+				writeSlaveSwitchField('Switch 7', 'sw07');
+				writeSlaveSwitchField('Switch 8', 'sw08');
+				document.write("</div>");
+
+				document.write("<br/><hr style='color:white'/><h3>Sensor Configuration</h3><br/><div class='row'>");
+				writeSlaveSwitchField('Sensor 1', 'sen01');
+				writeSlaveSwitchField('Sensor 2', 'sen02');
+				writeSlaveSwitchField('Sensor 3', 'sen03');
+				writeSlaveSwitchField('Sensor 4', 'sen04');
+				document.write("</div><br/><br/><div class='row'>");
+
+				loadSwitchConfiguration();
+				loadSensorConfiguration();
 				writePanelSubmit('addControllerSaveBtn', 'addControllerCancelBtn', 'addControllerPanelSubmit()', 'addControllerPanelCancel()');
 			</script>
 			</div>

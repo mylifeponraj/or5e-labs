@@ -49,17 +49,18 @@ create table slaveunit (
    slaveunitid integer default nextval('slave_id_seq'),
    masterunitid integer not null UNIQUE,
    slaveunitname varchar(50) not null,
+   slaveunitdisplayname  varchar(50) not null default '',
    slaveunitport varchar(50) not null default '',
    slaveswitchcnt integer not null default 0,
    slaveunittype varchar(50) not null,
-   sw01 integer not null default 0,
-   sw02 integer not null default 0,
-   sw03 integer not null default 0,
-   sw04 integer not null default 0,
-   sw05 integer not null default 0,
-   sw06 integer not null default 0,
-   sw07 integer not null default 0,
-   sw08 integer not null default 0,
+   sw01 boolean not null default false,
+   sw02 boolean not null default false,
+   sw03 boolean not null default false,
+   sw04 boolean not null default false,
+   sw05 boolean not null default false,
+   sw06 boolean not null default false,
+   sw07 boolean not null default false,
+   sw08 boolean not null default false,
    
    primary key(slaveunitid),
    foreign key (masterunitid) references masterunitcontroller(masterunitid)
@@ -72,11 +73,12 @@ create table devicemaster (
 );
 create table sensorunit (
    sensorid integer default nextval('sensor_id_seq'),
-   slaveunitid integer not null UNIQUE,
-   sensorname varchar(50) not null,
-   sensornumber Integer null,
-   sensordevice integer not null,
+   slaveunitid integer not null,
+   sensordevice integer not null, --deviceid
+   sensorname varchar(50) not null default ' ',
+   sensorvalue integer not null default 0,
    sensorlastchange timestamp default current_timestamp,
+   sensorswitchno integer null,
    primary key (sensorid),
    foreign key (slaveunitid) references slaveunit(slaveunitid),
    foreign key (sensordevice) references devicemaster(deviceId)
@@ -175,14 +177,23 @@ insert into expence_type (exp_name) values ('TOLL EXPENCES');
 insert into expence_type (exp_name) values ('TRAVEL EXPENCES');
 
 insert into devicemaster (devicename, devicetype) values ('No Device','N');
-insert into devicemaster (devicename, devicetype) values ('Light','O');
-insert into devicemaster (devicename, devicetype) values ('Fan','O');
-insert into devicemaster (devicename, devicetype) values ('Plug Point','O');
-insert into devicemaster (devicename, devicetype) values ('Night Light','O');
+insert into devicemaster (devicename, devicetype) values ('Light1','O');
+insert into devicemaster (devicename, devicetype) values ('Light2','O');
+insert into devicemaster (devicename, devicetype) values ('Light3','O');
+insert into devicemaster (devicename, devicetype) values ('Light4','O');
+insert into devicemaster (devicename, devicetype) values ('Fan1','O');
+insert into devicemaster (devicename, devicetype) values ('Fan2','O');
+insert into devicemaster (devicename, devicetype) values ('Fan3','O');
+insert into devicemaster (devicename, devicetype) values ('Fan4','O');
+insert into devicemaster (devicename, devicetype) values ('Plug Point1','O');
+insert into devicemaster (devicename, devicetype) values ('Plug Point2','O');
+insert into devicemaster (devicename, devicetype) values ('Night Light1','O');
+insert into devicemaster (devicename, devicetype) values ('Night Light2','O');
 insert into devicemaster (devicename, devicetype) values ('Television','O');
 insert into devicemaster (devicename, devicetype) values ('Audio Player','O');
 insert into devicemaster (devicename, devicetype) values ('DVD Player','O');
-insert into devicemaster (devicename, devicetype) values ('Desktop','O');
+insert into devicemaster (devicename, devicetype) values ('Desktop1','O');
+insert into devicemaster (devicename, devicetype) values ('Desktop2','O');
 
 insert into devicemaster (devicename, devicetype) values ('TempSensor','I');
 insert into devicemaster (devicename, devicetype) values ('LightSensor','I');

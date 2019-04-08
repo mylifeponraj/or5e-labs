@@ -142,6 +142,7 @@
 			<div id='addControllerFrm'>
 			<script type="text/javascript">
 				writeTextField('controllerName', 'Controller Name:', ' ');
+				writeTextField('controllerDisplayName', 'Controller Display Name:', ' ');
 				writeTextField('controllerType', 'Controller Type:', ' ');
 				$('#controllerType').typeahead({
 				    source:  function (query, process) {
@@ -158,7 +159,8 @@
 				    }
 				});
 				writeTextField('controllerPort', 'Controller Port:', ' ');
-				writeTextField('controllerSwitchCnt', 'Controller Switching:', ' ');
+				writeTextField('controllerSwitchCnt', 'Controller Switching Count:', ' ');
+				writeTextField('controllerSensorCnt', 'Controller Sensor Count:', ' ');
 				writeTextField('controllerMasterUnit', 'Master Unit ID:', ' ');
 				$('#controllerMasterUnit').typeahead({
 				    source:  function (query, process) {
@@ -174,6 +176,29 @@
 				    	$('#controllerMasterUnit').val(selectedItem);
 				    }
 				});
+
+				document.write("<br/><hr style='color:white'/><h3>Switch Configuration</h3><br/><div class='row'>");
+				writeSlaveSwitchField('Switch 1', 'sw01');
+				writeSlaveSwitchField('Switch 2', 'sw02');
+				writeSlaveSwitchField('Switch 3', 'sw03');
+				writeSlaveSwitchField('Switch 4', 'sw04');
+				document.write("</div><br/><br/><div class='row'>");
+				writeSlaveSwitchField('Switch 5', 'sw05');
+				writeSlaveSwitchField('Switch 6', 'sw06');
+				writeSlaveSwitchField('Switch 7', 'sw07');
+				writeSlaveSwitchField('Switch 8', 'sw08');
+				document.write("</div>");
+
+				document.write("<br/><hr style='color:white'/><h3>Sensor Configuration</h3><br/><div class='row'>");
+				writeSlaveSwitchField('Sensor 1', 'sen01');
+				writeSlaveSwitchField('Sensor 2', 'sen02');
+				writeSlaveSwitchField('Sensor 3', 'sen03');
+				writeSlaveSwitchField('Sensor 4', 'sen04');
+				document.write("</div><br/><br/><div class='row'>");
+
+				loadSwitchConfiguration();
+				loadSensorConfiguration();
+
 				writePanelSubmit('addControllerSaveBtn', 'addControllerCancelBtn', 'addControllerPanelSubmit()', 'addControllerPanelCancel()');
 			</script>
 			</div>

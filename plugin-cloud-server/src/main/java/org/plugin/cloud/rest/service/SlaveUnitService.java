@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import org.plugin.cloud.db.MCUDetails;
 import org.plugin.cloud.db.SlaveUnitMaster;
 import org.plugin.cloud.db.dao.MCUDetailsDAOImpl;
+import org.plugin.cloud.db.dao.SensorDAOImpl;
 import org.plugin.cloud.db.dao.SlaveUnitDAOImpl;
 import org.plugin.cloud.request.Error;
 import org.plugin.cloud.request.SlaveUnit;
@@ -34,6 +35,9 @@ public class SlaveUnitService {
 	
 	@Autowired
 	MCUDetailsDAOImpl mcuDAOImpl;
+	
+	@Autowired
+	SensorDAOImpl sensorDAOImpl;
 
 	@GET
 	@Path("/getSlaveUnitTypes")
@@ -54,6 +58,7 @@ public class SlaveUnitService {
 		sum.setSlaveUnitPort(details.getSlaveUnitPort());
 		sum.setSlaveUnitName(details.getSlaveUnitName());
 		sum.setSlaveUnitType(details.getSlaveUnitType());
+		sum.setSlaveUnitDisplayName(details.getSlaveUnitDisplayName());
 		return (slvDAOImpl.addSlaveDetails(sum))?Response.status(200).entity(new Success("Slave Unit added successfully", "200")).build():Response.status(200).entity(new Error("User is not Valid.")).build();
 	}
 

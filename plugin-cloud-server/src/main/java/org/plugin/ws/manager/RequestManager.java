@@ -18,7 +18,7 @@ public class RequestManager implements Runnable{
 			processor = new RegisterMCUProcessor();
 			processor.process(session, message);
 			break;
-		case "SVC":
+		case "SCE": //Sensor Change Event <T-ON-OFF|SensorID>
 			processor = new SensorChangeProcessor();
 			processor.process(session, message);
 			break;
@@ -32,6 +32,10 @@ public class RequestManager implements Runnable{
 			break;
 		case "MUU":
 			processor = new MasterUnitUpdateProcessor();
+			processor.process(session, message);
+			break;
+		case "CNF":
+			processor = new ConfigProcessor();
 			processor.process(session, message);
 			break;
 		}

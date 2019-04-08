@@ -16,15 +16,16 @@ public class SlaveUnitMapper implements RowMapper<SlaveUnitMaster>{
 		slaveUnit.setSlaveUnitType(rs.getString("slaveunittype"));
 		slaveUnit.setSlaveUnitPort(rs.getString("slaveunitport"));
 		slaveUnit.setSlaveSwitchCnt(rs.getInt("slaveswitchcnt"));
+		slaveUnit.setSlaveUnitDisplayName(rs.getString("slaveunitdisplayname"));
 
-		slaveUnit.setSw01(rs.getInt("sw01"));
-		slaveUnit.setSw02(rs.getInt("sw02"));
-		slaveUnit.setSw03(rs.getInt("sw03"));
-		slaveUnit.setSw04(rs.getInt("sw04"));
-		slaveUnit.setSw05(rs.getInt("sw05"));
-		slaveUnit.setSw06(rs.getInt("sw06"));
-		slaveUnit.setSw07(rs.getInt("sw07"));
-		slaveUnit.setSw08(rs.getInt("sw08"));
+		slaveUnit.setSw01(rs.getBoolean("sw01"));
+		slaveUnit.setSw02(rs.getBoolean("sw02"));
+		slaveUnit.setSw03(rs.getBoolean("sw03"));
+		slaveUnit.setSw04(rs.getBoolean("sw04"));
+		slaveUnit.setSw05(rs.getBoolean("sw05"));
+		slaveUnit.setSw06(rs.getBoolean("sw06"));
+		slaveUnit.setSw07(rs.getBoolean("sw07"));
+		slaveUnit.setSw08(rs.getBoolean("sw08"));
 
 		return slaveUnit;
 	}
